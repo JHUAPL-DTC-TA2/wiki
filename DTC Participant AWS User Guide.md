@@ -31,17 +31,18 @@ Once you are registered for the TA2 challenge, you should receive two emails con
 Follow the steps below to finish setting up your WorkSpace.
 1. Click the link for your user profile and create a password for your account. Account passwords can be reset by an administrator or through the client.
 
-!(Workspace 1)[images/workspace-1.png]
+<img src="images/workspace-1.png">
 
 2. If you haven't already, download and install the WorkSpaces client at https://clients.amazonworkspaces.com/. The WorkSpaces client is compatible with most operating systems.
 3. Open the WorkSpace client and input your registration code in the in the input box.
 
 ![[Screenshot 2023-11-07 at 1.27.31 AM.png]]4. Log-in using the username from the WorkSpaces email and the password you created in Step 1. 
 
-!(Workspace 2)[images/workspace-2.png]
+<img src="images/workspace-2.png">
 
 5. Once you successfully log-in, the client will expand to fill your screen and load your WorkSpace. On its first load, this may take a couple minutes to fully initialize. If you have a multi-monitor or high-resolution screen, the WorkSpace desktop may seem zoomed-out or small. Closing the client and re-logging in sometimes helps with this issue. If the issue persists, disable High-DPI mode in Settings -> Display Settings. 
-!(Workspace 3)[images/workspace-3.png]
+
+<img src="images/workspace-3.png">
 
 That's it! A couple of additional points:
 - The default WorkSpace supports "Paste-Only" clipboard redirect. This means you can copy and paste things from your local workstation to the WorkSpace, but not the other way around.
@@ -76,16 +77,16 @@ Follow the steps below to configure your WorkSpace to connect to your team's Sag
 
 	`dtc-setup.sh {DOMAIN_ID} {USER_PROFILE_NAME}`
 
-!(SageMaker 1)[images/sagemaker-1.png]
+<img src="images/sagemaker-1.png">
 You'll know the script ran successfully when there is a new file on your desktop named `open_presigned_domain_url.sh`. 
 
 4. Launch the script directly from the Desktop by right-clicking it and clicking "Run as Program". You can also run it from the terminal. 
 
-!(SageMaker 2)[images/sagemaker-2.png]
+<img src="images/sagemaker-2.png">
 
 Running the launch script should open a new tab or window on your browser and load SageMaker Studio default page. 
 
-!(SageMaker 3)[images/sagemaker-3.png]
+<img src="images/sagemaker-3.png">
 
 
 
