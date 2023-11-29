@@ -74,8 +74,11 @@ You should receive two emails containing information about the WorkSpace and Sag
 >Below is your SageMaker Studio log-in details. Please contact APL-DTC-Help@jhuapl.edu if you have any questions.
 >
 >AWS Access Key: **<USER_AWS_ACCESS_KEY>**
+>
 >AWS Secret Key: **<USER_AWS_SECRET_KEY>**
+>
 >Studio Domain ID: **<TEAM_DOMAIN_ID>**
+>
 >User Profile: **<USER_PROFILE_NAME>**
 
 Follow the steps below to configure your WorkSpaces to connect to your SageMaker Studio. You will only need to configure your SageMaker Studio once. After initial configuration, you can use the generated launch script to reconnect to your SageMaker studio. 
@@ -86,7 +89,7 @@ Follow the steps below to configure your WorkSpaces to connect to your SageMaker
 
 	`aws configure`
 
-	The CLI will then prompt you to input your AWS Access key and secret key, which can be copied directly from the set-up email. Set the default region to `us-east-1` and leave the default output format empty. 
+	The CLI will then prompt you to input your AWS Access key (i.e., `<USER_AWS_ACCESS_KEY>`) and secret key (i.e., `<USER_AWS_SECRET_KEY>`), which can be copied directly from the set-up email. Set the default region to `us-east-1` and leave the default output format empty. 
 
 3. Each WorkSpace comes pre-loaded with a set-up script named `dtc-setup.sh`. This script creates a launch script, `open_presigned_domain_url.sh`, that when ran will generate an authenticated URL and open it on the default browser. To use the script, open a terminal and run the `.dtc-setup.sh` and replace the arguments with your own values for domain ID and user profile name from the set-up email:
 
@@ -103,7 +106,6 @@ You'll know the script ran successfully when there is a new file on your desktop
 Running the launch script should open a new tab or window on your browser and load SageMaker Studio default page. 
 
 <img src="images/sagemaker-3.png">
-
 
 
 
