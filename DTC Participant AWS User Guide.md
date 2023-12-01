@@ -108,5 +108,17 @@ Running the launch script should open a new tab or window on your browser and lo
 <img src="images/sagemaker-3.png">
 
 
+### Creating an instance in SageMaker Studio
+
+TODO: What is SageMaker Studio? Where is a good tutorial for SageMaker Studio? Quick Start steps? Stop running an instance? What are the SageMaker Rates?
+
+### Loading data from S3
+
+TODO: What are the 3 storage resource and their roles? How do you access S3 buckets in: 1) jupyter notebooks (boto3 or sagemaker) and 2) terminal.
+
+### Common Issues
+
+Under construction...
+
 
 
