@@ -48,15 +48,15 @@ Follow the steps below to finish setting up your WorkSpace.
 
 3. Open the WorkSpace client and input your registration code in the in the input box.
 
-![[Screenshot 2023-11-07 at 1.27.31 AM.png]]
+<img src="images/workspace-2.png">
 
 4. Log-in using the username from the WorkSpaces email and the password you created in Step 1. 
 
-<img src="images/workspace-2.png">
+<img src="images/workspace-3.png">
 
 5. Once you successfully log-in, the client will expand to fill your screen and load your WorkSpace. On its first load, this may take a couple minutes to fully initialize. If you have a multi-monitor or high-resolution screen, the WorkSpace desktop may seem zoomed-out or cropped. Closing the client and re-logging in sometimes helps with this issue. If the issue persists, disable High-DPI mode in Settings -> Display Settings. 
 
-<img src="images/workspace-3.png">
+<img src="images/workspace-4.png">
 
 That's it! A couple of additional points:
 - The default WorkSpace supports "Paste-Only" clipboard redirect. This means you can copy and paste things from your local workstation to the WorkSpace, but not the other way around.
