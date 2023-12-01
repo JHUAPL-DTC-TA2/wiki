@@ -74,11 +74,8 @@ You should receive two emails containing information about the WorkSpace and Sag
 >Below is your SageMaker Studio log-in details. Please contact APL-DTC-Help@jhuapl.edu if you have any questions.
 >
 >AWS Access Key: **<USER_AWS_ACCESS_KEY>**
->
 >AWS Secret Key: **<USER_AWS_SECRET_KEY>**
->
 >Studio Domain ID: **<TEAM_DOMAIN_ID>**
->
 >User Profile: **<USER_PROFILE_NAME>**
 
 Follow the steps below to configure your WorkSpaces to connect to your SageMaker Studio. You will only need to configure your SageMaker Studio once. After initial configuration, you can use the generated launch script to reconnect to your SageMaker studio. 
