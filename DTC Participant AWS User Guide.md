@@ -197,6 +197,6 @@ fs.download('s3://dtc-scratch-{team_name}/filename', "test.txt")
 fs.upload("test.txt", 's3://dtc-scratch-{team_name}/test.txt')
 ```
 
-### Common Issues
+# Common Issues
 
 Under construction...
