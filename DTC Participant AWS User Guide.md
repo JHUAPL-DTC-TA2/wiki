@@ -152,7 +152,7 @@ This will create a "Untitled.ipynb" file and begin instantiating the kernel with
 
 Click on the "Power" button to turn off a specific instance.
 
-<img src="images/quick-start-8.png">
+<img src="images/quick-start-9.png">
 
 ### Loading data to and from S3 buckets
 
