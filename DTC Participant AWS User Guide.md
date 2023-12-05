@@ -8,8 +8,8 @@ This user guide provides step-by-step instructions to configure your AWS Workspa
 - Tutorials
 	- Configuring your WorkSpace
 	- Connecting to your team's SageMaker Studio
-	- Creating an instance in SageMaker Studio
-	- Loading data from S3
+	- Quick Start SageMaker Studio
+	- Loading data to and from S3 buckets
 - Common Issues
 
 ## Tutorials 
@@ -107,18 +107,96 @@ Running the launch script should open a new tab or window on your browser and lo
 
 <img src="images/sagemaker-3.png">
 
+A few important things to consider when using SageMaker instances:
+- DARPA provided each team a budget for Phase I to maintain your team’s infrastructure, perform analysis, and develop models. Please use your resources judiciously and efficiently!
+- SageMaker instances will continually accrue expenses so long as they are active. We strongly advise that you shut down any unused or idle instances to avoid accruing unwanted costs. The table below lists the available instances and their associated rates. These rates are subject to change.
+- APL will be sending weekly cost reports via email to inform you of the status of your weekly/total cost accrual and resource usage statistics. We will deliver the first cost report next week.
 
-### Creating an instance in SageMaker Studio
+### Quick Start SageMaker Studio
 
-TODO: What is SageMaker Studio? Where is a good tutorial for SageMaker Studio? Quick Start steps? Stop running an instance? What are the SageMaker Rates?
+Using SageMaker Studio tool, you will be able to access GPU resources to train and evaluate your models. We recommend that you go through this [TODO: hyperlink] tutorial to familiarize yourself with the tools available to you.
 
-### Loading data from S3
+#### Quick Start 
 
-TODO: What are the 3 storage resource and their roles? How do you access S3 buckets in: 1) jupyter notebooks (boto3 or sagemaker) and 2) terminal.
+1. Once you have SageMaker Studio loaded on your browser, select "Open Launcher" button.
+
+<img src="images/quick-start-1.png">
+
+2. Configure your python environment by selecting your Python image and SageMaker instance. 
+
+<img src="images/quick-start-2.png">
+
+Select your Python image:
+<img src="images/quick-start-3.png">
+
+Select your [SageMaker instance](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/SageMaker%20Instances.md):
+<img src="images/quick-start-4.png">
+
+Once selected click the "Select" button.
+
+3. Instantiate a notebook
+<img src="images/quick-start-5.png">
+
+This will create a "Untitled.ipynb" file and begin instantiating the kernel with the selected Python image and SageMaker instance. This instantiation process may take a while as SageMaker is provisioning your environment with the necessary resources. You will encounter this notification:
+
+<img src="images/quick-start-6.png">
+
+4. Once the instantiation process is complete and you see this screen below, you may begin developing!
+
+<img src="images/quick-start-7.png">
+
+
+5. To shutdown a SageMaker instance, click on the "Running Instances" Icon (left side of the dashboard). 
+
+<img src="images/quick-start-8.png">
+
+Click on the "Power" button to turn off a specific instance.
+
+<img src="images/quick-start-8.png">
+
+### Loading data to and from S3 buckets
+
+Each user has access to 3 different storage types:
+
+1. SageMaker Studio Elastic File System (EFS) for user private storage.
+2. Team Scratch Bucket (S3 bucket) (`dtc-scratch-{team_name}`) for sharing with teams.
+3. Read-only Training Dataset Bucket (S3 bucket) (`dtc-scratch-{team_name}`) for storing the official training dataset.
+
+You can access your private storage within SageMaker Studio. To transfer files from the S3 buckets (i.e., Team Scratch and Training Dataset Bucket) you can either do so in your (1) terminal or (2) notebooks:
+
+#### Transferring files using terminal:
+
+1. Open SageMaker Studio's launcher and select "System Terminal":
+<img src="images/storage-1.png">
+
+In the terminal, you may use the [AWS CLI S3](https://docs.aws.amazon.com/cli/latest/reference/s3/) to run commands (e.g., `cp`, `ls`, `rm`, etc.).
+
+2. To copy (`cp`) files from the scratch bucket to the into your (EFS) from you can use the command `aws s3 cp s3://dtc-scratch-{team_name}/path/to/file .`. To copy files into the scratch bucket from your EFS storage, you may use `aws s3 cp <filename> s3://dtc-scratch-{team_name}/path/`.
+
+#### Transferring files using notebooks:
+
+You man transfer files between storage containers using an array of python packages (e.g., `S3Fs`, `boto3`, etc.)
+
+1. Create a notebook. In a cell, run:
+
+```python
+import s3fs
+fs = s3fs.S3FileSystem()
+
+# To List 5 files in your team scratch bucket
+fs.ls('s3://dtc-scratch-{team_name}/')[:5]
+
+# Open files directly
+with fs.open('s3://dtc-scratch-{team_name}/test.txt') as f:
+    print(f.read())
+
+# Download files to EFS
+fs.download('s3://dtc-scratch-{team_name}/filename', "test.txt")
+
+# Upload files to S3 bucket
+fs.upload("test.txt", 's3://dtc-scratch-{team_name}/test.txt')
+```
 
 ### Common Issues
 
 Under construction...
-
-
-
