@@ -150,9 +150,9 @@ This will create a "Untitled.ipynb" file and begin instantiating the kernel with
 
 <img src="images/quick-start-8.png">
 
-Click on the "Power" button to turn off a specific instance.
+Click on the "Power" button to turn off a specific instance:
 
-<img src="images/quick-start-9.png">
+<img src="images/quick-start-9.png" alt="drawing" width="200">
 
 ### Loading data to and from S3 buckets
 
