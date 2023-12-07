@@ -59,7 +59,7 @@ Follow the steps below to finish setting up your WorkSpace.
 <img src="images/workspace-4.png">
 
 That's it! A couple of additional points:
-- The default WorkSpace supports "Paste-Only" clipboard redirect. This means you can copy and paste things from your local workstation to the WorkSpace, but not the other way around.
+- The default WorkSpace supports "Paste-Only" clipboard redirect (using Ctrl+Shift+V in your workspace). This means you can copy and paste things from your local workstation to the WorkSpace, but not the other way around.
 - Your WorkSpace user will not have access as local administrator by default, but the user account is able to install user level libraries and packages. 
 - Pre-installed applications such as FireFox, VSCode, and MySQL WorkBench can be found in the Applications library, which can be opened by clicking "Show Applications".
 - WorkSpaces will shut down after an hour of inactivity.
