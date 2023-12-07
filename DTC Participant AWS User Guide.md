@@ -71,6 +71,7 @@ SageMaker Studio is a web-based IDE, similar to JupyterLab, that enables you run
 You should receive two emails containing information about the WorkSpace and SageMaker domain. The SageMaker domain email will look similar to the one show below and contains the information you need to connect to SageMaker. **You will need to first set up your WorkSpace before proceeding to connect to SageMaker.**
 
 >Dear User,
+>
 >Below is your SageMaker Studio log-in details. Please contact APL-DTC-Help@jhuapl.edu if you have any questions.
 >
 >AWS Access Key: **<USER_AWS_ACCESS_KEY>**
