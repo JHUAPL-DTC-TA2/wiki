@@ -115,7 +115,7 @@ A few important things to consider when using SageMaker instances:
 
 ### Quick Start SageMaker Studio
 
-Using SageMaker Studio tool, you will be able to access GPU resources to train and evaluate your models. We recommend that you go through this [TODO: hyperlink] tutorial to familiarize yourself with the tools available to you.
+Using SageMaker Studio tool, you will be able to access GPU resources to train and evaluate your models. We recommend that you go through the [AWS official documentation](https://docs.aws.amazon.com/sagemaker/latest/dg/studio-ui.html) to familiarize yourself with the tools available to you.
 
 #### Quick Start 
 
