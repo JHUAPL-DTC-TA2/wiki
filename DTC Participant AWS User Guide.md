@@ -9,7 +9,7 @@ This user guide provides step-by-step instructions to configure your AWS Workspa
 	- Configuring your WorkSpace
 	- Connecting to your team's SageMaker Studio
 	- Quick Start SageMaker Studio
-	- Loading data to and from S3 buckets
+	- Transfer data to and from S3 buckets
 - Common Issues
 
 ## Tutorials 
