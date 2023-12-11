@@ -161,7 +161,7 @@ Each user has access to 3 different storage types:
 
 1. SageMaker Studio Elastic File System (EFS) for user private storage.
 2. Team Scratch Bucket (S3 bucket) (`dtc-scratch-{team_name}`) for sharing with teams.
-3. Read-only Training Dataset Bucket (S3 bucket) (`dtc-scratch-{team_name}`) for storing the official training dataset.
+3. Read-only Training Dataset Bucket (S3 bucket) (`dtc-training-data`) for storing the official training dataset.
 
 You can access your private storage within SageMaker Studio. To transfer files from the S3 buckets (i.e., Team Scratch and Training Dataset Bucket) you can either do so in your (1) terminal or (2) notebooks:
 
