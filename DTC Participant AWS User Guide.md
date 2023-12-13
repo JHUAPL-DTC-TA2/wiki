@@ -155,7 +155,7 @@ Click on the "Power" button to turn off a specific instance:
 
 <img src="images/quick-start-9.png" alt="drawing" width="200">
 
-### Loading data to and from S3 buckets
+### Transferring data to and from S3 buckets
 
 Each user has access to 3 different storage types:
 
