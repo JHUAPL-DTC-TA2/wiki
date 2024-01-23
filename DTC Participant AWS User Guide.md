@@ -92,7 +92,7 @@ Follow the steps below to configure your WorkSpaces to connect to your SageMaker
 
 	The CLI will then prompt you to input your AWS Access key (i.e., `<USER_AWS_ACCESS_KEY>`) and secret key (i.e., `<USER_AWS_SECRET_KEY>`), which can be copied directly from the set-up email. Set the default region to `us-east-1` and leave the default output format empty. 
 
-3. Each WorkSpace comes pre-loaded with a set-up script named `dtc-setup.sh`. This script creates a launch script, `open_presigned_domain_url.sh`, that when ran will generate an authenticated URL and open it on the default browser. To use the script, open a terminal and run the `.dtc-setup.sh` and replace the arguments with your own values for domain ID and user profile name from the set-up email:
+3. Each WorkSpace comes pre-loaded with a set-up script named `dtc-setup.sh`. This script creates a launch script, `open_presigned_domain_url.sh`, that when ran will generate an authenticated URL and open it on the default browser. To use the script, open a terminal and run the `dtc-setup.sh` and replace the arguments with your own values for domain ID and user profile name from the set-up email:
 
 	`dtc-setup.sh <TEAM_DOMAIN_ID> <USER_PROFILE_NAME>`
 
