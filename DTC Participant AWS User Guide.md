@@ -10,7 +10,6 @@ This user guide provides step-by-step instructions to configure your AWS Workspa
 	- Connecting to your team's SageMaker Studio
 	- Quick Start SageMaker Studio
 	- Transfer data to and from S3 buckets
-- Common Issues
 
 ## Tutorials 
 ### Configuring your WorkSpace
@@ -197,7 +196,3 @@ fs.download('s3://dtc-scratch-{team_name}/filename', "test.txt")
 # Upload files to S3 bucket
 fs.upload("test.txt", 's3://dtc-scratch-{team_name}/test.txt')
 ```
-
-# Common Issues
-
-Under construction...

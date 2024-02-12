@@ -1,6 +1,4 @@
-We are going to increase service quotas for the following 12 instance types:
-
-**Quota Design: Max 3 instances per team**
+# Recommended Instance Types for SageMaker Studio Classic
 
 |   |   |   |   |   |   |
 |---|---|---|---|---|---|
