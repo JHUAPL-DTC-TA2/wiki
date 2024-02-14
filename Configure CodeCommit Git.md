@@ -14,7 +14,10 @@ Git credentials for each team are also stored in AWS Secrets Manager, you can re
 ```bash
 aws secretsmanager get-secret-value --secret-id {team_tag}/codecommit
 ```
+
 This command will return a JSON object containing your credentials. Look for the `SecretString` field to find your username and password.
+
+Note: if you are getting an error: `No such file or directory: 'less'`. This can be solved by `sudo apt-get install less`.
 
 ## Configuring Git
 
