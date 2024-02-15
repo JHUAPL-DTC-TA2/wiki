@@ -25,7 +25,7 @@ To upload files from your external network to your team's prefix in the `dtc-imp
    To upload a file to the S3 bucket, use the following command, replacing `path/to/your/file` with the path to the file you wish to upload and `team-tag` with your actual team tag.
 
     ```bash
-    aws s3 cp path/to/your/file s3://dtc-import/team-tag/
+    aws s3 cp path/to/your/file s3://dtc-import/{team-tag}/
     ```
 
 For example, if your team tag is `jhu` and you're uploading `data.csv` from your desktop, the command would be:
@@ -38,7 +38,7 @@ aws s3 cp ~/Desktop/data.csv s3://dtc-import/jhu/data.csv
 To download files from your team's prefix to a machine inside your WorkSpace or SageMaker Studio environment, use the following AWS CLI command. WorkSpace and SageMaker should already have awscli pre-installed. 
 
 ```bash
-aws s3 cp s3://dtc-import/team-tag/filename /local/path 
+aws s3 cp s3://dtc-import/{team-tag}/filename /local/path 
 ```
 
 Replace /local/path with the path where you want to download the file on your local machine, team-tag with your team's tag, and filename with the name of the file you're downloading. **Only members of your team are able to copy data from your team prefix.** 
@@ -46,7 +46,7 @@ Replace /local/path with the path where you want to download the file on your lo
 Additionally, if you want to list the contents of your prefix, you can use the following command. (could also be ran outside of the VPC). 
 
 ```bash
-aws s3 ls s3://dtc-import/team-tag/
+aws s3 ls s3://dtc-import/{team-tag}/
 ```
 
 ## Best Practices
