@@ -3,21 +3,13 @@
 This guide provides instructions for team members on how to access AWS CodeCommit credentials and configure Git to work with CodeCommit repositories. Credentials may be obtained directly from your team PI via email or through AWS Secrets Manager under the `{team_tag}/codecommit` secret. Should you need assistance or encounter any issues, please reach out to APL-DTC-Help@jhuapl.edu.
 
 ## Obtaining Git CodeCommit Credentials
-
-There are two ways to obtain your team's CodeCommit credentials.
-
-1. From Your Team's PI  
-Your team PI will provide you with CodeCommit credentials directly. These credentials include a username and a password that you will use to access your team's CodeCommit repository. Keep this information secure and do not share it with unauthorized individuals.
-
-2. From AWS Secrets Manager  
-Git credentials for each team are also stored in AWS Secrets Manager, you can retrieve them using the AWS CLI. You can only retrieve your own team's secrets. Replace {team_tag} with your actual team name to execute the following command:  
+ 
+Your team's CodeCommit credentials will be stored using AWS Secrets Manager. You can retrieve your codecommit credentials using the AWS CLI using your SageMaker terminal. You can only retrieve your own team's secrets. Replace {team_tag} with your actual team name to execute the following command:  
 ```bash
 aws secretsmanager get-secret-value --secret-id {team_tag}/codecommit
 ```
 
-This command will return a JSON object containing your credentials. Look for the `SecretString` field to find your username and password.
-
-Note: if you are getting an error: `No such file or directory: 'less'`. This can be solved by `sudo apt-get install less`.
+This command will return a JSON object containing your credentials. Look for the `SecretString` field to find your username and password. Note: if you are getting an error: `No such file or directory: 'less'`. This can be solved by `sudo apt-get install less`.
 
 ## Configuring Git
 
@@ -51,5 +43,5 @@ You can clone it with the following command:
 git clone https://git-codecommit.us-east-1.amazonaws.com/v1/repos/{team_tag}
 ```
 
-When you first push to or pull from your CodeCommit repository, Git will prompt you for your username and password. Enter the credentials provided by your team PI or obtained from AWS Secrets Manager.
+When you first push to or pull from your CodeCommit repository, Git will prompt you for your username and password. Enter the credentials obtained from AWS Secrets Manager.
 
