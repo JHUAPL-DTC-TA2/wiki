@@ -41,7 +41,7 @@ git config --global credential.helper 'cache --timeout=7200'
 
 ## Repository Access
 
-All teams are provided one repository. Contact us if you'd like to set up more repositories for your team. 
+All teams are provided one repository. Contact us if you'd like to set up more repositories for your team. Lastly, you should be able to access your team's repository outside AWS. You can use the same CodeCommit credentials.
 
 ### Your Team's Repository Name
 Your CodeCommit repository is set up under the name `{team_tag}`, where `{team_tag}` should be replaced with your team tag.
