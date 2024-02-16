@@ -1,6 +1,6 @@
 # Accessing CodeCommit Credentials and Configuring Git for Your Team
 
-This guide provides instructions for team members on how to access AWS CodeCommit credentials and configure Git to work with CodeCommit repositories. Credentials may be obtained directly from your team PI via email or through AWS Secrets Manager under the `{team_tag}/codecommit` secret. Should you need assistance or encounter any issues, please reach out to APL-DTC-Help@jhuapl.edu.
+This guide outlines the steps for team members to obtain AWS CodeCommit credentials and set up Git in your SageMaker Studio for interacting with your team's CodeCommit repository. If you require further assistance or experience any difficulties during this process, do not hesitate to contact us at APL-DTC-Help@jhuapl.edu for support.
 
 ## Obtaining Git CodeCommit Credentials
  
