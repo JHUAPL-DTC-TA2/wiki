@@ -3,13 +3,22 @@
 This guide outlines the steps for team members to obtain AWS CodeCommit credentials and set up Git in your SageMaker Studio for interacting with your team's CodeCommit repository. If you require further assistance or experience any difficulties during this process, do not hesitate to contact us at APL-DTC-Help@jhuapl.edu for support.
 
 ## Obtaining Git CodeCommit Credentials
- 
-Your team's CodeCommit credentials will be stored using AWS Secrets Manager. You can retrieve your codecommit credentials using the AWS CLI using your SageMaker terminal. You can only retrieve your own team's secrets. Replace {team_tag} with your actual team name to execute the following command:  
+
+The AWS Secrets Manager securely stores your team's CodeCommit credentials. To access your credentials, you can use the AWS Command Line Interface (CLI) from your SageMaker (or Workspace) terminal. It's important to note that access is restricted to your own team's credentials, ensuring each team member can only retrieve their respective credentials. However, this setup also ensures that every team member has the capability to securely access their team's CodeCommit credentials.
+
+To retrieve your CodeCommit credentials, replace {team_tag} with your actual team name and execute the following command:
+
 ```bash
 aws secretsmanager get-secret-value --secret-id {team_tag}/codecommit
 ```
 
-This command will return a JSON object containing your credentials. Look for the `SecretString` field to find your username and password. Note: if you are getting an error: `No such file or directory: 'less'`. This can be solved by `sudo apt-get install less`.
+Executing this command will produce a JSON object containing your credentials. To locate your username and password, search for the `SecretString` field within the JSON output.
+
+Should you encounter the error message No such file or directory: 'less', this issue can be resolved by installing the less package. Run the following command to install less:
+
+```bash
+sudo apt-get install less
+```
 
 ## Configuring Git
 
