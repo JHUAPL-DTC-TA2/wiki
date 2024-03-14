@@ -60,7 +60,11 @@ This command maps port `15672` and `5672` on the host to port `15672` and `5672`
 ## Running the Client Container with Docker
 
 ### Building with Docker Image
-To containerize your model, start by building a Docker image with the following command:
+To containerize your model, start by authenticating to be able to pull the `dtc-base-image:lates`:
+
+`aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <ACCOUNT_NUMBER>.dkr.ecr.us-east-1.amazonaws.com`
+
+Build your docker image with the following command:
 
 `docker build --network sagemaker -t dtc-<TEAM_NAME>:<TAG> .`
 
