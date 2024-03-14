@@ -1,3 +1,3 @@
 # wiki
-Tutorials, Guides and FAQs for the DTC TA2 Challenge
+Tutorials, Guides and FAQs for the DTC Data Track Challenge
 
