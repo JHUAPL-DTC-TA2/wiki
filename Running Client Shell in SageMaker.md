@@ -62,16 +62,31 @@ This command maps port `15672` and `5672` on the host to port `15672` and `5672`
 ### Building with Docker Image
 To containerize your model, start by building a Docker image with the following command:
 
-`docker build --network sagemaker -t <ACCOUNT_NUMBER>.dkr.ecr.us-east-1.amazonaws.com/dtc-base-image-client:latest .`
+`docker build --network sagemaker -t dtc-<TEAM_NAME>:<TAG> .`
 
-This command builds the Docker image named client based on the Dockerfile in the current directory.
+This command builds the Docker based on the Dockerfile provided. This is uses the standard image called `dtc-base-image:latest` which is built on top of the `nvidia/cuda:12.3.2-cudnn9-devel-ubuntu22.04` image.
 
 ### Running the Docker Container
 After building the image, run the application in a Docker container with the necessary environment variables:
 
-`docker run --network sagemaker -it --rm -e QUEUE_NAME='rpc_queue' -e AMQP_HOST='host.docker.internal' <ACCOUNT_NUMBER>.dkr.ecr.us-east-1.amazonaws.com/dtc-<TEAM_NAME>-client:<TAG>`
+`docker run --network sagemaker -it --rm dtc-<TEAM_NAME>:<TAG>`
 
 This command runs your application in a Docker container, connecting it to a running RabbitMQ server with the specified `QUEUE_NAME` and `AMQP_HOST` environment variables. The container will be removed automatically after the application exits.
+
+### Upload image to AWS ECR (Elastic Container Registry)
+Use the following steps to authenticate and push an image to your repository. 
+
+Start by retrieving an authentication token and authenticate your Docker client to your registry.
+
+`aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <ACCOUNT_NUMBER>.dkr.ecr.us-east-1.amazonaws.com`
+
+Tag your image so you can push the image to this repository:
+
+`docker tag dtc-<TEAM_NAME>:<TAG> <ACCOUNT_NUMBER>.dkr.ecr.us-east-1.amazonaws.com/dtc-<TEAM_NAME>:<TAG>`
+
+Run the following command to push this image to your newly created AWS repository:
+
+`docker push <ACCOUNT_NUMBER>.dkr.ecr.us-east-1.amazonaws.com/dtc-<TEAM_NAME>:<TAG>`
 
 
 
