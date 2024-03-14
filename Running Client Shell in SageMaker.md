@@ -19,11 +19,11 @@ Any modifications will be announce in the DTC Forum.
 
 ### Quick Start
 1. Clone repository client-shell repository from CodeCommit.
-2. Start RabbitMQ Server (See (Starting the RabbitMQ server)[https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#starting-the-rabbitmq-server]).
+2. Start RabbitMQ Server (See [Starting the RabbitMQ server](https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#starting-the-rabbitmq-server)).
 3. Run the client shell using one of two options: \
-    a. Locally (See (Running the Client locally)[https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#running-the-client-locally])\
-    b. Docker container (See (Running the Client Container with Docker)[https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#running-the-client-container-with-docker])
-4. Test connection using the messaging stubs (`client/stubs/send_message.py`) (See (Passing Messages to Client)[https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#passing-messages-to-the-client])
+    a. Locally (See [Running the Client locally](https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#running-the-client-locally))\
+    b. Docker container (See [Running the Client Container with Docker](https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#running-the-client-container-with-docker))
+4. Test connection using the messaging stubs (`client/stubs/send_message.py`) (See [Passing Messages to Client](https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#passing-messages-to-the-client))
 
 
 ### Message Types and Handlers
