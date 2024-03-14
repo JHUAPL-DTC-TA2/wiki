@@ -46,11 +46,11 @@ Your model must inherit from `dtc_messaging.client.DTC_BaseModel` in order to in
 ## Starting the RabbitMQ server
 To start a RabbitMQ server with the management plugin enabled, run the following command in your terminal:
 
-`aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <ACCOUNT_NUMBER>.dkr.ecr.us-east-1.amazonaws.com`
+`aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`
 
-`docker pull <ACCOUNT_NUMBER>.dkr.ecr.us-east-1.amazonaws.com/dtc-rabbitmq:latest`
+`docker pull 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-rabbitmq:latest`
 
-`docker run --network sagemaker --rm -p 15672:15672 -p 5672:5672 <ACCOUNT_NUMBER>.dkr.ecr.us-east-1.amazonaws.com/dtc-rabbitmq:latest`
+`docker run --network sagemaker --rm -p 15672:15672 -p 5672:5672 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-rabbitmq:latest`
 
 This command maps port `15672` and `5672` on the host to port `15672` and `5672` in the container, respectively. These ports are used by the RabbitMQ server.
 
@@ -62,7 +62,7 @@ This command maps port `15672` and `5672` on the host to port `15672` and `5672`
 ### Building with Docker Image
 To containerize your model, start by authenticating to be able to pull the `dtc-base-image:lates`:
 
-`aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <ACCOUNT_NUMBER>.dkr.ecr.us-east-1.amazonaws.com`
+`aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`
 
 Build your docker image with the following command:
 
@@ -82,15 +82,15 @@ Use the following steps to authenticate and push an image to your repository.
 
 Start by retrieving an authentication token and authenticate your Docker client to your registry.
 
-`aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <ACCOUNT_NUMBER>.dkr.ecr.us-east-1.amazonaws.com`
+`aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`
 
 Tag your image so you can push the image to this repository:
 
-`docker tag dtc-<TEAM_NAME>:<TAG> <ACCOUNT_NUMBER>.dkr.ecr.us-east-1.amazonaws.com/dtc-<TEAM_NAME>:<TAG>`
+`docker tag dtc-<TEAM_NAME>:<TAG> 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-<TEAM_NAME>:<TAG>`
 
 Run the following command to push this image to your newly created AWS repository:
 
-`docker push <ACCOUNT_NUMBER>.dkr.ecr.us-east-1.amazonaws.com/dtc-<TEAM_NAME>:<TAG>`
+`docker push 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-<TEAM_NAME>:<TAG>`
 
 
 
