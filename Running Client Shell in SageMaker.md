@@ -12,9 +12,10 @@ Any modifications will be announce in the DTC Forum.
 ### Minimum Requirements
 - Python 3.6 or newer
 - pika library for RabbitMQ communication
-- Access to a running RabbitMQ server (See Managing the RabbitMQ server)
-- Ensure Docker is installed and running on your machine. If you need to install Docker, follow the instructions on the Docker official website. (Running the Client Container with Docker)
-- A prediction model that supports the operations defined in the MessageType enumeration
+- Ensure Docker is installed and running on your machine.
+- Access to a running RabbitMQ server
+- A model that defines four class methods: `predict()`, `acknowledge()`, `cleanup()`, and `timed_out()`.
+
 
 ### Quick Start
 1. Clone repository client-shell repository from CodeCommit.
@@ -22,87 +23,24 @@ Any modifications will be announce in the DTC Forum.
 3. Run the client shell using one of two options: \
     a. Locally (See (Running the Client locally)[https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#running-the-client-locally])\
     b. Docker container (See (Running the Client Container with Docker)[https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#running-the-client-container-with-docker])
-4. Test connection using the messaging stubs (`client/stubs/send_message.py`)
+4. Test connection using the messaging stubs (`client/stubs/send_message.py`) (See (Passing Messages to Client)[https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#passing-messages-to-the-client])
 
 
 ### Message Types and Handlers
 The client supports a fixed number of message types (MessageType) and corresponding handlers:
 
 - `CONNECTION_MESSAGE`: Handles initial connection messages.
-- `PREDICT_MESSAGE`: Processes prediction requests using the model's predict method.
-- `ACKNOWLEDGE_MESSAGE`: Handles acknowledgments from the model.
-- `CLEANUP_MESSAGE`: Invoked when processing for a case (or patient) is completed.
-- `TIMED_OUT_MESSAGE`: Handles timeout notifications.
+- `PREDICT_MESSAGE`: Processes prediction requests using the model's predict method. This signal calls `predict()`.
+- `ACKNOWLEDGE_MESSAGE`: Handles acknowledgments from the model. This signal calls `acknowledge()`.
+- `CLEANUP_MESSAGE`: Invoked when processing for a case (or patient) is completed. This signal calls `cleanup()`.
+- `TIMED_OUT_MESSAGE`: Handles timeout notifications. This signal calls `timed_out()`.
 - `ERROR_MESSAGE`: Processes error messages.
 
 Each message type is associated with a specific handler method that calls a function in your model class or the client.
 
 ### Configuring your model
-Your model must inherit from `dtc_messaging.client.DTC_BaseModel` in order to interface with the evaluator. This model class requires you to define and implment define 4 class methods: `predict()`, `acknowledge()`, `cleanup()`, `timed_out()`, and `error()`.
+Your model must inherit from `dtc_messaging.client.DTC_BaseModel` in order to interface with the evaluator. This model class requires you to define and implment define 4 class methods: `predict()`, `acknowledge()`, `cleanup()`, and `timed_out()`. Refer to the provided `client/template_model.py` as a guide.
 
-```python
-from dtc_messaging.model import DTC_BaseModel
-
-
-class ExampleModel(DTC_BaseModel):
-    """
-    Example model which inherits from BaseModel. Modify this model to implement your prediction logic.
-    This model demonstrates returning static responses for demonstration purposes.
-    """
-    
-    def __init__(self):
-        super().__init__()
-
-    def predict(self, data):
-        """
-        Generate predictions for the given data and format the results.
-        
-        :param data: Input data for prediction.
-        :return: A dictionary containing the segment ID and the response.
-        """
-        # Include all the computations needed to produce a prediction
-        ...
-
-    def acknowledge(self, data):
-        """
-        Acknowledge receipt of data.
-        
-        :param data: Acknowledgement data.
-        :return: An acknowledgment receipt.
-        """
-        # Include all the computations needed to process a reciept acknowledgement
-        ...
-
-    def cleanup(self, data):
-        """
-        Handle the clean up during the end-of-case.
-        
-        :param data: Data related to the end of the case.
-        :return: A confirmation receipt.
-        """
-        # Include all the computations needed to process after an end-of-case
-        ...
-
-    def timed_out(self, data):
-        """
-        Handle the a timed-out signal.
-        
-        :param data: Data related to the time-out signal.
-        :return: A confirmation receipt.
-        """
-        # Include all the computations needed to process after an end-of-case
-        ...
-
-    def error(self, data):
-        """
-        Handle errors.
-        
-        :param data: Error data.
-        :return: An confirmation receipt.
-        """
-        # Include all the computations needed to process error data
-        ...
-```
 
 
 ## Starting the RabbitMQ server
