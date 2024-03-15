@@ -75,7 +75,7 @@ After building the image, run the application in a Docker container with the nec
 
 `docker run -it --rm dtc-<TEAM_NAME>:<TAG>`
 
-This command runs your application in a Docker container, connecting it to a running RabbitMQ server with the specified `QUEUE_NAME` and `AMQP_HOST` environment variables. The container will be removed automatically after the application exits.
+This command runs your application in a Docker container, connecting it to a running RabbitMQ server. The container will be removed automatically after the application exits.
 
 ### Upload image to AWS ECR (Elastic Container Registry)
 Use the following steps to authenticate and push an image to your repository. 
