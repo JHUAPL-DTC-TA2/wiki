@@ -52,3 +52,4 @@ To attach the image to your SageMaker studio domain, follow the CLI-specific ins
 
 Once you reach the final step of creating the App Image Config, send an email to APL-DTC-Help@jhuapl.edu with your image name, app config name and team name for an admin to add it to your domain. 
 
+> Note: You do not need to provide an execution role ARN when creating the image or image configurations through AWS. The execution role should be an optional argument. 

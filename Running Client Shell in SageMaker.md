@@ -12,18 +12,19 @@ Any modifications will be announce in the DTC Forum.
 ### Minimum Requirements
 - Python 3.6 or newer
 - pika library for RabbitMQ communication
-- Ensure Docker is installed and running on your machine.
+- Ensure Docker is installed and running on your SageMaker instance/app.
+  - More information about install Docker available in [Docker Configuration](#docker-configuration)
 - Access to a running RabbitMQ server
 - A model that defines four class methods: `predict()`, `acknowledge()`, `cleanup()`, and `timed_out()`.
 
 
 ### Quick Start
 1. Clone repository client-shell repository from CodeCommit.
-2. Start RabbitMQ Server (See [Starting the RabbitMQ server](https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#starting-the-rabbitmq-server)).
+2. Start RabbitMQ Server (See [Starting the RabbitMQ server](#starting-the-rabbitmq-server)).
 3. Run the client shell using one of two options: \
-    a. Locally (See [Running the Client locally](https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#running-the-client-locally))\
-    b. Docker container (See [Running the Client Container with Docker](https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#running-the-client-container-with-docker))
-4. Test connection using the messaging stubs (`client/stubs/send_message.py`) (See [Passing Messages to Client](https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#passing-messages-to-the-client))
+    a. Locally (See [Running the Client locally](#running-the-client-locally))\
+    b. Docker container (See [Running the Client Container with Docker](#running-the-docker-container))
+4. Test connection using the messaging stubs (`client/stubs/send_message.py`) (See [Passing Messages to Client](#passing-messages-to-the-client))
 
 
 ### Message Types and Handlers
@@ -131,3 +132,15 @@ BODY: b'{"response": {"response": "connected"}}'
 - MessageType Enum: Categorizes communication with predefined message types including connection, prediction, acknowledgment, and error handling signals.
 - Message Handlers: Includes an abstract base class and specific implementations for handling various message types, ensuring appropriate communication with the evaluator.
 - Factory Pattern for Message Handlers: Simplifies the creation of message handlers based on the message type, supporting scalable and modular development.
+
+# Docker Configuration
+
+All SageMaker app types (JupyterLab, CodeEditor, Studio Classic) support Docker API access via a proxy docker engine. To access docker in your SageMaker instance, **restart** or **create** an instance using the "install-docker-{app-type}-v4" lifecycle policy.
+
+<img src="images/docker-install-1.png">
+
+> Note: An existing Code Editor or JupyterLab instance will not have Docker installed until you fully stop the instance and re-run with the lifecycle policy. Restarting the instance will not delete any data in the `/home/sagemaker-user/` directory, but will delete data in other directories. 
+
+To check Docker installed correctly, run `docker version` on a system terminal to output API and engine details.
+
+<img src="images/docker-install-2.png">
