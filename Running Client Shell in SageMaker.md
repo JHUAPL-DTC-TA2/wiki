@@ -50,7 +50,7 @@ To start a RabbitMQ server with the management plugin enabled, run the following
 
 `docker pull 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-rabbitmq:latest`
 
-`docker run --network sagemaker --rm -p 15672:15672 -p 5672:5672 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-rabbitmq:latest`
+`docker run  --rm -p 15672:15672 -p 5672:5672 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-rabbitmq:latest`
 
 This command maps port `15672` and `5672` on the host to port `15672` and `5672` in the container, respectively. These ports are used by the RabbitMQ server.
 
@@ -66,14 +66,14 @@ To containerize your model, start by authenticating to be able to pull the `dtc-
 
 Build your docker image with the following command:
 
-`docker build --network sagemaker -t dtc-<TEAM_NAME>:<TAG> .`
+`docker build -t dtc-<TEAM_NAME>:<TAG> .`
 
 This command builds the Docker based on the Dockerfile provided. This is uses the standard image called `dtc-base-image:latest` which is built on top of the `nvidia/cuda:12.3.2-cudnn9-devel-ubuntu22.04` image.
 
 ### Running the Docker Container
 After building the image, run the application in a Docker container with the necessary environment variables:
 
-`docker run --network sagemaker -it --rm dtc-<TEAM_NAME>:<TAG>`
+`docker run -it --rm dtc-<TEAM_NAME>:<TAG>`
 
 This command runs your application in a Docker container, connecting it to a running RabbitMQ server with the specified `QUEUE_NAME` and `AMQP_HOST` environment variables. The container will be removed automatically after the application exits.
 
