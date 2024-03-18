@@ -7,17 +7,17 @@ This initial release provides all necessary resources to prepare submissions for
 
 ### Minimum Requirements
 - Python 3.6 or newer
-- Docker (See [Configuring Docker](https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#docker-configuration))
+- Docker (See [Configuring Docker](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/Running%20Client%20Shell%20in%20SageMaker.md#docker-configuration))
 - Model that implements methods in provided `DTC_BaseModel` base class: `predict()`, `acknowledge()`, `cleanup()`, and `timed_out()` (See example in *template_model.py* )
 
 ### Quick Start
 1. Clone client-shell repository from CodeCommit: [repo link](https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/client-shell)
-2. Configure model according to Client Shell (See [Configuring your Model](https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#configuring-your-model))
-3. Download and start RabbitMQ Server (See [Starting the RabbitMQ server](https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#starting-the-rabbitmq-server))
+2. Configure model according to Client Shell (See [Configuring your Model](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/Running%20Client%20Shell%20in%20SageMaker.md#configuring-your-model))
+3. Download and start RabbitMQ Server (See [Starting the RabbitMQ server](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/Running%20Client%20Shell%20in%20SageMaker.md#starting-the-rabbitmq-server))
 4. Run the client using one of two options: 
-   * Run as Docker container (See [Running the Client with Docker](https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#running-the-client-with-docker))
-   * Run locally within AWS Workspace (See [Running the Client locally](https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#running-the-client-locally))
-5. Test connection between client and server using messaging stub (See [Passing Messages to the Client](https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#passing-messages-to-the-client)).
+   * Run as Docker container (See [Running the Client with Docker](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/Running%20Client%20Shell%20in%20SageMaker.md#running-the-client-with-docker))
+   * Run locally within AWS Workspace (See [Running the Client locally](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/Running%20Client%20Shell%20in%20SageMaker.md#running-the-client-locally))
+5. Test connection between client and server using messaging stub (See [Passing Messages to the Client](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/Running%20Client%20Shell%20in%20SageMaker.md#passing-messages-to-the-client)).
 
 
 ### Message Types and Handlers
