@@ -7,13 +7,13 @@ This initial release provides all necessary resources to prepare submissions for
 
 ### Minimum Requirements
 - Python 3.6 or newer
-- Docker
+- Docker (See [Configuring Docker](https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#docker-configuration))
 - Model that implements methods in provided `DTC_BaseModel` base class: `predict()`, `acknowledge()`, `cleanup()`, and `timed_out()` (See example in *template_model.py* )
 
 ### Quick Start
-1. Clone client-shell repository from CodeCommit: [repo link](https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/client-shell).
-2. Configure model according to Client Shell (See [Configuring your Model](https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#configuring-your-model)).
-3. Download and start RabbitMQ Server (See [Starting the RabbitMQ server](https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#starting-the-rabbitmq-server)).
+1. Clone client-shell repository from CodeCommit: [repo link](https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/client-shell)
+2. Configure model according to Client Shell (See [Configuring your Model](https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#configuring-your-model))
+3. Download and start RabbitMQ Server (See [Starting the RabbitMQ server](https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#starting-the-rabbitmq-server))
 4. Run the client using one of two options: 
    * Run as Docker container (See [Running the Client with Docker](https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#running-the-client-with-docker))
    * Run locally within AWS Workspace (See [Running the Client locally](https://github.com/JHUAPL-DTC-TA2/wiki/blob/client-shell-instructions/Running%20Client%20Shell%20in%20SageMaker.md#running-the-client-locally))
@@ -32,7 +32,7 @@ The client supports a fixed set of message types (MessageType) with correspondin
 
 Each message type is associated with a specific handler method that calls a corresponding function in the model class or client.
 
-### Configuring your Model
+## Configuring your Model
 Your model must inherit from `dtc_messaging.model.DTC_BaseModel` in order to interface with the evaluator. This model class requires implementation of four class methods: `predict()`, `acknowledge()`, `cleanup()`, and `timed_out()`. For a simple example implementation, please see the provided `template_model.py`.
 
 ## Starting the RabbitMQ server
@@ -91,7 +91,7 @@ PROPERTIES: <BasicProperties(['correlation_id=9c13597d-7aa1-45f6-9e1e-a6734c8263
 BODY: b'{"response": {"response": "connected"}}'
 ```
 
-## Upload image to AWS ECR (Elastic Container Registry)
+## Uploading image to AWS ECR (Elastic Container Registry)
 Use the following steps to authenticate and push an image to your team ECR repository.
 
 Start by retrieving an authentication token and authenticate your Docker client to your registry.
@@ -107,6 +107,20 @@ Run the following command to push this image to your newly created AWS repositor
 `docker push 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-<TEAM_NAME>:<TAG>`
 
 
+## Configuring Docker
+
+All SageMaker app types (JupyterLab, CodeEditor, Studio Classic) support Docker API access via a proxy docker engine. To access docker in your SageMaker instance, **restart** or **create** an instance using the "install-docker-{app-type}-v4" lifecycle policy.
+
+<img src="images/docker-install-1.png">
+
+> Note: An existing Code Editor or JupyterLab instance will not have Docker installed until you fully stop the instance and re-run with the lifecycle policy. Restarting the instance will not delete any data in the `/home/sagemaker-user/` directory, but will delete data in other directories. 
+
+To check Docker installed correctly, run `docker version` on a system terminal to output API and engine details.
+
+<img src="images/docker-install-2.png">
+
+
+
 ## Release Notes
 
 ### V1.0
@@ -117,5 +131,8 @@ New Features:
 - Message Handlers: Includes an abstract base class and specific implementations for handling various message types, ensuring appropriate communication with the evaluator.
 - Factory Pattern for Message Handlers: Simplifies the creation of message handlers based on the message type, supporting scalable and modular development.
 
+
 ---
+(c) 2024 The Johns Hopkins University Applied Physics Laboratory LLC
+
 (c) 2024 The Johns Hopkins University Applied Physics Laboratory LLC
