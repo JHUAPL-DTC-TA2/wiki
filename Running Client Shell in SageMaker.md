@@ -118,4 +118,4 @@ New Features:
 - Factory Pattern for Message Handlers: Simplifies the creation of message handlers based on the message type, supporting scalable and modular development.
 
 ---
-# (c) 2024 The Johns Hopkins University Applied Physics Laboratory LLC
+(c) 2024 The Johns Hopkins University Applied Physics Laboratory LLC
