@@ -134,5 +134,3 @@ New Features:
 
 ---
 (c) 2024 The Johns Hopkins University Applied Physics Laboratory LLC
-
-(c) 2024 The Johns Hopkins University Applied Physics Laboratory LLC
