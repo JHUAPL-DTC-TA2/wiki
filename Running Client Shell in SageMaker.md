@@ -1,7 +1,10 @@
 # Client Container Shell v1.0
 
+NOTE: this is a duplicate of the README included in the [Client Container Shell repo](https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/client-shell/browse?region=us-east-1).
+
 ## Overview
-This is the README for the [Client Container Shell](https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/client-shell) and supporting materials for teams participating in the DARPA Triage Challenge Data Competition. The Client Container Shell can be used to prepare submissions for the Phase 1 workshop and challenge events in accordance with the Data Competition ICD (available at https://triagechallenge.darpa.mil).
+
+This is the README for the Client Container Shell and supporting materials for teams participating in the DARPA Triage Challenge Data Competition. The Client Container Shell can be used to prepare submissions for the Phase 1 workshop and challenge events in accordance with the Data Competition ICD (available at https://triagechallenge.darpa.mil).
 
 This initial release provides all necessary resources to prepare submissions for the Phase 1 workshop. Additional testing functionality will be provided in future releases.
 
@@ -11,7 +14,7 @@ This initial release provides all necessary resources to prepare submissions for
 - Model that implements methods in provided `DTC_BaseModel` base class: `predict()`, `acknowledge()`, `cleanup()`, and `timed_out()` (See example in *template_model.py* )
 
 ### Quick Start
-1. Clone client-shell repository from CodeCommit: [repo link](https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/client-shell)
+1. Clone client-shell repository from CodeCommit: [repo link](https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/client-shell/browse?region=us-east-1)
 2. Configure model according to Client Shell (See [Configuring your Model](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/Running%20Client%20Shell%20in%20SageMaker.md#configuring-your-model))
 3. Download and start RabbitMQ Server (See [Starting the RabbitMQ server](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/Running%20Client%20Shell%20in%20SageMaker.md#starting-the-rabbitmq-server))
 4. Run the client using one of two options: 
@@ -90,6 +93,8 @@ METHOD: <Basic.Deliver(['consumer_tag=ctag1.8851c9e07ab74dfa9a4d64efc4e4df26', '
 PROPERTIES: <BasicProperties(['correlation_id=9c13597d-7aa1-45f6-9e1e-a6734c826328', 'type=CONNECTION_MESSAGE'])>
 BODY: b'{"response": {"response": "connected"}}'
 ```
+
+Two example segment files have been included to test messaging with a `PREDICT_MESSAGE`. These segment files were generated from a full case in the training dataset using the included script `tools/segment_case.py`.
 
 ## Uploading image to AWS ECR (Elastic Container Registry)
 Use the following steps to authenticate and push an image to your team ECR repository.
