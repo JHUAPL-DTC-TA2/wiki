@@ -43,9 +43,9 @@ To start a RabbitMQ server with the management plugin enabled, run the following
 
 `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`
 
-`docker pull 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-rabbitmq:latest`
+`docker pull --network sagemaker 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-rabbitmq:latest`
 
-`docker run  --rm  552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-rabbitmq:latest`
+`docker run --network sagemaker --rm  552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-rabbitmq:latest`
 
 RabbitMQ will automatically reserve and map ports `15672` and `5672` on the host to ports `15672` and `5672` in the server container, respectively. These ports are used by the RabbitMQ server.
 
@@ -58,14 +58,14 @@ To containerize your model, start by authenticating to be able to pull the `dtc-
 
 Build your docker image with the following command:
 
-`docker build -t dtc-<TEAM_NAME>:<TAG> .`
+`docker build --network sagemaker  -t dtc-<TEAM_NAME>:<TAG> .`
 
 This command builds the Docker based on the Dockerfile provided. This uses the standard image called `dtc-base-image:latest` which is built on top of the `nvidia/cuda:12.3.2-cudnn9-devel-ubuntu22.04` image.
 
 ### Running the Docker Container
 After building the image, run the application in a Docker container with the necessary environment variables:
 
-`docker run -it --rm dtc-<TEAM_NAME>:<TAG>`
+`docker run --network sagemaker  -it --rm dtc-<TEAM_NAME>:<TAG>`
 
 This command runs your application in a Docker container, connecting it to an existing RabbitMQ server. The container will be removed automatically after the application exits.
 
@@ -105,11 +105,11 @@ Start by retrieving an authentication token and authenticate your Docker client 
 
 Tag your image so you can push the image to this repository:
 
-`docker tag dtc-<TEAM_NAME>:<TAG> 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-<TEAM_NAME>:<TAG>`
+`docker tag --network sagemaker  dtc-<TEAM_NAME>:<TAG> 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-<TEAM_NAME>:<TAG>`
 
 Run the following command to push this image to your newly created AWS repository:
 
-`docker push 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-<TEAM_NAME>:<TAG>`
+`docker push --network sagemaker  552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-<TEAM_NAME>:<TAG>`
 
 
 ## Configuring Docker
