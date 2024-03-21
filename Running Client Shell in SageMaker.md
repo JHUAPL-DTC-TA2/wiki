@@ -96,21 +96,6 @@ BODY: b'{"response": {"response": "connected"}}'
 
 Two example segment files have been included to test messaging with a `PREDICT_MESSAGE`. These segment files were generated from a full case in the training dataset using the included script `tools/segment_case.py`.
 
-## Uploading image to AWS ECR (Elastic Container Registry)
-Use the following steps to authenticate and push an image to your team ECR repository.
-
-Start by retrieving an authentication token and authenticate your Docker client to your registry.
-
-`aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`
-
-Tag your image so you can push the image to this repository:
-
-`docker tag --network sagemaker  dtc-<TEAM_NAME>:<TAG> 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-<TEAM_NAME>:<TAG>`
-
-Run the following command to push this image to your newly created AWS repository:
-
-`docker push --network sagemaker  552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-<TEAM_NAME>:<TAG>`
-
 
 ## Configuring Docker
 
