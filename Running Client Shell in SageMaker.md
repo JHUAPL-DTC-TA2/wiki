@@ -1,7 +1,5 @@
 # Client Container Shell v1.0
 
-NOTE: this is a duplicate of the README included in the [Client Container Shell repo](https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/client-shell/browse?region=us-east-1).
-
 ## Overview
 
 This is the README for the Client Container Shell and supporting materials for teams participating in the DARPA Triage Challenge Data Competition. The Client Container Shell can be used to prepare submissions for the Phase 1 workshop and challenge events in accordance with the Data Competition ICD (available at https://triagechallenge.darpa.mil).
@@ -14,7 +12,7 @@ This initial release provides all necessary resources to prepare submissions for
 - Model that implements methods in provided `DTC_BaseModel` base class: `predict()`, `acknowledge()`, `cleanup()`, and `timed_out()` (See example in *template_model.py* )
 
 ### Quick Start
-1. Clone client-shell repository from CodeCommit: [repo link](https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/client-shell/browse?region=us-east-1)
+1. Clone client-shell repository from CodeCommit: `git clone https://git-codecommit.us-east-1.amazonaws.com/v1/repos/client-shell`
 2. Configure model according to Client Shell (See [Configuring your Model](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/Running%20Client%20Shell%20in%20SageMaker.md#configuring-your-model))
 3. Download and start RabbitMQ Server (See [Starting the RabbitMQ server](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/Running%20Client%20Shell%20in%20SageMaker.md#starting-the-rabbitmq-server))
 4. Run the client using one of two options: 
