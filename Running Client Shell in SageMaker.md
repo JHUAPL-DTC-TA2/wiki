@@ -1,27 +1,23 @@
 # Client Container Shell v1.0
 
 ## Overview
-
-This is the README for the Client Container Shell and supporting materials for teams participating in the DARPA Triage Challenge Data Competition. The Client Container Shell can be used to prepare submissions for the Phase 1 workshop and challenge events in accordance with the Data Competition ICD (available at https://triagechallenge.darpa.mil).
+This is the README for the [Client Container Shell](https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/client-shell/browse?region=us-east-1) and supporting materials for teams participating in the DARPA Triage Challenge Data Competition. The Client Container Shell can be used to prepare submissions for the Phase 1 workshop and challenge events in accordance with the Data Competition ICD (available at https://triagechallenge.darpa.mil).
 
 This initial release provides all necessary resources to prepare submissions for the Phase 1 workshop. Additional testing functionality will be provided in future releases.
 
 ### Minimum Requirements
 - Python 3.6 or newer
-- Docker (See [Configuring Docker](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/Running%20Client%20Shell%20in%20SageMaker.md#docker-configuration))
+- Docker (See Configuring Docker)
 - Model that implements methods in provided `DTC_BaseModel` base class: `predict()`, `acknowledge()`, `cleanup()`, and `timed_out()` (See example in *template_model.py* )
 
 ### Quick Start
-1. Clone client-shell repository from CodeCommit: 
-```
-git clone https://git-codecommit.us-east-1.amazonaws.com/v1/repos/client-shell
-```
-3. Configure model according to Client Shell (See [Configuring your Model](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/Running%20Client%20Shell%20in%20SageMaker.md#configuring-your-model))
-4. Download and start RabbitMQ Server (See [Starting the RabbitMQ server](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/Running%20Client%20Shell%20in%20SageMaker.md#starting-the-rabbitmq-server))
-5. Run the client using one of two options: 
-   * Run as Docker container (See [Running the Client with Docker](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/Running%20Client%20Shell%20in%20SageMaker.md#running-the-client-with-docker))
-   * Run locally within AWS Workspace (See [Running the Client locally](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/Running%20Client%20Shell%20in%20SageMaker.md#running-the-client-locally))
-6. Test connection between client and server using messaging stub (See [Passing Messages to the Client](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/Running%20Client%20Shell%20in%20SageMaker.md#passing-messages-to-the-client)).
+1. Clone client-shell repository from CodeCommit: [repo link](https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/client-shell/browse?region=us-east-1)
+2. Configure model according to Client Shell (See **Configuring your Model**)
+3. Download and start RabbitMQ Server (See **Starting the RabbitMQ server**)
+4. Run the client using one of two options: 
+   * Run as Docker container (See **Running the Client with Docker**)
+   * Run locally within AWS Workspace (See **Running the Client locally**)
+5. Test connection between client and server using messaging stub (See **Passing Messages to the Client**).
 
 
 ### Message Types and Handlers
@@ -44,8 +40,6 @@ To start a RabbitMQ server with the management plugin enabled, run the following
 
 `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`
 
-`docker pull --network sagemaker 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-rabbitmq:latest`
-
 `docker run --network sagemaker --rm  552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-rabbitmq:latest`
 
 RabbitMQ will automatically reserve and map ports `15672` and `5672` on the host to ports `15672` and `5672` in the server container, respectively. These ports are used by the RabbitMQ server.
@@ -59,14 +53,14 @@ To containerize your model, start by authenticating to be able to pull the `dtc-
 
 Build your docker image with the following command:
 
-`docker build --network sagemaker  -t dtc-<TEAM_NAME>:<TAG> .`
+`docker build --network sagemaker -t dtc-<TEAM_NAME>:<TAG> .`
 
 This command builds the Docker based on the Dockerfile provided. This uses the standard image called `dtc-base-image:latest` which is built on top of the `nvidia/cuda:12.3.2-cudnn9-devel-ubuntu22.04` image.
 
 ### Running the Docker Container
 After building the image, run the application in a Docker container with the necessary environment variables:
 
-`docker run --network sagemaker  -it --rm dtc-<TEAM_NAME>:<TAG>`
+`docker run --network sagemaker -it --rm dtc-<TEAM_NAME>:<TAG>`
 
 This command runs your application in a Docker container, connecting it to an existing RabbitMQ server. The container will be removed automatically after the application exits.
 
@@ -97,18 +91,29 @@ BODY: b'{"response": {"response": "connected"}}'
 
 Two example segment files have been included to test messaging with a `PREDICT_MESSAGE`. These segment files were generated from a full case in the training dataset using the included script `tools/segment_case.py`.
 
+## Uploading image to AWS ECR (Elastic Container Registry)
+Use the following steps to authenticate and push an image to your team ECR repository.
+
+Start by retrieving an authentication token and authenticate your Docker client to your registry.
+
+`aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`
+
+Tag your image so you can push the image to this repository:
+
+`docker tag --network sagemaker dtc-<TEAM_NAME>:<TAG> 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-<TEAM_NAME>:<TAG>`
+
+Run the following command to push this image to your newly created AWS repository:
+
+`docker push --network sagemaker 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-<TEAM_NAME>:<TAG>`
+
 
 ## Configuring Docker
 
 All SageMaker app types (JupyterLab, CodeEditor, Studio Classic) support Docker API access via a proxy docker engine. To access docker in your SageMaker instance, **restart** or **create** an instance using the "install-docker-{app-type}-v4" lifecycle policy.
 
-<img src="images/docker-install-1.png">
-
 > Note: An existing Code Editor or JupyterLab instance will not have Docker installed until you fully stop the instance and re-run with the lifecycle policy. Restarting the instance will not delete any data in the `/home/sagemaker-user/` directory, but will delete data in other directories. 
 
 To check Docker installed correctly, run `docker version` on a system terminal to output API and engine details.
-
-<img src="images/docker-install-2.png">
 
 
 
