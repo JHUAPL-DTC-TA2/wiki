@@ -55,6 +55,6 @@ git clone https://git-codecommit.us-east-1.amazonaws.com/v1/repos/{team_tag}
 When you first push to or pull from your CodeCommit repository, Git will prompt you for your username and password. Enter the credentials obtained from AWS Secrets Manager.
 
 Note: For CodeEditor, you will be prompted to use your provided Git username and password at the top of the browser.
-![image](https://github.com/JHUAPL-DTC-TA2/wiki/images/codecommit-1.png)
+<img src="images/codecommit-1.png">
 
 
