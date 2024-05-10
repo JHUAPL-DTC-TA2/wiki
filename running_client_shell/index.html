@@ -1,0 +1,859 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://JHUAPL-DTC-TA2.github.io/wiki/running_client_shell/">
+      
+      
+        <link rel="prev" href="../configure_codecommit/">
+      
+      
+        <link rel="next" href="../importing_data/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.21">
+    
+    
+      
+        <title>Client-Shell Client - DTC-Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.66ac8b77.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:300,300i,400,400i,700,700i%7CInconsolata:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Bitter";--md-code-font:"Inconsolata"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#client-container-shell-v10" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="DTC-Wiki" class="md-header__button md-logo" aria-label="DTC-Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DTC-Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Client-Shell Client
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/JHUAPL-DTC-TA2/wiki" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JHUAPL-DTC-TA2/wiki
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+    
+  
+  User Guide
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../common_issues/" class="md-tabs__link">
+        
+  
+    
+  
+  Common Issues
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../configure_codecommit/" class="md-tabs__link">
+        
+  
+    
+  
+  CodeCommit Guide
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+    
+  
+  Client-Shell Client
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../importing_data/" class="md-tabs__link">
+        
+  
+    
+  
+  Importing Data to AWS
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../creating_custom_images/" class="md-tabs__link">
+        
+  
+    
+  
+  Custom Images
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../sagemaker_instances/" class="md-tabs__link">
+        
+  
+    
+  
+  Available Instances
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="DTC-Wiki" class="md-nav__button md-logo" aria-label="DTC-Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DTC-Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/JHUAPL-DTC-TA2/wiki" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JHUAPL-DTC-TA2/wiki
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../common_issues/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Common Issues
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configure_codecommit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CodeCommit Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Client-Shell Client
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Client-Shell Client
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#minimum-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Minimum Requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Start
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#message-types-and-handlers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Types and Handlers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-your-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuring your Model
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#starting-the-rabbitmq-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      Starting the RabbitMQ server
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-the-client-with-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running the Client with Docker
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running the Client with Docker">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#building-with-docker-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building with Docker Image
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-the-docker-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running the Docker Container
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-the-client-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running the Client locally
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#passing-messages-to-the-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      Passing messages to the Client
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uploading-image-to-aws-ecr-elastic-container-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uploading image to AWS ECR (Elastic Container Registry)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuring Docker
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Release Notes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Release Notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v10" class="md-nav__link">
+    <span class="md-ellipsis">
+      V1.0
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../importing_data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Importing Data to AWS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../creating_custom_images/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Custom Images
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sagemaker_instances/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Available Instances
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="client-container-shell-v10">Client Container Shell v1.0</h1>
+<h2 id="overview">Overview</h2>
+<p>This is the README for the <a href="https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/client-shell/browse?region=us-east-1">Client Container Shell</a> and supporting materials for teams participating in the DARPA Triage Challenge Data Competition. The Client Container Shell can be used to prepare submissions for the Phase 1 workshop and challenge events in accordance with the Data Competition ICD (available at https://triagechallenge.darpa.mil).</p>
+<p>This initial release provides all necessary resources to prepare submissions for the Phase 1 workshop. Additional testing functionality will be provided in future releases.</p>
+<h3 id="minimum-requirements">Minimum Requirements</h3>
+<ul>
+<li>Python 3.6 or newer</li>
+<li>Docker (See Configuring Docker)</li>
+<li>Model that implements methods in provided <code>DTC_BaseModel</code> base class: <code>predict()</code>, <code>acknowledge()</code>, <code>cleanup()</code>, and <code>timed_out()</code> (See example in <em>template_model.py</em> )</li>
+</ul>
+<h3 id="quick-start">Quick Start</h3>
+<ol>
+<li>Clone client-shell repository from CodeCommit: <a href="https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/client-shell/browse?region=us-east-1">repo link</a></li>
+<li>Configure model according to Client Shell (See <strong>Configuring your Model</strong>)</li>
+<li>Download and start RabbitMQ Server (See <strong>Starting the RabbitMQ server</strong>)</li>
+<li>Run the client using one of two options: </li>
+<li>Run as Docker container (See <strong>Running the Client with Docker</strong>)</li>
+<li>Run locally within AWS Workspace (See <strong>Running the Client locally</strong>)</li>
+<li>Test connection between client and server using messaging stub (See <strong>Passing Messages to the Client</strong>).</li>
+</ol>
+<h3 id="message-types-and-handlers">Message Types and Handlers</h3>
+<p>The client supports a fixed set of message types (MessageType) with corresponding callbacks:</p>
+<ul>
+<li><code>CONNECTION_MESSAGE</code>: Establishes initial connection between server and model.</li>
+<li><code>PREDICT_MESSAGE</code>: Provides new patient data and requests LSI prediction by calling <code>predict()</code> in the model.</li>
+<li><code>ACKNOWLEDGE_MESSAGE</code>: Acknowledges receipt of prediction by calling <code>acknowledge()</code> in the model.</li>
+<li><code>CLEANUP_MESSAGE</code>: Indicates when the processing for the current patient case is complete by calling <code>cleanup()</code> in the model.</li>
+<li><code>TIMED_OUT_MESSAGE</code>: Indicates the model has timed out during the current prediction request by calling <code>timed_out()</code> in the model.</li>
+<li><code>ERROR_MESSAGE</code>: Contains error message from the evaluation server.</li>
+</ul>
+<p>Each message type is associated with a specific handler method that calls a corresponding function in the model class or client.</p>
+<h2 id="configuring-your-model">Configuring your Model</h2>
+<p>Your model must inherit from <code>dtc_messaging.model.DTC_BaseModel</code> in order to interface with the evaluator. This model class requires implementation of four class methods: <code>predict()</code>, <code>acknowledge()</code>, <code>cleanup()</code>, and <code>timed_out()</code>. For a simple example implementation, please see the provided <code>template_model.py</code>.</p>
+<h2 id="starting-the-rabbitmq-server">Starting the RabbitMQ server</h2>
+<p>To start a RabbitMQ server with the management plugin enabled, run the following commands in your terminal:</p>
+<p><code>aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com</code></p>
+<p><code>docker run --network sagemaker --rm  552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-rabbitmq:latest</code></p>
+<p>RabbitMQ will automatically reserve and map ports <code>15672</code> and <code>5672</code> on the host to ports <code>15672</code> and <code>5672</code> in the server container, respectively. These ports are used by the RabbitMQ server.</p>
+<h2 id="running-the-client-with-docker">Running the Client with Docker</h2>
+<h3 id="building-with-docker-image">Building with Docker Image</h3>
+<p>To containerize your model, start by authenticating to be able to pull the <code>dtc-base-image:latest</code>:</p>
+<p><code>aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com</code></p>
+<p>Build your docker image with the following command:</p>
+<p><code>docker build --network sagemaker -t dtc-&lt;TEAM_NAME&gt;:&lt;TAG&gt; .</code></p>
+<p>This command builds the Docker based on the Dockerfile provided. This uses the standard image called <code>dtc-base-image:latest</code> which is built on top of the <code>nvidia/cuda:12.3.2-cudnn9-devel-ubuntu22.04</code> image.</p>
+<h3 id="running-the-docker-container">Running the Docker Container</h3>
+<p>After building the image, run the application in a Docker container with the necessary environment variables:</p>
+<p><code>docker run --network sagemaker -it --rm dtc-&lt;TEAM_NAME&gt;:&lt;TAG&gt;</code></p>
+<p>This command runs your application in a Docker container, connecting it to an existing RabbitMQ server. The container will be removed automatically after the application exits.</p>
+<h2 id="running-the-client-locally">Running the Client locally</h2>
+<p>To run the Client outside docker install the package <code>pika</code> using pip (do this once):
+<code>python -m pip install pika -e .</code></p>
+<p>The following command will run the client locally with an existing RabbitMQ server:
+<code>python run_client.py --host localhost --queue rpc_queue</code></p>
+<h2 id="passing-messages-to-the-client">Passing messages to the Client</h2>
+<p>The <code>send_message.py</code> script in the <code>stub/</code> directory will send sample messages of each MessageType to a running client container. You may run the command:</p>
+<p><code>python send_message.py -m {CONNECTION_MESSAGE|PREDICT_MESSAGE|ACKNOWLEDGE_MESSAGE| ... }</code></p>
+<p>to pass a sample message to the client, where a single message type is selected. This should print out the client response message's channel, method, properties, and body data. For example, using the provided <code>ExampleModel</code> class in <code>template_model.py</code> as the model, running <code>python send_message.py -m CONNECTION_MESSAGE</code> would print this response:</p>
+<div class="highlight"><pre><span></span><code>RESPONSE:
+CHANNEL: &lt;BlockingChannel impl=&lt;Channel number=1 OPEN conn=&lt;SelectConnection OPEN transport=&lt;pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x109060690&gt; params=&lt;ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False&gt;&gt;&gt;&gt;
+METHOD: &lt;Basic.Deliver([&#39;consumer_tag=ctag1.8851c9e07ab74dfa9a4d64efc4e4df26&#39;, &#39;delivery_tag=1&#39;, &#39;exchange=&#39;, &#39;redelivered=False&#39;, &#39;routing_key=amq.gen-PyPl17EcuEBP5s3LDzgwKA&#39;])&gt;
+PROPERTIES: &lt;BasicProperties([&#39;correlation_id=9c13597d-7aa1-45f6-9e1e-a6734c826328&#39;, &#39;type=CONNECTION_MESSAGE&#39;])&gt;
+BODY: b&#39;{&quot;response&quot;: {&quot;response&quot;: &quot;connected&quot;}}&#39;
+</code></pre></div>
+<p>Two example segment files have been included to test messaging with a <code>PREDICT_MESSAGE</code>. These segment files were generated from a full case in the training dataset using the included script <code>tools/segment_case.py</code>.</p>
+<h2 id="uploading-image-to-aws-ecr-elastic-container-registry">Uploading image to AWS ECR (Elastic Container Registry)</h2>
+<p>Use the following steps to authenticate and push an image to your team ECR repository.</p>
+<p>Start by retrieving an authentication token and authenticate your Docker client to your registry.</p>
+<p><code>aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com</code></p>
+<p>Tag your image so you can push the image to this repository:</p>
+<p><code>docker tag --network sagemaker dtc-&lt;TEAM_NAME&gt;:&lt;TAG&gt; 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-&lt;TEAM_NAME&gt;:&lt;TAG&gt;</code></p>
+<p>Run the following command to push this image to your newly created AWS repository:</p>
+<p><code>docker push --network sagemaker 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-&lt;TEAM_NAME&gt;:&lt;TAG&gt;</code></p>
+<h2 id="configuring-docker">Configuring Docker</h2>
+<p>All SageMaker app types (JupyterLab, CodeEditor, Studio Classic) support Docker API access via a proxy docker engine. To access docker in your SageMaker instance, <strong>restart</strong> or <strong>create</strong> an instance using the "install-docker-{app-type}-v4" lifecycle policy.</p>
+<blockquote>
+<p>Note: An existing Code Editor or JupyterLab instance will not have Docker installed until you fully stop the instance and re-run with the lifecycle policy. Restarting the instance will not delete any data in the <code>/home/sagemaker-user/</code> directory, but will delete data in other directories. </p>
+</blockquote>
+<p>To check Docker installed correctly, run <code>docker version</code> on a system terminal to output API and engine details.</p>
+<h2 id="release-notes">Release Notes</h2>
+<h3 id="v10">V1.0</h3>
+<p>New Features:
+- RabbitMQ Client: Establishes a connection to a RabbitMQ server, sets up a queue for RPC requests, and listens for incoming requests.
+- Model Class: Abstract base for creating prediction models with methods for predictions, acknowledgments, end-of-case, and error scenarios. You will extend this class to implement your custom models for the evaluation. You merely need to implement four functions.
+- MessageType Enum: Categorizes communication with predefined message types including connection, prediction, acknowledgment, and error handling signals.
+- Message Handlers: Includes an abstract base class and specific implementations for handling various message types, ensuring appropriate communication with the evaluator.
+- Factory Pattern for Message Handlers: Simplifies the creation of message handlers based on the message type, supporting scalable and modular development.</p>
+<hr />
+<p>(c) 2024 The Johns Hopkins University Applied Physics Laboratory LLC</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../configure_codecommit/" class="md-footer__link md-footer__link--prev" aria-label="Previous: CodeCommit Guide">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                CodeCommit Guide
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../importing_data/" class="md-footer__link md-footer__link--next" aria-label="Next: Importing Data to AWS">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Importing Data to AWS
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.indexes", "navigation.instant", "navigation.footer", "navigation.prune", "navigation.tabs", "navigation.tabs.sticky", "toc.follow", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a7c05c9e.min.js"></script>
+      
+    
+  </body>
+</html>
