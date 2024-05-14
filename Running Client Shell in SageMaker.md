@@ -116,6 +116,33 @@ All SageMaker app types (JupyterLab, CodeEditor, Studio Classic) support Docker 
 To check Docker installed correctly, run `docker version` on a system terminal to output API and engine details.
 
 
+### Configuring Docker Images to Access S3 Buckets Using AWS Credentials
+
+If your submission requires accessing data from your team’s S3 bucket, you must configure your Docker images to use your team’s AWS credentials (i.e., `AWS_ACCESS_KEY_ID`, `AWS_SECRET_KEY`). By default, your credentials will not be passed from SageMaker to your Docker images. As a result, your Docker images won't be able to access AWS services like your SageMaker terminal does. To enable this, you need to transfer your SageMaker credentials to your Docker image. Follow these steps:
+
+1. **Configure your SageMaker with your AWS credentials:**
+    - In a SageMaker terminal, run `aws configure` and input your AWS credentials. To find your AWS credentials, open a Workspace terminal and run `cat ~/.aws/credentials`. The `aws configure` command will generate files that store your credentials in your SageMaker home directory (i.e., `/home/sagemaker-user/.aws`).
+
+2. **Copy your AWS credentials into your project directory:**
+    - Run `cp -r ~/.aws <PROJECT_DIRECTORY>`. Replace `<PROJECT_DIRECTORY>` with the path to your project directory. This command will copy the `.aws` directory containing your credentials to your project directory, allowing Docker to access these credentials during the build process.
+
+3. **Use the Dockerfile in `client-shell` to build your Docker image:**
+    - Navigate to the `client-shell` directory. The Dockerfile in this directory contains commands to set up your Docker image. (See updated `Dockerfile`)
+
+4. **Modify your Dockerfile to transfer the target file:**
+    - Add the following command to your Dockerfile to transfer the target file from S3 to your desired directory within the Docker container: 
+      ```dockerfile
+      RUN aws s3 cp s3://dtc-scratch-<TEAM_NAME>/<TARGET_FILE> /<TARGET_DIRECTORY>
+      ```
+      Replace `<TEAM_NAME>`, `<TARGET_FILE>`, and `<TARGET_DIRECTORY>` with your team name, the file you want to transfer, and the target directory inside the Docker container, respectively.
+
+
+**Note:** During the evaluation phase, evaluators will use their own credentials to access your team's S3 buckets.
+
+**Warning:** For security reasons, do not push your credentials to CodeCommit. We have updated the `.gitignore` file to exclude all files stored in the `.aws` directory. Ensure your `.gitignore` file includes the following entry:
+```
+.aws
+```
 
 ## Release Notes
 
