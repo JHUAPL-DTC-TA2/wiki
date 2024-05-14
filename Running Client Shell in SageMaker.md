@@ -118,7 +118,7 @@ To check Docker installed correctly, run `docker version` on a system terminal t
 
 ### Configuring Docker Images to Access S3 Buckets Using AWS Credentials
 
-If your submission requires accessing data from your team’s S3 bucket, you must configure your Docker images to use your team’s AWS credentials (i.e., `AWS_ACCESS_KEY_ID`, `AWS_SECRET_KEY`). By default, your credentials will not be passed from SageMaker to your Docker images. As a result, your Docker images won't be able to access AWS services like your SageMaker terminal does. To enable this, you need to transfer your SageMaker credentials to your Docker image. Follow these steps:
+If your submission requires accessing data from your team’s S3 bucket, you must configure your Docker images to use your team’s AWS credentials (i.e., `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`). By default, your credentials will not be passed from SageMaker to your Docker images. As a result, your Docker images won't be able to access AWS services like your SageMaker terminal does. To enable this, you need to transfer your SageMaker credentials to your Docker image. Follow these steps:
 
 1. **Configure your SageMaker with your AWS credentials:**
     - In a SageMaker terminal, run `aws configure` and input your AWS credentials. To find your AWS credentials, open a Workspace terminal and run `cat ~/.aws/credentials`. The `aws configure` command will generate files that store your credentials in your SageMaker home directory (i.e., `/home/sagemaker-user/.aws`).
@@ -154,6 +154,7 @@ New Features:
 - Message Handlers: Includes an abstract base class and specific implementations for handling various message types, ensuring appropriate communication with the evaluator.
 - Factory Pattern for Message Handlers: Simplifies the creation of message handlers based on the message type, supporting scalable and modular development.
 
-
+### May 14, 2024
+- Added *Configuring Docker Images to Access S3 Buckets Using AWS Credentials* section providing participants with instructions to load their Dockerfile with 
 ---
 (c) 2024 The Johns Hopkins University Applied Physics Laboratory LLC
