@@ -55,7 +55,7 @@ Build your docker image with the following command:
 
 `docker build --network sagemaker -t dtc-<TEAM_NAME>:<TAG> .`
 
-This command builds the Docker based on the Dockerfile provided. This uses the standard image called `dtc-base-image:v1-1` which is built on top of the `nvidia/cuda:12.3.2-cudnn9-devel-ubuntu22.04` image, and the `dtc_messaging` python package.
+This command builds the Docker based on the Dockerfile provided. This uses the standard image called `dtc-base-image:v1-1` which is built on top of the `nvidia/cuda:12.3.2-cudnn9-devel-ubuntu22.04` image. This image includes `dtc_messaging` python package used to interface with the official evaluation server, and `awscli` to access available AWS resources provisioned to your team.
 
 ### Running the Docker Container
 After building the image, run the application in a Docker container with the necessary environment variables:
