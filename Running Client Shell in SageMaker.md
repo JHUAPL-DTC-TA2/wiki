@@ -47,7 +47,7 @@ RabbitMQ will automatically reserve and map ports `15672` and `5672` on the host
 ## Running the Client with Docker
 
 ### Building with Docker Image
-To containerize your model, start by authenticating to be able to pull the `dtc-base-image:latest`:
+To containerize your model, start by authenticating to be able to pull the `dtc-base-image:v1-1`:
 
 `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`
 
@@ -55,7 +55,7 @@ Build your docker image with the following command:
 
 `docker build --network sagemaker -t dtc-<TEAM_NAME>:<TAG> .`
 
-This command builds the Docker based on the Dockerfile provided. This uses the standard image called `dtc-base-image:latest` which is built on top of the `nvidia/cuda:12.3.2-cudnn9-devel-ubuntu22.04` image.
+This command builds the Docker based on the Dockerfile provided. This uses the standard image called `dtc-base-image:v1-1` which is built on top of the `nvidia/cuda:12.3.2-cudnn9-devel-ubuntu22.04` image, and the `dtc_messaging` python package.
 
 ### Running the Docker Container
 After building the image, run the application in a Docker container with the necessary environment variables:
