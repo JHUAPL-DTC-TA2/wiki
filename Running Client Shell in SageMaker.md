@@ -150,7 +150,22 @@ New Features:
 - Message Handlers: Includes an abstract base class and specific implementations for handling various message types, ensuring appropriate communication with the evaluator.
 - Factory Pattern for Message Handlers: Simplifies the creation of message handlers based on the message type, supporting scalable and modular development.
 
-### May 14, 2024
-- Added *Configuring Docker Images to Access S3 Buckets Using AWS Credentials* section providing participants with instructions to load their Dockerfile with 
+### v1.1
+- Moved dtc_messaging module to dtc-base-image repo.
+  - Fixed bug in message_handler CLEANUP_MESSAGE enum.
+  - Removed top-level “response” key from message dicts.
+  - Adds serialization of Numpy arrays as lists.
+  - Renamed Messenger.py to Client.py.
+  - Added purge of RabbitMQ queue during initialization of client.
+- Uses new Docker base image, dtc-base-image:v1-1.
+  - Includes AWS CLI for copying files from S3 in Docker image.
+  - Creates logs directory, which will be mounted and saved off during evaluation.
+  - Installs latest version of dtc_messaging module.
+- Added comments to Dockerfile with example setup of AWS credentials and S3 copy.
+- Added .gitignore to prevent AWS credentials from being checked into repo.
+- Updated send_message.py stub to match message formats used in evaluation.
+- Updated template_model.py to access all possible fields expected in received messages.
+- Updated README with instructinons for copying from S3 during Docker build.
+  
 ---
 (c) 2024 The Johns Hopkins University Applied Physics Laboratory LLC
