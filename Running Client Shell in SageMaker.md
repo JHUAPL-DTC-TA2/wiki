@@ -1,4 +1,4 @@
-# Client Container Shell v1.0
+# Client Container Shell v1.1
 
 ## Overview
 This is the README for the [Client Container Shell](https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/client-shell/browse?region=us-east-1) and supporting materials for teams participating in the DARPA Triage Challenge Data Competition. The Client Container Shell can be used to prepare submissions for the Phase 1 workshop and challenge events in accordance with the Data Competition ICD (available at https://triagechallenge.darpa.mil).
@@ -77,7 +77,7 @@ The following command will run the client locally with an existing RabbitMQ serv
 
 The `send_message.py` script in the `stub/` directory will send sample messages of each MessageType to a running client container. You may run the command:
 
-`python send_message.py -m {CONNECTION_MESSAGE|PREDICT_MESSAGE|ACKNOWLEDGE_MESSAGE| ... }`
+`python send_message.py --queue rpc_queue -m {CONNECTION_MESSAGE|PREDICT_MESSAGE|ACKNOWLEDGE_MESSAGE| ... }`
 
 to pass a sample message to the client, where a single message type is selected. This should print out the client response message's channel, method, properties, and body data. For example, using the provided `ExampleModel` class in `template_model.py` as the model, running `python send_message.py -m CONNECTION_MESSAGE` would print this response:
 
