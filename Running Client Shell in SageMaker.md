@@ -116,17 +116,56 @@ All SageMaker app types (JupyterLab, CodeEditor, Studio Classic) support Docker 
 To check Docker installed correctly, run `docker version` on a system terminal to output API and engine details.
 
 
+## Configuring Docker Images to Access S3 Buckets Using AWS Credentials
+
+If your submission requires accessing data from your team’s S3 bucket, you must configure your Docker images to use your team’s AWS credentials (i.e., `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`). By default, your credentials will not be passed from SageMaker to your Docker images. As a result, your Docker images won't be able to access AWS services like your SageMaker terminal does. To enable this, you need to transfer your SageMaker credentials to your Docker image. Follow these steps:
+
+1. Configure your SageMaker with your AWS credentials: In a SageMaker terminal, run `aws configure` and input your AWS credentials. To find your AWS credentials, open a Workspace terminal and run `cat ~/.aws/credentials`. The `aws configure` command will generate files that store your credentials in your SageMaker home directory (i.e., `/home/sagemaker-user/.aws`).
+
+2. Copy your AWS credentials into your project directory: Run `cp -r ~/.aws <PROJECT_DIRECTORY>`. Replace `<PROJECT_DIRECTORY>` with the path to your project directory. This command will copy the `.aws` directory containing your credentials to your project directory, allowing Docker to access these credentials during the build process.
+
+3. Use the Dockerfile in `client-shell` to build your Docker image: Navigate to the `client-shell` directory. The Dockerfile in this directory contains commands to set up your Docker image. (See updated `Dockerfile`)
+
+4. Modify your Dockerfile to transfer the target file: Add the following command to your Dockerfile to transfer the target file from S3 to your desired directory within the Docker container. Replace `<TEAM_NAME>`, `<TARGET_FILE>`, and `<TARGET_DIRECTORY>` with your team name, the file you want to transfer, and the target directory inside the Docker container, respectively:
+```dockerfile
+RUN aws s3 cp s3://dtc-scratch-<TEAM_NAME>/<TARGET_FILE> /<TARGET_DIRECTORY>
+```
+
+**Note:** During the evaluation phase, evaluators will use their own credentials to access your team's S3 buckets.
+
+**Warning:** For security reasons, do not push your credentials to CodeCommit. We have updated the `.gitignore` file to exclude all files stored in the `.aws` directory. Ensure your `.gitignore` file includes the following entry:
+```
+.aws
+```
 
 ## Release Notes
 
 ### V1.0
+
 New Features:
+
 - RabbitMQ Client: Establishes a connection to a RabbitMQ server, sets up a queue for RPC requests, and listens for incoming requests.
 - Model Class: Abstract base for creating prediction models with methods for predictions, acknowledgments, end-of-case, and error scenarios. You will extend this class to implement your custom models for the evaluation. You merely need to implement four functions.
 - MessageType Enum: Categorizes communication with predefined message types including connection, prediction, acknowledgment, and error handling signals.
 - Message Handlers: Includes an abstract base class and specific implementations for handling various message types, ensuring appropriate communication with the evaluator.
 - Factory Pattern for Message Handlers: Simplifies the creation of message handlers based on the message type, supporting scalable and modular development.
 
-
+### v1.1
+- Moved dtc_messaging module to dtc-base-image repo.
+  - Fixed bug in message_handler CLEANUP_MESSAGE enum.
+  - Removed top-level “response” key from message dicts.
+  - Adds serialization of Numpy arrays as lists.
+  - Renamed Messenger.py to Client.py.
+  - Added purge of RabbitMQ queue during initialization of client.
+- Uses new Docker base image, dtc-base-image:v1-1.
+  - Includes AWS CLI for copying files from S3 in Docker image.
+  - Creates logs directory, which will be mounted and saved off during evaluation.
+  - Installs latest version of dtc_messaging module.
+- Added comments to Dockerfile with example setup of AWS credentials and S3 copy.
+- Added .gitignore to prevent AWS credentials from being checked into repo.
+- Updated send_message.py stub to match message formats used in evaluation.
+- Updated template_model.py to access all possible fields expected in received messages.
+- Updated README with instructinons for copying from S3 during Docker build.
+  
 ---
 (c) 2024 The Johns Hopkins University Applied Physics Laboratory LLC
