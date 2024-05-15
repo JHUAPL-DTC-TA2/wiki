@@ -147,7 +147,9 @@ If your submission requires accessing data from your team’s S3 bucket, you mus
 ## Release Notes
 
 ### V1.0
+
 New Features:
+
 - RabbitMQ Client: Establishes a connection to a RabbitMQ server, sets up a queue for RPC requests, and listens for incoming requests.
 - Model Class: Abstract base for creating prediction models with methods for predictions, acknowledgments, end-of-case, and error scenarios. You will extend this class to implement your custom models for the evaluation. You merely need to implement four functions.
 - MessageType Enum: Categorizes communication with predefined message types including connection, prediction, acknowledgment, and error handling signals.
