@@ -6,7 +6,7 @@ This is the README for the [Client Container Shell](https://us-east-1.console.aw
 This initial release provides all necessary resources to prepare submissions for the Phase 1 workshop. Additional testing functionality will be provided in future releases.
 
 ### Minimum Requirements
-- Python 3.6 or newer
+- Python 3.10 or newer
 - Docker (See Configuring Docker)
 - Model that implements methods in provided `DTC_BaseModel` base class: `predict()`, `acknowledge()`, `cleanup()`, and `timed_out()` (See example in *template_model.py* )
 
