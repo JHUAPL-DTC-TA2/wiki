@@ -122,7 +122,7 @@ If your submission requires accessing data from your team’s S3 bucket, you mus
 
 1. Configure your SageMaker with your AWS credentials: In a SageMaker terminal, run `aws configure` and input your AWS credentials. To find your AWS credentials, open a Workspace terminal and run `cat ~/.aws/credentials`. The `aws configure` command will generate files that store your credentials in your SageMaker home directory (i.e., `/home/sagemaker-user/.aws`).
 
-2. Copy your AWS credentials into your project directory: Run `mv ~/.aws <PROJECT_DIRECTORY>`. Replace `<PROJECT_DIRECTORY>` with the path to your project directory. This command will copy the `.aws` directory containing your credentials to your project directory, allowing Docker to access these credentials during the build process. Finally, run `source ~/.bashrc` to reset your permissions (to allow access to your team's s3 buckets, ECR, and other provisioned AWS resources).
+2. Copy your AWS credentials into your project directory: Run `mv ~/.aws <PROJECT_DIRECTORY>`. Replace `<PROJECT_DIRECTORY>` with the path to your project directory. This command will copy the `.aws` directory containing your credentials to your project directory, allowing Docker to access these credentials during the build process. Finally, run `source ~/.bashrc` (or restart your terminal session) to refresh your default permissions (allowing access to your team's s3 buckets, ECR, and other provisioned AWS resources).
 
 3. Use the Dockerfile in `client-shell` to build your Docker image: Navigate to the `client-shell` directory. The Dockerfile in this directory contains commands to set up your Docker image. (See updated `Dockerfile`)
 
