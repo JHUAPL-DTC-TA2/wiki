@@ -1,4 +1,4 @@
-# Client Container Shell v1.0
+# Client Container Shell v1.1
 
 ## Overview
 This is the README for the [Client Container Shell](https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/client-shell/browse?region=us-east-1) and supporting materials for teams participating in the DARPA Triage Challenge Data Competition. The Client Container Shell can be used to prepare submissions for the Phase 1 workshop and challenge events in accordance with the Data Competition ICD (available at https://triagechallenge.darpa.mil).
@@ -6,7 +6,7 @@ This is the README for the [Client Container Shell](https://us-east-1.console.aw
 This initial release provides all necessary resources to prepare submissions for the Phase 1 workshop. Additional testing functionality will be provided in future releases.
 
 ### Minimum Requirements
-- Python 3.6 or newer
+- Python 3.10 or newer
 - Docker (See Configuring Docker)
 - Model that implements methods in provided `DTC_BaseModel` base class: `predict()`, `acknowledge()`, `cleanup()`, and `timed_out()` (See example in *template_model.py* )
 
@@ -47,7 +47,7 @@ RabbitMQ will automatically reserve and map ports `15672` and `5672` on the host
 ## Running the Client with Docker
 
 ### Building with Docker Image
-To containerize your model, start by authenticating to be able to pull the `dtc-base-image:latest`:
+To containerize your model, start by authenticating to be able to pull the `dtc-base-image:v1-1`:
 
 `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`
 
@@ -55,7 +55,7 @@ Build your docker image with the following command:
 
 `docker build --network sagemaker -t dtc-<TEAM_NAME>:<TAG> .`
 
-This command builds the Docker based on the Dockerfile provided. This uses the standard image called `dtc-base-image:latest` which is built on top of the `nvidia/cuda:12.3.2-cudnn9-devel-ubuntu22.04` image.
+This command builds the Docker based on the Dockerfile provided. This uses the standard image called `dtc-base-image:v1-1` which is built on top of the `nvidia/cuda:12.3.2-cudnn9-devel-ubuntu22.04` image. This image includes `dtc_messaging` python package used to interface with the official evaluation server, and `awscli` to access available AWS resources provisioned to your team.
 
 ### Running the Docker Container
 After building the image, run the application in a Docker container with the necessary environment variables:
@@ -77,7 +77,7 @@ The following command will run the client locally with an existing RabbitMQ serv
 
 The `send_message.py` script in the `stub/` directory will send sample messages of each MessageType to a running client container. You may run the command:
 
-`python send_message.py -m {CONNECTION_MESSAGE|PREDICT_MESSAGE|ACKNOWLEDGE_MESSAGE| ... }`
+`python send_message.py --queue rpc_queue -m {CONNECTION_MESSAGE|PREDICT_MESSAGE|ACKNOWLEDGE_MESSAGE| ... }`
 
 to pass a sample message to the client, where a single message type is selected. This should print out the client response message's channel, method, properties, and body data. For example, using the provided `ExampleModel` class in `template_model.py` as the model, running `python send_message.py -m CONNECTION_MESSAGE` would print this response:
 
@@ -116,26 +116,20 @@ All SageMaker app types (JupyterLab, CodeEditor, Studio Classic) support Docker 
 To check Docker installed correctly, run `docker version` on a system terminal to output API and engine details.
 
 
-### Configuring Docker Images to Access S3 Buckets Using AWS Credentials
+## Configuring Docker Images to Access S3 Buckets Using AWS Credentials
 
 If your submission requires accessing data from your team’s S3 bucket, you must configure your Docker images to use your team’s AWS credentials (i.e., `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`). By default, your credentials will not be passed from SageMaker to your Docker images. As a result, your Docker images won't be able to access AWS services like your SageMaker terminal does. To enable this, you need to transfer your SageMaker credentials to your Docker image. Follow these steps:
 
-1. **Configure your SageMaker with your AWS credentials:**
-    - In a SageMaker terminal, run `aws configure` and input your AWS credentials. To find your AWS credentials, open a Workspace terminal and run `cat ~/.aws/credentials`. The `aws configure` command will generate files that store your credentials in your SageMaker home directory (i.e., `/home/sagemaker-user/.aws`).
+1. Configure your SageMaker with your AWS credentials: In a SageMaker terminal, run `aws configure` and input your AWS credentials. To find your AWS credentials, open a Workspace terminal and run `cat ~/.aws/credentials`. The `aws configure` command will generate files that store your credentials in your SageMaker home directory (i.e., `/home/sagemaker-user/.aws`).
 
-2. **Copy your AWS credentials into your project directory:**
-    - Run `cp -r ~/.aws <PROJECT_DIRECTORY>`. Replace `<PROJECT_DIRECTORY>` with the path to your project directory. This command will copy the `.aws` directory containing your credentials to your project directory, allowing Docker to access these credentials during the build process.
+2. Move the AWS credentials into your project directory: Run `mv ~/.aws <PROJECT_DIRECTORY>`. Replace `<PROJECT_DIRECTORY>` with the path to your project directory. This command will move the `.aws` directory containing your credentials to your project directory, allowing Docker to access these credentials during the build process. Finally, run `source ~/.bashrc` (or restart your terminal session) to refresh your default permissions (allowing access to your team's S3 buckets, ECR, and other provisioned AWS resources).
 
-3. **Use the Dockerfile in `client-shell` to build your Docker image:**
-    - Navigate to the `client-shell` directory. The Dockerfile in this directory contains commands to set up your Docker image. (See updated `Dockerfile`)
+3. Use the Dockerfile in `client-shell` to build your Docker image: Navigate to the `client-shell` directory. The Dockerfile in this directory contains commands to set up your Docker image. (See updated `Dockerfile`)
 
-4. **Modify your Dockerfile to transfer the target file:**
-    - Add the following command to your Dockerfile to transfer the target file from S3 to your desired directory within the Docker container: 
-      ```dockerfile
-      RUN aws s3 cp s3://dtc-scratch-<TEAM_NAME>/<TARGET_FILE> /<TARGET_DIRECTORY>
-      ```
-      Replace `<TEAM_NAME>`, `<TARGET_FILE>`, and `<TARGET_DIRECTORY>` with your team name, the file you want to transfer, and the target directory inside the Docker container, respectively.
-
+4. Modify your Dockerfile to transfer the target file: Add the following command to your Dockerfile to transfer the target file from S3 to your desired directory within the Docker container. Replace `<TEAM_NAME>`, `<TARGET_FILE>`, and `<TARGET_DIRECTORY>` with your team name, the file you want to transfer, and the target directory inside the Docker container, respectively:
+```dockerfile
+RUN aws s3 cp s3://dtc-scratch-<TEAM_NAME>/<TARGET_FILE> /<TARGET_DIRECTORY>
+```
 
 **Note:** During the evaluation phase, evaluators will use their own credentials to access your team's S3 buckets.
 
@@ -156,7 +150,22 @@ New Features:
 - Message Handlers: Includes an abstract base class and specific implementations for handling various message types, ensuring appropriate communication with the evaluator.
 - Factory Pattern for Message Handlers: Simplifies the creation of message handlers based on the message type, supporting scalable and modular development.
 
-### May 14, 2024
-- Added *Configuring Docker Images to Access S3 Buckets Using AWS Credentials* section providing participants with instructions to load their Dockerfile with 
+### v1.1
+- Moved dtc_messaging module to dtc-base-image repo.
+  - Fixed bug in message_handler CLEANUP_MESSAGE enum.
+  - Removed top-level “response” key from message dicts.
+  - Adds serialization of Numpy arrays as lists.
+  - Renamed Messenger.py to Client.py.
+  - Added purge of RabbitMQ queue during initialization of client.
+- Uses new Docker base image, dtc-base-image:v1-1.
+  - Includes AWS CLI for copying files from S3 in Docker image.
+  - Creates logs directory, which will be mounted and saved off during evaluation.
+  - Installs latest version of dtc_messaging module.
+- Added comments to Dockerfile with example setup of AWS credentials and S3 copy.
+- Added .gitignore to prevent AWS credentials from being checked into repo.
+- Updated send_message.py stub to match message formats used in evaluation.
+- Updated template_model.py to access all possible fields expected in received messages.
+- Updated README with instructinons for copying from S3 during Docker build.
+  
 ---
 (c) 2024 The Johns Hopkins University Applied Physics Laboratory LLC
