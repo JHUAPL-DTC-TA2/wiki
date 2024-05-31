@@ -1,4 +1,4 @@
-# Recommended Instance Types for SageMaker Studio Classic
+# Recommended Instance Types for SageMaker Studio Apps (CodeEditor and JupyterLab)
 
 | Row | Instance Type  | CPU | RAM (GiB) | GPU | GPU Memory (GiB) | GPU Type       | Purpose          | Quota       | Price per Hour ($) |
 |-----|----------------|-----|-----------|-----|------------------|----------------|------------------|-------------|-------------------|
