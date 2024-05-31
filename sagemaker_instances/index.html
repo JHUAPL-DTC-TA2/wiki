@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#recommended-instance-types-for-sagemaker-studio-classic" class="md-skip">
+        <a href="#recommended-instance-types-for-sagemaker-studio-apps-codeeditor-and-jupyterlab" class="md-skip">
           Skip to content
         </a>
       
@@ -483,127 +483,175 @@
   
 
 
-<h1 id="recommended-instance-types-for-sagemaker-studio-classic">Recommended Instance Types for SageMaker Studio Classic</h1>
+<h1 id="recommended-instance-types-for-sagemaker-studio-apps-codeeditor-and-jupyterlab">Recommended Instance Types for SageMaker Studio Apps (CodeEditor and JupyterLab)</h1>
 <table>
 <thead>
 <tr>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
+<th>Row</th>
+<th>Instance Type</th>
+<th>CPU</th>
+<th>RAM (GiB)</th>
+<th>GPU</th>
+<th>GPU Memory (GiB)</th>
+<th>GPU Type</th>
+<th>Purpose</th>
+<th>Quota</th>
+<th>Price per Hour ($)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Row</td>
-<td>Instance Type</td>
-<td>Specs  <br>(nCPU, nGB RAM, nGPU, GPU Memory)</td>
-<td>Purpose</td>
-<td>Quota</td>
-<td>Price per Hour ($)</td>
-</tr>
-<tr>
 <td>1</td>
 <td>ml.t3.medium</td>
-<td>2, 4, 0, 0</td>
+<td>2</td>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td>None</td>
 <td>General Purpose</td>
-<td>3 per team</td>
+<td>15 per team</td>
 <td>0.05</td>
 </tr>
 <tr>
 <td>2</td>
 <td>ml.m5.large</td>
-<td>2, 8, 0, 0</td>
+<td>2</td>
+<td>8</td>
+<td>0</td>
+<td>0</td>
+<td>None</td>
 <td>General Purpose</td>
-<td>3 per team</td>
+<td>15 per team</td>
 <td>0.115</td>
 </tr>
 <tr>
 <td>3</td>
 <td>ml.m5.2xlarge</td>
-<td>8, 32, 0, 0</td>
+<td>8</td>
+<td>32</td>
+<td>0</td>
+<td>0</td>
+<td>None</td>
 <td>General Purpose</td>
-<td>3 per team</td>
+<td>15 per team</td>
 <td>0.461</td>
 </tr>
 <tr>
 <td>4</td>
 <td>ml.c5.xlarge</td>
-<td>4,8,0,0</td>
+<td>4</td>
+<td>8</td>
+<td>0</td>
+<td>0</td>
+<td>None</td>
 <td>Compute Optimized</td>
-<td>3 per team</td>
+<td>15 per team</td>
 <td>0.204</td>
 </tr>
 <tr>
 <td>5</td>
 <td>ml.c5.2xlarge</td>
-<td>8, 16, 0, 0</td>
+<td>8</td>
+<td>16</td>
+<td>0</td>
+<td>0</td>
+<td>None</td>
 <td>Compute Optimized</td>
-<td>3 per team</td>
+<td>15 per team</td>
 <td>0.408</td>
 </tr>
 <tr>
 <td>6</td>
 <td>ml.c5.9xlarge</td>
-<td>36, 72, 0, 0</td>
+<td>36</td>
+<td>72</td>
+<td>0</td>
+<td>0</td>
+<td>None</td>
 <td>Compute Optimized</td>
-<td>1 per team</td>
+<td>6 per team</td>
 <td>1.836</td>
 </tr>
 <tr>
 <td>7</td>
 <td>ml.r5.8xlarge</td>
-<td>32, 256, 0, 0</td>
+<td>32</td>
+<td>256</td>
+<td>0</td>
+<td>0</td>
+<td>None</td>
 <td>Memory Optimized</td>
-<td>1 per team</td>
+<td>6 per team</td>
 <td>2.419</td>
 </tr>
 <tr>
 <td>8</td>
 <td>ml.r5.16xlarge</td>
-<td>64, 512, 0, 0</td>
+<td>64</td>
+<td>512</td>
+<td>0</td>
+<td>0</td>
+<td>None</td>
 <td>Memory Optimized</td>
-<td>1 per team</td>
+<td>6 per team</td>
 <td>4.838</td>
 </tr>
 <tr>
 <td>9</td>
 <td>ml.p3.2xlarge</td>
-<td>8, 61, 1, 16</td>
+<td>8</td>
+<td>61</td>
+<td>1</td>
+<td>16</td>
+<td>Tesla V100</td>
 <td>GPU - General</td>
-<td>1 per team</td>
+<td>6 per team</td>
 <td>3.825</td>
 </tr>
 <tr>
 <td>10</td>
 <td>ml.p3.8xlarge</td>
-<td>32, 244, 4, 64</td>
+<td>32</td>
+<td>244</td>
+<td>4</td>
+<td>64</td>
+<td>Tesla V100</td>
 <td>GPU - General</td>
-<td>1 per team</td>
+<td>6 per team</td>
 <td>14.688</td>
 </tr>
 <tr>
 <td>11</td>
 <td>ml.g4dn.4xlarge</td>
-<td>16,64,1,16</td>
+<td>16</td>
+<td>64</td>
+<td>1</td>
+<td>16</td>
+<td>NVIDIA T4</td>
 <td>GPU - General</td>
-<td>2 per team</td>
+<td>12 per team</td>
 <td>1.505</td>
 </tr>
 <tr>
 <td>12</td>
 <td>ml.g4dn.8xlarge</td>
-<td>32,128,1,16</td>
+<td>32</td>
+<td>128</td>
+<td>1</td>
+<td>16</td>
+<td>NVIDIA T4</td>
 <td>GPU - Training</td>
-<td>1 per team</td>
+<td>6 per team</td>
 <td>2.72</td>
 </tr>
 <tr>
 <td>13</td>
 <td>ml.g5.4xlarge</td>
-<td>16, 64, 1, 24</td>
+<td>16</td>
+<td>64</td>
+<td>1</td>
+<td>24</td>
+<td>AMD Radeon Pro</td>
 <td>GPU - Inference</td>
 <td>1 per team</td>
 <td>2.03</td>
