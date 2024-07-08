@@ -47,7 +47,7 @@ RabbitMQ will automatically reserve and map ports `15672` and `5672` on the host
 ## Running the Client with Docker
 
 ### Building with Docker Image
-To containerize your model, start by authenticating to be able to pull the `dtc-base-image:v1-1`: @suscenm1
+To containerize your model, start by authenticating to be able to pull the `dtc-base-image`
 
 `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`
 
@@ -55,8 +55,28 @@ Build your docker image with the following command:
 
 `docker build --network sagemaker -t dtc-<TEAM_NAME>:<TAG> .`
 
-This command builds the Docker based on the Dockerfile provided. This uses the standard image called `dtc-base-image:v1-1`  @suscenm1 which is built on top of the `nvidia/cuda:12.3.2-cudnn9-devel-ubuntu22.04` image. <Add the base image built @suscenm1>  This image includes `dtc_messaging` python package used to interface with the official evaluation server, and `awscli` to access available AWS resources provisioned to your team.
-The source for these docker images can be found in <x repo> @suscenm1.
+This command builds the Docker based on the Dockerfile provided. By default, the client-shell Dockerfile builds itself off of  `dtc-base-image:latest` which uses GPU. See the below **Base Images** section, to substitute for a cpu-only base image.
+This image includes the `dtc_messaging` python package used to interface with the official evaluation server, and `awscli` to access available AWS resources provisioned to your team.
+
+
+#### Base Images
+There are two base images available for your use in the AWS ECR:
+- dtc-base-image:latest 
+- dtc-base-image-cpu:latest
+
+`dtc-base-image:latest` is configured for teams whose models require GPU and is built off of `nvidia/cuda:12.3.2-cudnn9-devel-ubuntu22.04`, while `dtc-base-image-cpu:latest` holds a lighter-weight framework for those models that only run on CPU, and it built off of `ubuntu:22.04`.
+
+You should always images tagged `latest`, however a full history of dtc-base-image versions is available on the ECR. As of date the following base images exists:
+
+| Image Name         | Tags           | Release    |
+|:--------           | :----:         | :-------  :|
+| dtc-base-image     | latest, v1-1   | May 2024   |
+| dtc-base-image-cpu | latest, v1-0   | June 2024  |
+| dtc-base-image     | v1-0           | March 2024 | 
+
+
+Further, the [dtc-base-image repository](https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/dtc-base-image/browse?region=us-east-1) holds the code used to generate these images.
+The `main` branch contains dtc-base-image source code and the `cpu-only` branch  contains dtc-base-image-cpu source code.
 
 ### Running the Docker Container
 After building the image, run the application in a Docker container with the necessary environment variables:
@@ -139,15 +159,19 @@ RUN aws s3 cp s3://dtc-scratch-<TEAM_NAME>/<TARGET_FILE> /<TARGET_DIRECTORY>
 .aws
 ```
 ## Evaluating Your Model in SageMaker
-In order to run the evaluator you must be authentcate. To authtneticate, run `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`
+In order to run the evaluator you must be authenticated to the AS ECR. To authenticate, run `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`
+Before running the evaluator, ensure your client container is up and running. 
+The evaluator can be using a single script in the client_shell repository under tools/eval/run_servery.sh
 
-To run the evaluator, go to the client_shell repositoty under tools/eval/run_servery.sh
-# run_server.sh @suscenm1
-- descirbe output_dir <s3 or local> (example using scratch bucket, or local in sagemaker)
-- inventory_file (list of all the segments, holds path of data being sent for each segments), this file can exist in s3 or local. There will be a default file in clinet_shell/tools/eval. Touch base w/ Ben about the two he wants to release and where
-- dataset_dir : either local path or s3 path to dataset, provide example for s3 or local
-Note - this script will pull evaluator from ECR for you
-# run_metrics.sh @mosieri1 
+### run_server.sh 
+The `run_server.py` script will pull the latest `dtc-evaluator` from the ECR and run it. All you need to do is specif the following command line arguments.
+- `--output_dir` or `-o` specifies where model predictions and logs will be stored. This should be an absolute path to a location that is either local to SageMaker or your S3-scratch bucket.
+  - Examples: 
+- `--inventory_file` pr `-i` specifies the relative mapping of data segemnts to be passed in. The inventory file can exist in an S3 bucket or locally. You should find the default inventory file in client_shell/tools/eval.
+  - Examples: 
+- `--dataset_dir` or `-d` specifies the path to the dataset. This can be a local path or an s3 path. 
+  - Examples: 
+### run_metrics.sh @mosieri1 
 - How to run them :) 
 - How to install requirements 
 - Note about not needing anything in src/
@@ -182,9 +206,9 @@ New Features:
 - Updated template_model.py to access all possible fields expected in received messages.
 - Updated README with instructinons for copying from S3 during Docker build.
 
-### v1.2 @suscenm1
-- Chnaged dtc-base image, two images now
-- Added eval tools direcotry to run eval and metrics
-- Added alternative solution for AWS credentials 
+### v1.2
+- Added support for cpu-only base image and updated base-image tags to reflect versions
+- Added a tools directory in the client-shell with scripts to support running evaluation and metrics
+- Added an alternative solution for storing AWS credentials in your Docker container 
 ---
 (c) 2024 The Johns Hopkins University Applied Physics Laboratory LLC
