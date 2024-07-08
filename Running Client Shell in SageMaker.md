@@ -69,7 +69,7 @@ There are two base images available for your use in the AWS ECR:
 You should always images tagged `latest`, however a full history of dtc-base-image versions is available on the ECR. As of date the following base images exists:
 
 | Image Name         | Tags           | Release    |
-|:--------           | :----:         | :-------  :|
+|:--------           | :----:         | :-------:  |
 | dtc-base-image     | latest, v1-1   | May 2024   |
 | dtc-base-image-cpu | latest, v1-0   | June 2024  |
 | dtc-base-image     | v1-0           | March 2024 | 
