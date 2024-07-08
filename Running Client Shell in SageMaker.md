@@ -47,7 +47,7 @@ RabbitMQ will automatically reserve and map ports `15672` and `5672` on the host
 ## Running the Client with Docker
 
 ### Building with Docker Image
-To containerize your model, start by authenticating to be able to pull the `dtc-base-image:v1-1`:
+To containerize your model, start by authenticating to be able to pull the `dtc-base-image:v1-1`: @suscenm1
 
 `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`
 
@@ -55,7 +55,8 @@ Build your docker image with the following command:
 
 `docker build --network sagemaker -t dtc-<TEAM_NAME>:<TAG> .`
 
-This command builds the Docker based on the Dockerfile provided. This uses the standard image called `dtc-base-image:v1-1` which is built on top of the `nvidia/cuda:12.3.2-cudnn9-devel-ubuntu22.04` image. This image includes `dtc_messaging` python package used to interface with the official evaluation server, and `awscli` to access available AWS resources provisioned to your team.
+This command builds the Docker based on the Dockerfile provided. This uses the standard image called `dtc-base-image:v1-1`  @suscenm1 which is built on top of the `nvidia/cuda:12.3.2-cudnn9-devel-ubuntu22.04` image. <Add the base image built @suscenm1>  This image includes `dtc_messaging` python package used to interface with the official evaluation server, and `awscli` to access available AWS resources provisioned to your team.
+The source for these docker images can be found in <x repo> @suscenm1.
 
 ### Running the Docker Container
 After building the image, run the application in a Docker container with the necessary environment variables:
@@ -116,7 +117,7 @@ All SageMaker app types (JupyterLab, CodeEditor, Studio Classic) support Docker 
 To check Docker installed correctly, run `docker version` on a system terminal to output API and engine details.
 
 
-## Configuring Docker Images to Access S3 Buckets Using AWS Credentials
+## Configuring Docker Images to Access S3 Buckets Using AWS Credentials @pulidjv1 -- > update assume roles 
 
 If your submission requires accessing data from your team’s S3 bucket, you must configure your Docker images to use your team’s AWS credentials (i.e., `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`). By default, your credentials will not be passed from SageMaker to your Docker images. As a result, your Docker images won't be able to access AWS services like your SageMaker terminal does. To enable this, you need to transfer your SageMaker credentials to your Docker image. Follow these steps:
 
@@ -137,6 +138,20 @@ RUN aws s3 cp s3://dtc-scratch-<TEAM_NAME>/<TARGET_FILE> /<TARGET_DIRECTORY>
 ```
 .aws
 ```
+## Evaluating Your Model in SageMaker
+In order to run the evaluator you must be authentcate. To authtneticate, run `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`
+
+To run the evaluator, go to the client_shell repositoty under tools/eval/run_servery.sh
+# run_server.sh @suscenm1
+- descirbe output_dir <s3 or local> (example using scratch bucket, or local in sagemaker)
+- inventory_file (list of all the segments, holds path of data being sent for each segments), this file can exist in s3 or local. There will be a default file in clinet_shell/tools/eval. Touch base w/ Ben about the two he wants to release and where
+- dataset_dir : either local path or s3 path to dataset, provide example for s3 or local
+Note - this script will pull evaluator from ECR for you
+# run_metrics.sh @mosieri1 
+- How to run them :) 
+- How to install requirements 
+- Note about not needing anything in src/
+- Link file for how to read results 
 
 ## Release Notes
 
@@ -166,6 +181,10 @@ New Features:
 - Updated send_message.py stub to match message formats used in evaluation.
 - Updated template_model.py to access all possible fields expected in received messages.
 - Updated README with instructinons for copying from S3 during Docker build.
-  
+
+### v1.2 @suscenm1
+- Chnaged dtc-base image, two images now
+- Added eval tools direcotry to run eval and metrics
+- Added alternative solution for AWS credentials 
 ---
 (c) 2024 The Johns Hopkins University Applied Physics Laboratory LLC
