@@ -18,6 +18,7 @@ This initial release provides all necessary resources to prepare submissions for
    * Run as Docker container (See **Running the Client with Docker**)
    * Run locally within AWS Workspace (See **Running the Client locally**)
 5. Test connection between client and server using messaging stub (See **Passing Messages to the Client**).
+6. Test with dtc-evaluator image and run metrics (See **Evaluating Your Model in SageMaker**).
 
 
 ### Message Types and Handlers
@@ -56,7 +57,7 @@ Build your docker image with the following command:
 `docker build --network sagemaker -t dtc-<TEAM_NAME>:<TAG> .`
 
 This command builds the Docker based on the Dockerfile provided. By default, the client-shell Dockerfile builds itself off of  `dtc-base-image:latest` which uses GPU. See the below **Base Images** section, to substitute for a cpu-only base image.
-This image includes the `dtc_messaging` python package used to interface with the official evaluation server, and `awscli` to access available AWS resources provisioned to your team.
+Both images include the `dtc_messaging` python package used to interface with the official evaluation server, and `awscli` to access available AWS resources provisioned to your team.
 
 
 #### Base Images
@@ -64,9 +65,9 @@ There are two base images available for your use in the AWS ECR:
 - dtc-base-image:latest 
 - dtc-base-image-cpu:latest
 
-`dtc-base-image:latest` is configured for teams whose models require GPU and is built off of `nvidia/cuda:12.3.2-cudnn9-devel-ubuntu22.04`, while `dtc-base-image-cpu:latest` holds a lighter-weight framework for those models that only run on CPU, and it built off of `ubuntu:22.04`.
+`dtc-base-image:latest` is configured for teams whose models require GPU and is built off of `nvidia/cuda:12.3.2-cudnn9-devel-ubuntu22.04`, while `dtc-base-image-cpu:latest` holds a lighter-weight framework for those models that only run on CPU, and it is built off of `ubuntu:22.04`.
 
-You should always images tagged `latest`, however a full history of dtc-base-image versions is available on the ECR. As of date the following base images exists:
+You should always use images tagged `latest`, however a full history of dtc-base-image versions is available on the ECR. As of date, the following base images exists:
 
 | Image Name         | Tags           | Release    |
 |:--------           | :----:         | :-------:  |
@@ -113,7 +114,7 @@ BODY: b'{"response": {"response": "connected"}}'
 Two example segment files have been included to test messaging with a `PREDICT_MESSAGE`. These segment files were generated from a full case in the training dataset using the included script `tools/segment_case.py`.
 
 ## Uploading image to AWS ECR (Elastic Container Registry)
-Use the following steps to authenticate and push an image to your team ECR repository.
+Use the following steps to authenticate and push an image to your team ECR.
 
 Start by retrieving an authentication token and authenticate your Docker client to your registry.
 
@@ -159,21 +160,23 @@ RUN aws s3 cp s3://dtc-scratch-<TEAM_NAME>/<TARGET_FILE> /<TARGET_DIRECTORY>
 .aws
 ```
 ## Evaluating Your Model in SageMaker
-In order to run the evaluator you must be authenticated to the AS ECR. To authenticate, run `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`
-Before running the evaluator, ensure your client container is up and running. 
-The evaluator can be using a single script in the client_shell repository under tools/eval/run_servery.sh
+In order to run the evaluator you must be authenticated to the AWS ECR. To authenticate, run `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`
+Before running the evaluator, ensure your client container is up and running (see [Running the Client with Docker](#running-the-client-with-docker) or [Running the Client locally](#running-the-client-locally) ). @suscenm1 
+
+The evaluator can be run using a single script in the client_shell repository under `tools/eval/run_server.sh`
 
 ### run_server.sh 
-The `run_server.py` script will pull the latest `dtc-evaluator` from the ECR and run it. All you need to do is specif the following command line arguments.
-- `--output_dir` or `-o` specifies where model predictions and logs will be stored. This should be an absolute path to a location that is either local to SageMaker or your S3-scratch bucket.
-  - Examples: 
-- `--inventory_file` pr `-i` specifies the relative mapping of data segemnts to be passed in. The inventory file can exist in an S3 bucket or locally. You should find the default inventory file in client_shell/tools/eval.
-  - Examples: 
-- `--dataset_dir` or `-d` specifies the path to the dataset. This can be a local path or an s3 path. 
-  - Examples: 
+The `run_server.sh` script will pull the latest `dtc-evaluator` from the ECR and run it. All you need to do is specify the following command line arguments.
+- `--output-dir` or `-o` specifies where model predictions and logs will be stored. This path can point to a location that is either local to SageMaker or your team's S3-scratch bucket.
+- `--inventory-file` or `-i` specifies the list of data segments to be used by the evaluator. The inventory file can exist in an S3 bucket or locally. An example inventory file can be found in client_shell/tools/eval.
+- `--dataset-dir` or `-d` specifies the path to the segmented dataset. This can be a local path or an S3 path. 
+
+ Example usage: 
+- `./run_server.sh --output-dir /path/to/output --inventory-file inventory_phase1_v1-2_val.csv --dataset-dir s3://dtc-training-data/phase1_v1-2_segmented/val`
+  
 ### run_metrics.sh
 
-The `run_metrics.sh` script located at tools/eval/run_metrics.sh will compute performance metrics for an evaluation conducted using `run_server.sh`.
+The `run_metrics.sh` script located at `tools/eval/run_metrics.sh` will compute performance metrics for an evaluation conducted using `run_server.sh`.
 
 The script saves off three files within OUTPUT_DIR/metrics:
 
@@ -183,7 +186,7 @@ The script saves off three files within OUTPUT_DIR/metrics:
 
 See this [Metrics Guide](Metrics%20Guide.md) for more details on the contents of these files. 
 
-To compute metrics for an evaluation run, first install the requirements localed in `tools/eval/requirements.txt`:
+To compute metrics for an evaluation run, first install the requirements located in `tools/eval/requirements.txt`:
 
 ```
 pip install -r requirements.txt --timeout 1000
@@ -199,20 +202,16 @@ The `output-dir`, `inventory-file`, and `dataset-dir` should match the inputs us
 
 If you want to run metrics on an incomplete run, you may include the optional `allow-incomplete` flag. Otherwise, the script will check to ensure all segments in the inventory file were run and throw an error if responses are missing.
 
-The python scripts used to generate the ground truth, response, and metrics JSONs are located in tools/eval/src, but should not be altered.  
+The python scripts used to generate the ground truth, response, and metrics JSONs are located in `tools/eval/src`, but should not be altered.  
 
 ## Release Notes
 
-### V1.0
-
-New Features:
-
-- RabbitMQ Client: Establishes a connection to a RabbitMQ server, sets up a queue for RPC requests, and listens for incoming requests.
-- Model Class: Abstract base for creating prediction models with methods for predictions, acknowledgments, end-of-case, and error scenarios. You will extend this class to implement your custom models for the evaluation. You merely need to implement four functions.
-- MessageType Enum: Categorizes communication with predefined message types including connection, prediction, acknowledgment, and error handling signals.
-- Message Handlers: Includes an abstract base class and specific implementations for handling various message types, ensuring appropriate communication with the evaluator.
-- Factory Pattern for Message Handlers: Simplifies the creation of message handlers based on the message type, supporting scalable and modular development.
-
+### v1.2
+- Added support for cpu-only base image and updated base-image tags to reflect versions.
+- Added a tools directory in the client-shell with scripts to support running evaluation and metrics.
+- Added an alternative solution for storing AWS credentials in your Docker container.
+- Added instructions to the wiki for running the evaluator in SageMaker.
+  
 ### v1.1
 - Moved dtc_messaging module to dtc-base-image repo.
   - Fixed bug in message_handler CLEANUP_MESSAGE enum.
@@ -230,9 +229,15 @@ New Features:
 - Updated template_model.py to access all possible fields expected in received messages.
 - Updated README with instructinons for copying from S3 during Docker build.
 
-### v1.2
-- Added support for cpu-only base image and updated base-image tags to reflect versions
-- Added a tools directory in the client-shell with scripts to support running evaluation and metrics
-- Added an alternative solution for storing AWS credentials in your Docker container 
+### v1.0
+
+New Features:
+
+- RabbitMQ Client: Establishes a connection to a RabbitMQ server, sets up a queue for RPC requests, and listens for incoming requests.
+- Model Class: Abstract base for creating prediction models with methods for predictions, acknowledgments, end-of-case, and error scenarios. You will extend this class to implement your custom models for the evaluation. You merely need to implement four functions.
+- MessageType Enum: Categorizes communication with predefined message types including connection, prediction, acknowledgment, and error handling signals.
+- Message Handlers: Includes an abstract base class and specific implementations for handling various message types, ensuring appropriate communication with the evaluator.
+- Factory Pattern for Message Handlers: Simplifies the creation of message handlers based on the message type, supporting scalable and modular development.
+
 ---
 (c) 2024 The Johns Hopkins University Applied Physics Laboratory LLC
