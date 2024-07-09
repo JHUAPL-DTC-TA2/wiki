@@ -171,11 +171,35 @@ The `run_server.py` script will pull the latest `dtc-evaluator` from the ECR and
   - Examples: 
 - `--dataset_dir` or `-d` specifies the path to the dataset. This can be a local path or an s3 path. 
   - Examples: 
-### run_metrics.sh @mosieri1 
-- How to run them :) 
-- How to install requirements 
-- Note about not needing anything in src/
-- Link file for how to read results 
+### run_metrics.sh
+
+The `run_metrics.sh` script located at tools/eval/run_metrics.sh will compute performance metrics for an evaluation conducted using `run_server.sh`.
+
+The script saves off three files within OUTPUT_DIR/metrics:
+
+1. A **ground truth** JSON file containing all segments listed in the `inventory.csv`.
+2. A **responses** JSON file containing the model's responses to all segments from the evaluation.
+3. A **metrics** JSON containing the Jaccard Index and Prediction Lead-Time for each case. 
+
+See this [Metrics Guide](Metrics%20Guide.md) for more details on the contents of these files. 
+
+To compute metrics for an evaluation run, first install the requirements localed in `tools/eval/requirements.txt`:
+
+```
+pip install -r requirements.txt --timeout 1000
+```
+
+After installing the requirements, run the metrics script:
+
+```
+bash ./run_metrics.sh --output-dir [OUTPUT_DIR] --inventory-file [INVENTORY_FILE] --dataset-dir [DATASET_DIR] [--allow-incomplete]
+```
+
+The `output-dir`, `inventory-file`, and `dataset-dir` should match the inputs used for `run_server.sh`.
+
+If you want to run metrics on an incomplete run, you may include the optional `allow-incomplete` flag. Otherwise, the script will check to ensure all segments in the inventory file were run and throw an error if responses are missing.
+
+The python scripts used to generate the ground truth, response, and metrics JSONs are located in tools/eval/src, but should not be altered.  
 
 ## Release Notes
 
