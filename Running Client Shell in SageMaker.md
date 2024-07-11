@@ -161,7 +161,7 @@ RUN aws s3 cp s3://dtc-scratch-<TEAM_NAME>/<TARGET_FILE> /<TARGET_DIRECTORY>
 ```
 ## Evaluating Your Model in SageMaker
 In order to run the evaluator you must be authenticated to the AWS ECR. To authenticate, run `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`
-Before running the evaluator, ensure your client container is up and running (see [Running the Client with Docker](#running-the-client-with-docker) or [Running the Client locally](#running-the-client-locally) ). @suscenm1 
+Before running the evaluator, ensure your client container is up and running (see [Running the Client with Docker](#running-the-client-with-docker) or [Running the Client locally](#running-the-client-locally) ).
 
 The evaluator can be run using a single script in the client_shell repository under `tools/eval/run_server.sh`
 
