@@ -138,7 +138,7 @@ All SageMaker app types (JupyterLab, CodeEditor, Studio Classic) support Docker 
 To check Docker installed correctly, run `docker version` on a system terminal to output API and engine details.
 
 
-## Configuring Docker Images to Access S3 Buckets Using AWS Credentials @pulidjv1 -- > update assume roles 
+## Configuring Docker Images to Access S3 Buckets Using AWS Credentials
 
 If your submission requires accessing data from your team’s S3 bucket, you must configure your Docker images to use your team’s AWS credentials (i.e., `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`). By default, your credentials will not be passed from SageMaker to your Docker images. As a result, your Docker images won't be able to access AWS services like your SageMaker terminal does. To enable this, you need to transfer your SageMaker credentials to your Docker image. Follow these steps:
 
@@ -209,7 +209,6 @@ The python scripts used to generate the ground truth, response, and metrics JSON
 ### v1.2
 - Added support for cpu-only base image and updated base-image tags to reflect versions.
 - Added a tools directory in the client-shell with scripts to support running evaluation and metrics.
-- Added an alternative solution for storing AWS credentials in your Docker container.
 - Added instructions to the wiki for running the evaluator in SageMaker.
   
 ### v1.1
