@@ -1,4 +1,4 @@
-# Submission Method
+# Submission Process
 
 Each participant will be provisioned AWS CodeBuild Continuous Integration/Continuous Development (CI/CD) resources to provide automatic feedback regarding the submission compliance with the official evaluation system. This (CI/CD) system will containerize the submitted code using a standard buildspec and simulate a 10-case minature version of the evaluation process to assess the code’s compliance. The estimated time to complete a test is ~10-15 minutes, as CodeBuild needs to queue and provision resources, and build/run containers to complete the test.
 
