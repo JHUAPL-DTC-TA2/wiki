@@ -38,6 +38,8 @@ nav:
 - Importing Data to AWS: importing_data.md
 - Custom Images: creating_custom_images.md
 - Available Instances: sagemaker_instances.md
+- Metrics Guide: metrics_guide.md
+- Submission Process: submission_process.md
 markdown_extensions:
   - pymdownx.critic
   - pymdownx.caret
