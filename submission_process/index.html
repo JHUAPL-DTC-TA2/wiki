@@ -8,13 +8,11 @@
       
       
       
-        <link rel="canonical" href="https://JHUAPL-DTC-TA2.github.io/wiki/creating_custom_images/">
+        <link rel="canonical" href="https://JHUAPL-DTC-TA2.github.io/wiki/submission_process/">
       
       
-        <link rel="prev" href="../importing_data/">
+        <link rel="prev" href="../metrics_guide/">
       
-      
-        <link rel="next" href="../sagemaker_instances/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -22,7 +20,7 @@
     
     
       
-        <title>Custom Images - DTC-Wiki</title>
+        <title>Submission Process - DTC-Wiki</title>
       
     
     
@@ -74,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#creating-custom-docker-images-to-use-in-sagemaker" class="md-skip">
+        <a href="#submission-process" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Custom Images
+              Submission Process
             
           </span>
         </div>
@@ -231,11 +229,9 @@
         
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../creating_custom_images/" class="md-tabs__link">
         
   
     
@@ -284,9 +280,11 @@
         
   
   
+    
   
-    <li class="md-tabs__item">
-      <a href="../submission_process/" class="md-tabs__link">
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
         
   
     
@@ -455,30 +453,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Custom Images
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../creating_custom_images/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -487,62 +465,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#finding-your-teams-repository" class="md-nav__link">
-    <span class="md-ellipsis">
-      Finding your team's repository
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#authenticate-docker-of-your-ecr-repository" class="md-nav__link">
-    <span class="md-ellipsis">
-      Authenticate Docker of Your ECR Repository
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pushing-your-docker-image" class="md-nav__link">
-    <span class="md-ellipsis">
-      Pushing your Docker Image
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#attaching-your-image-to-sagemaker-studio" class="md-nav__link">
-    <span class="md-ellipsis">
-      Attaching your image to SageMaker Studio
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -591,10 +513,19 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../submission_process/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -603,6 +534,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -625,38 +557,28 @@
   
 
 
-<h1 id="creating-custom-docker-images-to-use-in-sagemaker">Creating custom Docker Images to use in SageMaker</h1>
-<p>This guide walks you through the process of pushing a custom Docker image to an Amazon Elastic Container Registry (ECR) repository named dtc-{team-prefix} and subsequently using this image in AWS SageMaker Studio for your data science and machine learning projects.</p>
-<p><strong>Prerequisites</strong>
-- AWS CLI installed and configured on your machine.
-- Docker installed on your machine.
-- Team IAM Credentials (AWS Access keys)
-- Knowledge of your team's prefix to replace {team-prefix} in the repository name.</p>
-<h2 id="finding-your-teams-repository">Finding your team's repository</h2>
-<p>Each team has a default repository created for them under the name <code>dtc-{team-prefix}</code>. To check the status of your repository, you can use the AWS CLI.</p>
-<div class="highlight"><pre><span></span><code>aws<span class="w"> </span>ecr<span class="w"> </span>describe-repositories<span class="w"> </span>--repository-name<span class="w"> </span>dtc-&lt;team-name&gt;
-</code></pre></div>
-<p>Only your team and DTC Admins have the permissions to view your ECR repository. Contact admins if you would like additional repositories. </p>
-<h2 id="authenticate-docker-of-your-ecr-repository">Authenticate Docker of Your ECR Repository</h2>
-<p>Before pushing images to ECR, you must authenticate Docker to the ECR registry. Run the following command directly to authenticate your terminal to push to your ECR repository. </p>
-<div class="highlight"><pre><span></span><code>aws<span class="w"> </span>ecr<span class="w"> </span>get-login-password<span class="w"> </span>--region<span class="w"> </span>us-east-1<span class="w"> </span><span class="p">|</span><span class="w"> </span>docker<span class="w"> </span>login<span class="w"> </span>--username<span class="w"> </span>AWS<span class="w"> </span>--password-stdin<span class="w"> </span><span class="m">552707247569</span>.dkr.ecr.us-east-1.amazonaws.com
-</code></pre></div>
-<h2 id="pushing-your-docker-image">Pushing your Docker Image</h2>
-<p>Navigate to the directory containing your Dockerfile and run the following command, replacing {image-name} with your desired image name. If not specified, it will default to <code>latest</code>.</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>dtc-<span class="o">{</span>team-prefix<span class="o">}</span>:<span class="o">{</span>image-name<span class="o">}</span><span class="w"> </span>.
-</code></pre></div>
-<p>Tag the image to the ECR repository URL. </p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>tag<span class="w"> </span>dtc-<span class="o">{</span>team-prefix<span class="o">}</span>:<span class="o">{</span>image-name<span class="o">}</span><span class="w"> </span><span class="m">552707247569</span>.dkr.ecr.us-east-1.amazonaws.com/dtc-<span class="o">{</span>team-prefix<span class="o">}</span>:<span class="o">{</span>image-name<span class="o">}</span>
-</code></pre></div>
-<p>Finally, push the image to your ECR repository.</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>push<span class="w"> </span><span class="m">552707247569</span>.dkr.ecr.us-east-1.amazonaws.com/dtc-<span class="o">{</span>team-prefix<span class="o">}</span>:<span class="o">{</span>image-name<span class="o">}</span>
-</code></pre></div>
-<h2 id="attaching-your-image-to-sagemaker-studio">Attaching your image to SageMaker Studio</h2>
-<p>To attach the image to your SageMaker studio domain, follow the CLI-specific instructions provided in this <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/studio-byoi-create.html">AWS reference document</a>. </p>
-<p>Once you reach the final step of creating the App Image Config, send an email to APL-DTC-Help@jhuapl.edu with your image name, app config name and team name for an admin to add it to your domain. </p>
-<blockquote>
-<p>Note: You do not need to provide an execution role ARN when creating the image or image configurations through AWS. The execution role should be an optional argument. </p>
-</blockquote>
+<h1 id="submission-process">Submission Process</h1>
+<p>Each participant will be provisioned AWS CodeBuild Continuous Integration/Continuous Development (CI/CD) resources to provide automatic feedback regarding the submission compliance with the official evaluation system. This (CI/CD) system will containerize the submitted code using a standard buildspec and simulate a 10-case minature version of the evaluation process to assess the code’s compliance. The estimated time to complete a test is ~10-15 minutes, as CodeBuild needs to queue and provision resources, and build/run containers to complete the test.</p>
+<p>To review the system predictions and logs of the CI/CD, the build objects will be placed in your team's scratch bucket under <code>s3://dtc-scratch-{team_name}/codebuild/</code>. The CI/CD  will store the CodeBuild logs for each unique build in the <code>build-logs/</code> directory, and the evaluation outputs in the <code>submission_results/</code> directory (i.e.  the <code>logs/</code> and <code>out/</code> directories equivalent to those produced by the dtc-server).</p>
+<p>Teams can trigger the CodeBuild in <strong>TWO</strong> ways:</p>
+<ul>
+<li><strong>Compliance Test:</strong> to perform intial compliance testing during the development phase.</li>
+<li><em>Triggers</em>: pushing updates to a team's CodeCommit branch called <code>compliance-test</code>.</li>
+<li>
+<p><em>Outcomes</em>: the team's Principal Investigator will recieve an email from AWS's SNS services if the the CI/CD successfully completed.</p>
+</li>
+<li>
+<p><strong>Official Event Submissions:</strong> to officially submit for an event evaluation.</p>
+</li>
+<li><em>Triggers</em>: pushing updates to a team's CodeCommit with a commit tag called <code>submission-phase{PHASE_NUMBER}-{EVENT_TYPE}</code>.<ul>
+<li><code>PHASE_NUMBER = {1,2,3}</code></li>
+<li><code>EVENT_TYPE = {workshop, challenge}</code></li>
+</ul>
+</li>
+<li><em>Outcomes</em>: if a build is successful, an email will be sent to the Principal Investigator and a docker image will be stored for review. Your previous image submission will be overwritten.</li>
+</ul>
+<p>At the time of the Event submission deadline, the Challenge administrators will automatically pull the images for evaluation.</p>
+<p>More information on the CI/CD can be found in the Data Challenge ICD.</p>
 
 
 
@@ -692,7 +614,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../importing_data/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Importing Data to AWS">
+          <a href="../metrics_guide/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Metrics Guide">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
@@ -702,27 +624,11 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Importing Data to AWS
+                Metrics Guide
               </div>
             </div>
           </a>
         
-        
-          
-          <a href="../sagemaker_instances/" class="md-footer__link md-footer__link--next" aria-label="Next: Available Instances">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              <div class="md-ellipsis">
-                Available Instances
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-            </div>
-          </a>
         
       </nav>
     

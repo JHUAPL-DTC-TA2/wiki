@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.21">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.29">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.66ac8b77.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.76a95c52.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
@@ -258,6 +258,40 @@
     
   
   Available Instances
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../metrics_guide/" class="md-tabs__link">
+        
+  
+    
+  
+  Metrics Guide
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../submission_process/" class="md-tabs__link">
+        
+  
+    
+  
+  Submission Process
 
       </a>
     </li>
@@ -506,6 +540,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Building with Docker Image">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#base-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Base Images
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -568,6 +617,39 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#evaluating-your-model-in-sagemaker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Evaluating Your Model in SageMaker
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluating Your Model in SageMaker">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run_serversh" class="md-nav__link">
+    <span class="md-ellipsis">
+      run_server.sh
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run_metricssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      run_metrics.sh
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#release-notes" class="md-nav__link">
     <span class="md-ellipsis">
       Release Notes
@@ -578,9 +660,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#v10" class="md-nav__link">
+  <a href="#v12" class="md-nav__link">
     <span class="md-ellipsis">
-      V1.0
+      v1.2
     </span>
   </a>
   
@@ -590,6 +672,15 @@
   <a href="#v11" class="md-nav__link">
     <span class="md-ellipsis">
       v1.1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v10" class="md-nav__link">
+    <span class="md-ellipsis">
+      v1.0
     </span>
   </a>
   
@@ -668,6 +759,46 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metrics_guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Metrics Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../submission_process/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Submission Process
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -705,6 +836,7 @@
 <li>Run as Docker container (See <strong>Running the Client with Docker</strong>)</li>
 <li>Run locally within AWS Workspace (See <strong>Running the Client locally</strong>)</li>
 <li>Test connection between client and server using messaging stub (See <strong>Passing Messages to the Client</strong>).</li>
+<li>Test with dtc-evaluator image and run metrics (See <strong>Evaluating Your Model in SageMaker</strong>).</li>
 </ol>
 <h3 id="message-types-and-handlers">Message Types and Handlers</h3>
 <p>The client supports a fixed set of message types (MessageType) with corresponding callbacks:</p>
@@ -726,11 +858,46 @@
 <p>RabbitMQ will automatically reserve and map ports <code>15672</code> and <code>5672</code> on the host to ports <code>15672</code> and <code>5672</code> in the server container, respectively. These ports are used by the RabbitMQ server.</p>
 <h2 id="running-the-client-with-docker">Running the Client with Docker</h2>
 <h3 id="building-with-docker-image">Building with Docker Image</h3>
-<p>To containerize your model, start by authenticating to be able to pull the <code>dtc-base-image:v1-1</code>:</p>
+<p>To containerize your model, start by authenticating to be able to pull the <code>dtc-base-image</code></p>
 <p><code>aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com</code></p>
 <p>Build your docker image with the following command:</p>
 <p><code>docker build --network sagemaker -t dtc-&lt;TEAM_NAME&gt;:&lt;TAG&gt; .</code></p>
-<p>This command builds the Docker based on the Dockerfile provided. This uses the standard image called <code>dtc-base-image:v1-1</code> which is built on top of the <code>nvidia/cuda:12.3.2-cudnn9-devel-ubuntu22.04</code> image. This image includes <code>dtc_messaging</code> python package used to interface with the official evaluation server, and <code>awscli</code> to access available AWS resources provisioned to your team.</p>
+<p>This command builds the Docker based on the Dockerfile provided. By default, the client-shell Dockerfile builds itself off of  <code>dtc-base-image:latest</code> which uses GPU. See the below <strong>Base Images</strong> section, to substitute for a cpu-only base image.
+Both images include the <code>dtc_messaging</code> python package used to interface with the official evaluation server, and <code>awscli</code> to access available AWS resources provisioned to your team.</p>
+<h4 id="base-images">Base Images</h4>
+<p>There are two base images available for your use in the AWS ECR:
+- dtc-base-image:latest 
+- dtc-base-image-cpu:latest</p>
+<p><code>dtc-base-image:latest</code> is configured for teams whose models require GPU and is built off of <code>nvidia/cuda:12.3.2-cudnn9-devel-ubuntu22.04</code>, while <code>dtc-base-image-cpu:latest</code> holds a lighter-weight framework for those models that only run on CPU, and it is built off of <code>ubuntu:22.04</code>.</p>
+<p>You should always use images tagged <code>latest</code>, however a full history of dtc-base-image versions is available on the ECR. As of date, the following base images exists:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Image Name</th>
+<th style="text-align: center;">Tags</th>
+<th style="text-align: center;">Release</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">dtc-base-image</td>
+<td style="text-align: center;">latest, v1-1</td>
+<td style="text-align: center;">May 2024</td>
+</tr>
+<tr>
+<td style="text-align: left;">dtc-base-image-cpu</td>
+<td style="text-align: center;">latest, v1-0</td>
+<td style="text-align: center;">June 2024</td>
+</tr>
+<tr>
+<td style="text-align: left;">dtc-base-image</td>
+<td style="text-align: center;">v1-0</td>
+<td style="text-align: center;">March 2024</td>
+</tr>
+</tbody>
+</table>
+<p>Further, the <a href="https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/dtc-base-image/browse?region=us-east-1">dtc-base-image repository</a> holds the code used to generate these images.
+The <code>main</code> branch contains dtc-base-image source code and the <code>cpu-only</code> branch  contains dtc-base-image-cpu source code.</p>
 <h3 id="running-the-docker-container">Running the Docker Container</h3>
 <p>After building the image, run the application in a Docker container with the necessary environment variables:</p>
 <p><code>docker run --network sagemaker -it --rm dtc-&lt;TEAM_NAME&gt;:&lt;TAG&gt;</code></p>
@@ -752,7 +919,7 @@ BODY: b&#39;{&quot;response&quot;: {&quot;response&quot;: &quot;connected&quot;}
 </code></pre></div>
 <p>Two example segment files have been included to test messaging with a <code>PREDICT_MESSAGE</code>. These segment files were generated from a full case in the training dataset using the included script <code>tools/segment_case.py</code>.</p>
 <h2 id="uploading-image-to-aws-ecr-elastic-container-registry">Uploading image to AWS ECR (Elastic Container Registry)</h2>
-<p>Use the following steps to authenticate and push an image to your team ECR repository.</p>
+<p>Use the following steps to authenticate and push an image to your team ECR.</p>
 <p>Start by retrieving an authentication token and authenticate your Docker client to your registry.</p>
 <p><code>aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com</code></p>
 <p>Tag your image so you can push the image to this repository:</p>
@@ -787,15 +954,41 @@ BODY: b&#39;{&quot;response&quot;: {&quot;response&quot;: &quot;connected&quot;}
 <p><strong>Warning:</strong> For security reasons, do not push your credentials to CodeCommit. We have updated the <code>.gitignore</code> file to exclude all files stored in the <code>.aws</code> directory. Ensure your <code>.gitignore</code> file includes the following entry:
 <div class="highlight"><pre><span></span><code>.aws
 </code></pre></div></p>
+<h2 id="evaluating-your-model-in-sagemaker">Evaluating Your Model in SageMaker</h2>
+<p>In order to run the evaluator you must be authenticated to the AWS ECR. To authenticate, run <code>aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com</code>
+Before running the evaluator, ensure your client container is up and running (see <a href="#running-the-client-with-docker">Running the Client with Docker</a> or <a href="#running-the-client-locally">Running the Client locally</a> ).</p>
+<p>The evaluator can be run using a single script in the client_shell repository under <code>tools/eval/run_server.sh</code></p>
+<h3 id="run_serversh">run_server.sh</h3>
+<p>The <code>run_server.sh</code> script will pull the latest <code>dtc-evaluator</code> from the ECR and run it. All you need to do is specify the following command line arguments.
+- <code>--output-dir</code> or <code>-o</code> specifies where model predictions and logs will be stored. This path can point to a location that is either local to SageMaker or your team's S3-scratch bucket.
+- <code>--inventory-file</code> or <code>-i</code> specifies the list of data segments to be used by the evaluator. The inventory file can exist in an S3 bucket or locally. An example inventory file can be found in client_shell/tools/eval.
+- <code>--dataset-dir</code> or <code>-d</code> specifies the path to the segmented dataset. This can be a local path or an S3 path. </p>
+<p>Example usage: 
+- <code>./run_server.sh --output-dir /path/to/output --inventory-file inventory_phase1_v1-2_val.csv --dataset-dir s3://dtc-training-data/phase1_v1-2_segmented/val</code></p>
+<h3 id="run_metricssh">run_metrics.sh</h3>
+<p>The <code>run_metrics.sh</code> script located at <code>tools/eval/run_metrics.sh</code> will compute performance metrics for an evaluation conducted using <code>run_server.sh</code>.</p>
+<p>The script saves off three files within OUTPUT_DIR/metrics:</p>
+<ol>
+<li>A <strong>ground truth</strong> JSON file containing all segments listed in the <code>inventory.csv</code>.</li>
+<li>A <strong>responses</strong> JSON file containing the model's responses to all segments from the evaluation.</li>
+<li>A <strong>metrics</strong> JSON containing the Jaccard Index and Prediction Lead-Time for each case. </li>
+</ol>
+<p>See this <a href="Metrics%20Guide.md">Metrics Guide</a> for more details on the contents of these files. </p>
+<p>To compute metrics for an evaluation run, first install the requirements located in <code>tools/eval/requirements.txt</code>:</p>
+<div class="highlight"><pre><span></span><code>pip install -r requirements.txt --timeout 1000
+</code></pre></div>
+<p>After installing the requirements, run the metrics script:</p>
+<div class="highlight"><pre><span></span><code>bash ./run_metrics.sh --output-dir [OUTPUT_DIR] --inventory-file [INVENTORY_FILE] --dataset-dir [DATASET_DIR] [--allow-incomplete]
+</code></pre></div>
+<p>The <code>output-dir</code>, <code>inventory-file</code>, and <code>dataset-dir</code> should match the inputs used for <code>run_server.sh</code>.</p>
+<p>If you want to run metrics on an incomplete run, you may include the optional <code>allow-incomplete</code> flag. Otherwise, the script will check to ensure all segments in the inventory file were run and throw an error if responses are missing.</p>
+<p>The python scripts used to generate the ground truth, response, and metrics JSONs are located in <code>tools/eval/src</code>, but should not be altered.  </p>
 <h2 id="release-notes">Release Notes</h2>
-<h3 id="v10">V1.0</h3>
-<p>New Features:</p>
+<h3 id="v12">v1.2</h3>
 <ul>
-<li>RabbitMQ Client: Establishes a connection to a RabbitMQ server, sets up a queue for RPC requests, and listens for incoming requests.</li>
-<li>Model Class: Abstract base for creating prediction models with methods for predictions, acknowledgments, end-of-case, and error scenarios. You will extend this class to implement your custom models for the evaluation. You merely need to implement four functions.</li>
-<li>MessageType Enum: Categorizes communication with predefined message types including connection, prediction, acknowledgment, and error handling signals.</li>
-<li>Message Handlers: Includes an abstract base class and specific implementations for handling various message types, ensuring appropriate communication with the evaluator.</li>
-<li>Factory Pattern for Message Handlers: Simplifies the creation of message handlers based on the message type, supporting scalable and modular development.</li>
+<li>Added support for cpu-only base image and updated base-image tags to reflect versions.</li>
+<li>Added a tools directory in the client-shell with scripts to support running evaluation and metrics.</li>
+<li>Added instructions to the wiki for running the evaluator in SageMaker.</li>
 </ul>
 <h3 id="v11">v1.1</h3>
 <ul>
@@ -814,6 +1007,15 @@ BODY: b&#39;{&quot;response&quot;: {&quot;response&quot;: &quot;connected&quot;}
 <li>Updated send_message.py stub to match message formats used in evaluation.</li>
 <li>Updated template_model.py to access all possible fields expected in received messages.</li>
 <li>Updated README with instructinons for copying from S3 during Docker build.</li>
+</ul>
+<h3 id="v10">v1.0</h3>
+<p>New Features:</p>
+<ul>
+<li>RabbitMQ Client: Establishes a connection to a RabbitMQ server, sets up a queue for RPC requests, and listens for incoming requests.</li>
+<li>Model Class: Abstract base for creating prediction models with methods for predictions, acknowledgments, end-of-case, and error scenarios. You will extend this class to implement your custom models for the evaluation. You merely need to implement four functions.</li>
+<li>MessageType Enum: Categorizes communication with predefined message types including connection, prediction, acknowledgment, and error handling signals.</li>
+<li>Message Handlers: Includes an abstract base class and specific implementations for handling various message types, ensuring appropriate communication with the evaluator.</li>
+<li>Factory Pattern for Message Handlers: Simplifies the creation of message handlers based on the message type, supporting scalable and modular development.</li>
 </ul>
 <hr />
 <p>(c) 2024 The Johns Hopkins University Applied Physics Laboratory LLC</p>
@@ -912,7 +1114,7 @@ BODY: b&#39;{&quot;response&quot;: {&quot;response&quot;: &quot;connected&quot;}
     <script id="__config" type="application/json">{"base": "..", "features": ["navigation.indexes", "navigation.instant", "navigation.footer", "navigation.prune", "navigation.tabs", "navigation.tabs.sticky", "toc.follow", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.a7c05c9e.min.js"></script>
+      <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
     
   </body>
