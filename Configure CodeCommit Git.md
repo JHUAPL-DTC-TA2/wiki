@@ -58,3 +58,50 @@ Note: For CodeEditor, you will be prompted to use your provided Git username and
 <img src="images/codecommit-1.png">
 
 
+## AWS DTC CodeCommit Repository Management  
+
+This guide provides steps to create and manage AWS CodeCommit repositories in the DTC AWS account using the AWS Command Line Interface (CLI). Participants may use their DTC credentials to create CodeCommit repositories on their local machines, SageMaker, or WorkSpace. New repositories have two requirements:
+
+- The name of the repository must be prefixed by your team's tag separated by a dash. 
+- The repository must be tagged with key `dtc-team` set to your team's tag. 
+
+*Example* 
+Assuming my team was `apl-lima`, I can create a repository called `apl-lima-lib` with the resource tag `dtc-team=apl-lima`. 
+I would NOT be able to create a repository with name `apl-foxtrot` or `apl-limaScratch` since they do not match the `{team-tag}-` pattern. 
+
+### Creating a Repository with Specific Name Prefix and Tag
+
+To create a repository that has a team prefix in the name and includes a tag, use the following command:
+
+```bash
+aws codecommit create-repository --repository-name <team-tag>-<repo-name> --repository-description "Repository for project" --tags 'Key=dtc-team,Value=<team-tag>'
+```
+
+#### Parameters:
+- `--repository-name`: Name of the repository to create. Must include the required prefix, e.g., "dtc-".
+- `--repository-description`: A description for the repository.
+- `--tags`: Key-value pairs to tag the repository.
+
+### Common CodeCommit Commands
+
+#### Get Repository Details
+To get detailed information about a specific repository:
+
+```bash
+aws codecommit get-repository --repository-name <team-tag>-<repo-name> 
+```
+
+#### Delete a Repository
+To delete a repository:
+
+```bash
+aws codecommit delete-repository --repository-name <team-tag>-<repo-name> 
+```
+
+#### List Repositories
+We do not provide permissions to users to list repositories. If you would like to get a report or status of one or more of your teams repositories, please contact APL-DTC-Help@jhuapl.edu.
+
+
+### More info
+
+More info about CodeCommit available in the [official AWS Docs](https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html).
