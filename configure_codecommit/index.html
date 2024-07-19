@@ -485,6 +485,96 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#aws-dtc-codecommit-repository-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS DTC CodeCommit Repository Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AWS DTC CodeCommit Repository Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-repository-with-specific-name-prefix-and-tag" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating a Repository with Specific Name Prefix and Tag
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating a Repository with Specific Name Prefix and Tag">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-codecommit-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common CodeCommit Commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common CodeCommit Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-repository-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get Repository Details
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a Repository
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-repositories" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Repositories
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#more-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      More info
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -662,6 +752,38 @@ git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"
 <p>When you first push to or pull from your CodeCommit repository, Git will prompt you for your username and password. Enter the credentials obtained from AWS Secrets Manager.</p>
 <p>Note: For CodeEditor, you will be prompted to use your provided Git username and password at the top of the browser.
 <img src="images/codecommit-1.png"></p>
+<h2 id="aws-dtc-codecommit-repository-management">AWS DTC CodeCommit Repository Management</h2>
+<p>This guide provides steps to create and manage AWS CodeCommit repositories in the DTC AWS account using the AWS Command Line Interface (CLI). Participants may use their DTC credentials to create CodeCommit repositories on their local machines, SageMaker, or WorkSpace. New repositories have two requirements:</p>
+<ul>
+<li>The name of the repository must be prefixed by your team's tag separated by a dash. </li>
+<li>The repository must be tagged with key <code>dtc-team</code> set to your team's tag. </li>
+</ul>
+<p><em>Example</em> 
+Assuming my team was <code>apl-lima</code>, I can create a repository called <code>apl-lima-lib</code> with the resource tag <code>dtc-team=apl-lima</code>. 
+I would NOT be able to create a repository with name <code>apl-foxtrot</code> or <code>apl-limaScratch</code> since they do not match the <code>{team-tag}-</code> pattern. </p>
+<h3 id="creating-a-repository-with-specific-name-prefix-and-tag">Creating a Repository with Specific Name Prefix and Tag</h3>
+<p>To create a repository that has a team prefix in the name and includes a tag, use the following command:</p>
+<div class="highlight"><pre><span></span><code>aws<span class="w"> </span>codecommit<span class="w"> </span>create-repository<span class="w"> </span>--repository-name<span class="w"> </span>&lt;team-tag&gt;-&lt;repo-name&gt;<span class="w"> </span>--repository-description<span class="w"> </span><span class="s2">&quot;Repository for project&quot;</span><span class="w"> </span>--tags<span class="w"> </span><span class="s1">&#39;Key=dtc-team,Value=&lt;team-tag&gt;&#39;</span>
+</code></pre></div>
+<h4 id="parameters">Parameters:</h4>
+<ul>
+<li><code>--repository-name</code>: Name of the repository to create. Must include the required prefix, e.g., "dtc-".</li>
+<li><code>--repository-description</code>: A description for the repository.</li>
+<li><code>--tags</code>: Key-value pairs to tag the repository.</li>
+</ul>
+<h3 id="common-codecommit-commands">Common CodeCommit Commands</h3>
+<h4 id="get-repository-details">Get Repository Details</h4>
+<p>To get detailed information about a specific repository:</p>
+<div class="highlight"><pre><span></span><code>aws<span class="w"> </span>codecommit<span class="w"> </span>get-repository<span class="w"> </span>--repository-name<span class="w"> </span>&lt;team-tag&gt;-&lt;repo-name&gt;<span class="w"> </span>
+</code></pre></div>
+<h4 id="delete-a-repository">Delete a Repository</h4>
+<p>To delete a repository:</p>
+<div class="highlight"><pre><span></span><code>aws<span class="w"> </span>codecommit<span class="w"> </span>delete-repository<span class="w"> </span>--repository-name<span class="w"> </span>&lt;team-tag&gt;-&lt;repo-name&gt;<span class="w"> </span>
+</code></pre></div>
+<h4 id="list-repositories">List Repositories</h4>
+<p>We do not provide permissions to users to list repositories. If you would like to get a report or status of one or more of your teams repositories, please contact APL-DTC-Help@jhuapl.edu.</p>
+<h3 id="more-info">More info</h3>
+<p>More info about CodeCommit available in the <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html">official AWS Docs</a>.</p>
 
 
 
