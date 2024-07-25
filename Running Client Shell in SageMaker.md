@@ -165,8 +165,12 @@ Before running the evaluator, ensure your client container is up and running (se
 
 The evaluator can be run using a single script in the client_shell repository under `tools/eval/run_server.sh`
 
+Additionaly, you need to set two ENV variables `KEY` and `SECRET_KEY`. These can be set by running the following the SageMaker terminal:
+`export KEY=<your key>` and `export SECRET_KEY=<your key>` we reccomend you place these in your ~/.bashrc to prvent having to reset them. These are they same keys used for your SageMaker login [here](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/DTC%20Participant%20AWS%20User%20Guide.md#connecting-to-your-teams-sagemaker-studio).
+
 ### run_server.sh 
 The `run_server.sh` script will pull the latest `dtc-evaluator` from the ECR and run it. All you need to do is specify the following command line arguments.
+**Before running blease ensure your AWS ENV keys are set.**
 - `--output-dir` or `-o` specifies where model predictions and logs will be stored. This path can point to a location that is either local to SageMaker or your team's S3-scratch bucket.
 - `--inventory-file` or `-i` specifies the list of data segments to be used by the evaluator. The inventory file can exist in an S3 bucket or locally. An example inventory file can be found in client_shell/tools/eval.
 - `--dataset-dir` or `-d` specifies the path to the segmented dataset. This can be a local path or an S3 path. 
@@ -205,6 +209,8 @@ If you want to run metrics on an incomplete run, you may include the optional `a
 The python scripts used to generate the ground truth, response, and metrics JSONs are located in `tools/eval/src`, but should not be altered.  
 
 ## Release Notes
+### v1.3
+- Added ENV passable variables to evaluator and client-shell for AWS keys
 
 ### v1.2
 - Added support for cpu-only base image and updated base-image tags to reflect versions.
