@@ -142,23 +142,35 @@ To check Docker installed correctly, run `docker version` on a system terminal t
 
 If your submission requires accessing data from your team’s S3 bucket, you must configure your Docker images to use your team’s AWS credentials (i.e., `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`). By default, your credentials will not be passed from SageMaker to your Docker images. As a result, your Docker images won't be able to access AWS services like your SageMaker terminal does. To enable this, you need to transfer your SageMaker credentials to your Docker image. Follow these steps:
 
-1. Configure your SageMaker with your AWS credentials: In a SageMaker terminal, run `aws configure` and input your AWS credentials. To find your AWS credentials, open a Workspace terminal and run `cat ~/.aws/credentials`. The `aws configure` command will generate files that store your credentials in your SageMaker home directory (i.e., `/home/sagemaker-user/.aws`).
+1. In your SageMaker terminal set the environmental variables for `KEY` and `SECRET KEY`.
+    
+   ```export KEY=<*YOUR_AWS_ACCESS_KEY*>`
+   export SECRET_KEY=<*YOUR_AWS_SECRET_KEY*>```
 
-2. Move the AWS credentials into your project directory: Run `mv ~/.aws <PROJECT_DIRECTORY>`. Replace `<PROJECT_DIRECTORY>` with the path to your project directory. This command will move the `.aws` directory containing your credentials to your project directory, allowing Docker to access these credentials during the build process. Finally, run `source ~/.bashrc` (or restart your terminal session) to refresh your default permissions (allowing access to your team's S3 buckets, ECR, and other provisioned AWS resources).
+  To ensure persistence of these variables, it is recommended you add the above two lines to your ~/.bashrc file.
 
-3. Use the Dockerfile in `client-shell` to build your Docker image: Navigate to the `client-shell` directory. The Dockerfile in this directory contains commands to set up your Docker image. (See updated `Dockerfile`)
+  These access keys should have been emailed to you for your SageMaker account in an email that looks similar to [this](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/DTC%20Participant%20AWS%20User%20Guide.md#connecting-to-your-teams-sagemaker-studio)
 
-4. Modify your Dockerfile to transfer the target file: Add the following command to your Dockerfile to transfer the target file from S3 to your desired directory within the Docker container. Replace `<TEAM_NAME>`, `<TARGET_FILE>`, and `<TARGET_DIRECTORY>` with your team name, the file you want to transfer, and the target directory inside the Docker container, respectively:
+2. Using the Dockerfile in `client-shell`, modify the Dockerfile to transfer the target file: Add the following command to your Dockerfile to transfer the target file from S3 to your desired directory within the Docker container. Replace `<TEAM_NAME>`, `<TARGET_FILE>`, and `<TARGET_DIRECTORY>` with your team name, the file you want to transfer, and the target directory inside the Docker container, respectively:
 ```dockerfile
 RUN aws s3 cp s3://dtc-scratch-<TEAM_NAME>/<TARGET_FILE> /<TARGET_DIRECTORY>
 ```
 
-**Note:** During the evaluation phase, evaluators will use their own credentials to access your team's S3 buckets.
+3. In the `client-shell` Dockerfile you will see the following 4 lines:
+   ```
+   ARG KEY
+   ARG SECRET_KEY
+   ENV AWS_ACCESS_KEY_ID=$KEY
+   ENV AWS_SECRET_ACCESS_KEY=$SECRET_KEY
+   ```
 
-**Warning:** For security reasons, do not push your credentials to CodeCommit. We have updated the `.gitignore` file to exclude all files stored in the `.aws` directory. Ensure your `.gitignore` file includes the following entry:
-```
-.aws
-```
+   These specify build args to be passed into the Dockerfil, which are then used during Docker build to access your s3 bucket. When you are ready to build your Dockerfile, run the command:
+    ```docker build --network sagemaker --build-arg KEY=$KEY --build-arg SECRET_KEY=$SECRET_KEY -t {image_name}:{image_tag} . ```
+
+**Warning:** For security reasons, do not push your credentials to CodeCommit.
+
+
+
 ## Evaluating Your Model in SageMaker
 In order to run the evaluator you must be authenticated to the AWS ECR. To authenticate, run `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`
 Before running the evaluator, ensure your client container is up and running (see [Running the Client with Docker](#running-the-client-with-docker) or [Running the Client locally](#running-the-client-locally) ).
@@ -232,7 +244,7 @@ The python scripts used to generate the ground truth, response, and metrics JSON
 - Added .gitignore to prevent AWS credentials from being checked into repo.
 - Updated send_message.py stub to match message formats used in evaluation.
 - Updated template_model.py to access all possible fields expected in received messages.
-- Updated README with instructinons for copying from S3 during Docker build.
+- Updated README with instructions for copying from S3 during Docker build.
 
 ### v1.0
 
