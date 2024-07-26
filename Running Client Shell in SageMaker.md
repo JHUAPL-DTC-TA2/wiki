@@ -140,39 +140,56 @@ To check Docker installed correctly, run `docker version` on a system terminal t
 
 ## Configuring Docker Images to Access S3 Buckets Using AWS Credentials
 
-If your submission requires accessing data from your team’s S3 bucket, you must configure your Docker images to use your team’s AWS credentials (i.e., `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`). By default, your credentials will not be passed from SageMaker to your Docker images. As a result, your Docker images won't be able to access AWS services like your SageMaker terminal does. To enable this, you need to transfer your SageMaker credentials to your Docker image. Follow these steps:
+By default, your credentials will not be passed from SageMaker to your Docker images. As a result, your Docker images is restricted to access your provisioned AWS services. If your submission requires accessing data from your team’s S3 bucket, you may transfer your SageMaker credentials to your Docker image by passing your AWS credentials (i.e., `USER_AWS_ACCESS_KEY`, `USER_AWS_SECRET_ACCESS_KEY`) to the Docker image. These access keys should have been emailed to you for your SageMaker account in an email that looks similar to [this](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/DTC%20Participant%20AWS%20User%20Guide.md#connecting-to-your-teams-sagemaker-studio). Follow these steps:
 
-1. Configure your SageMaker with your AWS credentials: In a SageMaker terminal, run `aws configure` and input your AWS credentials. To find your AWS credentials, open a Workspace terminal and run `cat ~/.aws/credentials`. The `aws configure` command will generate files that store your credentials in your SageMaker home directory (i.e., `/home/sagemaker-user/.aws`).
+1. In your SageMaker terminal, set the environmental variables for `KEY` and `SECRET KEY` with your `USER_AWS_ACCESS_KEY` and `USER_AWS_SECRET_ACCESS_KEY`, respectively.
+    
+   ```
+   export KEY=<YOUR_AWS_ACCESS_KEY>
+   export SECRET_KEY=<YOUR_AWS_SECRET_KEY>
+   ```
+    To ensure persistence of these variables, it is recommended you add these two lines to your `~/.bashrc` file.
 
-2. Move the AWS credentials into your project directory: Run `mv ~/.aws <PROJECT_DIRECTORY>`. Replace `<PROJECT_DIRECTORY>` with the path to your project directory. This command will move the `.aws` directory containing your credentials to your project directory, allowing Docker to access these credentials during the build process. Finally, run `source ~/.bashrc` (or restart your terminal session) to refresh your default permissions (allowing access to your team's S3 buckets, ECR, and other provisioned AWS resources).
+2. Modify your `Dockerfile` to transfer the target file: Add the following command to your Dockerfile to transfer the target file from S3 to your desired directory within the Docker container. Replace `<TEAM_NAME>`, `<TARGET_FILE>`, and `<TARGET_DIRECTORY>` with your team name, the file you want to transfer, and the target directory inside the Docker container, respectively:
+    ```dockerfile
+    RUN aws s3 cp s3://dtc-scratch-<TEAM_NAME>/<TARGET_FILE> /<TARGET_DIRECTORY>
+    ```
 
-3. Use the Dockerfile in `client-shell` to build your Docker image: Navigate to the `client-shell` directory. The Dockerfile in this directory contains commands to set up your Docker image. (See updated `Dockerfile`)
+3. In the `Dockerfile` script, you will find the following lines:
+    ```dockerfile
+    ARG KEY
+    ARG SECRET_KEY
+    ENV AWS_ACCESS_KEY_ID=$KEY
+    ENV AWS_SECRET_ACCESS_KEY=$SECRET_KEY
+    ```
 
-4. Modify your Dockerfile to transfer the target file: Add the following command to your Dockerfile to transfer the target file from S3 to your desired directory within the Docker container. Replace `<TEAM_NAME>`, `<TARGET_FILE>`, and `<TARGET_DIRECTORY>` with your team name, the file you want to transfer, and the target directory inside the Docker container, respectively:
-```dockerfile
-RUN aws s3 cp s3://dtc-scratch-<TEAM_NAME>/<TARGET_FILE> /<TARGET_DIRECTORY>
-```
+   These specify your credentials, as build arguments, to be passed into the Dockerfile. These will be used to during Docker build phase to access your S3 bucket. When you are ready to build your `Dockerfile`, run the command:
+    ```docker build --network sagemaker --build-arg KEY=$KEY --build-arg SECRET_KEY=$SECRET_KEY -t {image_name}:{image_tag} . ```
+    Note: The CI/CD is expecting these build arguments, so your Dockerfile submission must provide them. Refer to the ICD and [these instructions](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/Submission%20Process.md) for more information.
+    **Warning:** For security reasons, do not push your credentials to CodeCommit.
+   
 
-**Note:** During the evaluation phase, evaluators will use their own credentials to access your team's S3 buckets.
 
-**Warning:** For security reasons, do not push your credentials to CodeCommit. We have updated the `.gitignore` file to exclude all files stored in the `.aws` directory. Ensure your `.gitignore` file includes the following entry:
-```
-.aws
-```
-## Evaluating Your Model in SageMaker
-In order to run the evaluator you must be authenticated to the AWS ECR. To authenticate, run `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`
-Before running the evaluator, ensure your client container is up and running (see [Running the Client with Docker](#running-the-client-with-docker) or [Running the Client locally](#running-the-client-locally) ).
 
-The evaluator can be run using a single script in the client_shell repository under `tools/eval/run_server.sh`
+## Evaluating Your Submission in SageMaker
+In order to run the evaluator, you must first authenticat your session to the AWS ECR. To authenticate, run `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`
+Before running the evaluator, ensure that your client container is running (see [Running the Client with Docker](#running-the-client-with-docker) or [Running the Client locally](#running-the-client-locally)).
+
+Additionaly, you need to set two environment variables `KEY` and `SECRET_KEY`. These can be set by running the following the SageMaker terminal:
+`export KEY=<your key>` and `export SECRET_KEY=<your key>` we reccomend you place these in your `~/.bashrc` to prvent having to reset them. These are the keys used for your SageMaker login [here](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/DTC%20Participant%20AWS%20User%20Guide.md#connecting-to-your-teams-sagemaker-studio).
+
+The evaluator can be begin the process using a bash script in the client-shell repository under `tools/eval/run_server.sh`
 
 ### run_server.sh 
-The `run_server.sh` script will pull the latest `dtc-evaluator` from the ECR and run it. All you need to do is specify the following command line arguments.
+The `run_server.sh` script will pull the latest `dtc-evaluator` from the ECR and run it. You will need to specify the following required arguments.
+**Before running blease ensure your AWS ENV keys (`KEY` and `SECRET_KEY`) are set.**
 - `--output-dir` or `-o` specifies where model predictions and logs will be stored. This path can point to a location that is either local to SageMaker or your team's S3-scratch bucket.
 - `--inventory-file` or `-i` specifies the list of data segments to be used by the evaluator. The inventory file can exist in an S3 bucket or locally. An example inventory file can be found in client_shell/tools/eval.
 - `--dataset-dir` or `-d` specifies the path to the segmented dataset. This can be a local path or an S3 path. 
 
  Example usage: 
-- `./run_server.sh --output-dir /path/to/output --inventory-file inventory_phase1_v1-2_val.csv --dataset-dir s3://dtc-training-data/phase1_v1-2_segmented/val`
+- `./run_server.sh --output-dir outputs --inventory-file inventory_phase1_v1-2_val.csv --dataset-dir s3://dtc-training-data/phase1_v1-2_segmented/val`
+    This command will store the evaluator's outputs in the `./outputs` directory, using the `./inventory_phase1_v1-2_val.csv` as the inventory file and the `s3://dtc-training-data/phase1_v1-2_segmented/val` as the source dataset.
   
 ### run_metrics.sh
 
@@ -205,6 +222,8 @@ If you want to run metrics on an incomplete run, you may include the optional `a
 The python scripts used to generate the ground truth, response, and metrics JSONs are located in `tools/eval/src`, but should not be altered.  
 
 ## Release Notes
+### v1.3
+- Added ENV passable variables to evaluator and client-shell for AWS keys
 
 ### v1.2
 - Added support for cpu-only base image and updated base-image tags to reflect versions.
@@ -226,7 +245,7 @@ The python scripts used to generate the ground truth, response, and metrics JSON
 - Added .gitignore to prevent AWS credentials from being checked into repo.
 - Updated send_message.py stub to match message formats used in evaluation.
 - Updated template_model.py to access all possible fields expected in received messages.
-- Updated README with instructinons for copying from S3 during Docker build.
+- Updated README with instructions for copying from S3 during Docker build.
 
 ### v1.0
 
