@@ -15,7 +15,11 @@ Teams can trigger the CodeBuild in **TWO** ways:
     - `PHASE_NUMBER = {1,2,3}`
     - `EVENT_TYPE = {workshop, challenge}`
   - *Outcomes*: if a build is successful, an email will be sent to the Principal Investigator and a docker image will be stored for review. Your previous image submission will be overwritten.
- 
+
+## Logs
+While logs can be configured to save out to teams S3 bucket during development and testing in SageMaker, we will not allow logs to be written to S3 buckets during formal workshop and competition evaluations. Rather, we will copy any logs saved in the client container under `/usr/src/app/logs/` manually to teams s3 buckets following the completion of an event. 
+As a result, if you submit code to the CI/CD with logs saving in the client-shell to an s3 bucket, your pipeline will fail. 
+
 At the time of the Event submission deadline, the Challenge administrators will automatically pull the images for evaluation.
 
 More information on the CI/CD can be found in the Data Challenge ICD.
