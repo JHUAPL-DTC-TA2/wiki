@@ -144,30 +144,29 @@ If your submission requires accessing data from your team’s S3 bucket, you mus
 
 1. In your SageMaker terminal set the environmental variables for `KEY` and `SECRET KEY`.
     
-   ```export KEY=<*YOUR_AWS_ACCESS_KEY*>`
-   export SECRET_KEY=<*YOUR_AWS_SECRET_KEY*>```
-
-  To ensure persistence of these variables, it is recommended you add the above two lines to your ~/.bashrc file.
-
-  These access keys should have been emailed to you for your SageMaker account in an email that looks similar to [this](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/DTC%20Participant%20AWS%20User%20Guide.md#connecting-to-your-teams-sagemaker-studio)
+   ```
+   export KEY=<YOUR_AWS_ACCESS_KEY>
+   export SECRET_KEY=<YOUR_AWS_SECRET_KEY>
+   ```
+    To ensure persistence of these variables, it is recommended you add the above two lines to your `~/.bashrc` file. These access keys should have been emailed to you for your SageMaker account in an email that looks similar to [this](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/DTC%20Participant%20AWS%20User%20Guide.md#connecting-to-your-teams-sagemaker-studio)
 
 2. Using the Dockerfile in `client-shell`, modify the Dockerfile to transfer the target file: Add the following command to your Dockerfile to transfer the target file from S3 to your desired directory within the Docker container. Replace `<TEAM_NAME>`, `<TARGET_FILE>`, and `<TARGET_DIRECTORY>` with your team name, the file you want to transfer, and the target directory inside the Docker container, respectively:
-```dockerfile
-RUN aws s3 cp s3://dtc-scratch-<TEAM_NAME>/<TARGET_FILE> /<TARGET_DIRECTORY>
-```
+    ```dockerfile
+    RUN aws s3 cp s3://dtc-scratch-<TEAM_NAME>/<TARGET_FILE> /<TARGET_DIRECTORY>
+    ```
 
 3. In the `client-shell` Dockerfile you will see the following 4 lines:
-   ```
-   ARG KEY
-   ARG SECRET_KEY
-   ENV AWS_ACCESS_KEY_ID=$KEY
-   ENV AWS_SECRET_ACCESS_KEY=$SECRET_KEY
-   ```
+    ```dockerfile
+    ARG KEY
+    ARG SECRET_KEY
+    ENV AWS_ACCESS_KEY_ID=$KEY
+    ENV AWS_SECRET_ACCESS_KEY=$SECRET_KEY
+    ```
 
-   These specify build args to be passed into the Dockerfil, which are then used during Docker build to access your s3 bucket. When you are ready to build your Dockerfile, run the command:
+   These specify build args to be passed into the Dockerfile, which are then used during Docker build to access your S3 bucket. When you are ready to build your Dockerfile, run the command:
     ```docker build --network sagemaker --build-arg KEY=$KEY --build-arg SECRET_KEY=$SECRET_KEY -t {image_name}:{image_tag} . ```
 
-**Warning:** For security reasons, do not push your credentials to CodeCommit.
+    **Warning:** For security reasons, do not push your credentials to CodeCommit.
 
 
 
@@ -178,7 +177,7 @@ Before running the evaluator, ensure your client container is up and running (se
 The evaluator can be run using a single script in the client_shell repository under `tools/eval/run_server.sh`
 
 Additionaly, you need to set two ENV variables `KEY` and `SECRET_KEY`. These can be set by running the following the SageMaker terminal:
-`export KEY=<your key>` and `export SECRET_KEY=<your key>` we reccomend you place these in your ~/.bashrc to prvent having to reset them. These are they same keys used for your SageMaker login [here](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/DTC%20Participant%20AWS%20User%20Guide.md#connecting-to-your-teams-sagemaker-studio).
+`export KEY=<your key>` and `export SECRET_KEY=<your key>` we reccomend you place these in your `~/.bashrc` to prvent having to reset them. These are they same keys used for your SageMaker login [here](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/DTC%20Participant%20AWS%20User%20Guide.md#connecting-to-your-teams-sagemaker-studio).
 
 ### run_server.sh 
 The `run_server.sh` script will pull the latest `dtc-evaluator` from the ECR and run it. All you need to do is specify the following command line arguments.
