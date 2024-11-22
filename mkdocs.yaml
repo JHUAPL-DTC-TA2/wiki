@@ -35,6 +35,7 @@ nav:
 - Common Issues: common_issues.md
 - CodeCommit Guide: configure_codecommit.md
 - Client-Shell Client: running_client_shell.md
+- Workspace Management: workspace-selfservice.md
 - Importing Data to AWS: importing_data.md
 - Custom Images: creating_custom_images.md
 - Available Instances: sagemaker_instances.md
@@ -58,3 +59,5 @@ markdown_extensions:
 plugins:
   - mkdocstrings:
       default_handler: python
+  - material/search
+
