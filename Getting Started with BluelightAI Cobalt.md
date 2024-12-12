@@ -6,7 +6,7 @@ Cobalt is a toolbox that helps you diagnose and repair problems with AI models. 
 
 ## How can I access Cobalt within the DTC SageMaker environment?
 
-Cobalt is pre-installed into a dedicated `conda` environment, `cobalt-env`, as part of the default SageMaker lifecycle configuration script. Run `conda env list` from the SageMaker shell to verify that the environment has been installed. You can easily access this environment within JupyterLab notebooks by selecting “Python 3 (cobalt-env)” from the Select Kernel dropdown, located at the top-right of each JupyterLab Notebook.
+Cobalt is pre-installed into a dedicated `conda` environment, `cobalt-env`, as part of the default SageMaker lifecycle configuration script. Run `conda env list` from the SageMaker terminal to verify that the environment has been installed. You can easily access this environment within JupyterLab Notebooks by selecting “Python 3 (cobalt-env)” from the Select Kernel dropdown, located at the top-right of each JupyterLab Notebook.
 
 ## How can I learn more about using Cobalt?
 
