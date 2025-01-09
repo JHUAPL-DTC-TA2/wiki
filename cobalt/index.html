@@ -8,13 +8,11 @@
       
       
       
-        <link rel="canonical" href="https://JHUAPL-DTC-TA2.github.io/wiki/submission_process/">
+        <link rel="canonical" href="https://JHUAPL-DTC-TA2.github.io/wiki/cobalt/">
       
       
-        <link rel="prev" href="../metrics_guide/">
+        <link rel="prev" href="../submission_process/">
       
-      
-        <link rel="next" href="../cobalt/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -22,7 +20,7 @@
     
     
       
-        <title>Submission Process - DTC-Wiki</title>
+        <title>Getting Started with BluelightAI Cobalt - DTC-Wiki</title>
       
     
     
@@ -74,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#submission-process" class="md-skip">
+        <a href="#getting-started-with-bluelightai-cobalt" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Submission Process
+              Getting Started with BluelightAI Cobalt
             
           </span>
         </div>
@@ -413,6 +411,26 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../submission_process/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Submission Process
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -429,7 +447,7 @@
           
   
   <span class="md-ellipsis">
-    Submission Process
+    Getting Started with BluelightAI Cobalt
   </span>
   
 
@@ -440,7 +458,7 @@
         
   
   <span class="md-ellipsis">
-    Submission Process
+    Getting Started with BluelightAI Cobalt
   </span>
   
 
@@ -462,9 +480,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#logs" class="md-nav__link">
+  <a href="#what-is-cobalt" class="md-nav__link">
     <span class="md-ellipsis">
-      Logs
+      What is Cobalt?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-can-i-access-cobalt-within-the-dtc-sagemaker-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      How can I access Cobalt within the DTC SageMaker environment?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-can-i-learn-more-about-using-cobalt" class="md-nav__link">
+    <span class="md-ellipsis">
+      How can I learn more about using Cobalt?
     </span>
   </a>
   
@@ -474,26 +510,6 @@
   
 </nav>
       
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../cobalt/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Getting Started with BluelightAI Cobalt
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -516,31 +532,15 @@
   
 
 
-<h1 id="submission-process">Submission Process</h1>
-<p>Each participant will be provisioned AWS CodeBuild Continuous Integration/Continuous Development (CI/CD) resources to provide automatic feedback regarding the submission compliance with the official evaluation system. This (CI/CD) system will containerize the submitted code using a standard buildspec and simulate a 10-case minature version of the evaluation process to assess the code’s compliance. The estimated time to complete a test is ~10-15 minutes, as CodeBuild needs to queue and provision resources, and build/run containers to complete the test.</p>
-<p>To review the system predictions and logs of the CI/CD, the build objects will be placed in your team's scratch bucket under <code>s3://dtc-scratch-{team_name}/codebuild/</code>. The CI/CD  will store the CodeBuild logs for each unique build in the <code>build-logs/</code> directory, and the evaluation outputs in the <code>submission_results/</code> directory (i.e.  the <code>logs/</code> and <code>out/</code> directories equivalent to those produced by the dtc-server).</p>
-<p>Teams can trigger the CodeBuild in <strong>TWO</strong> ways:</p>
-<ul>
-<li><strong>Compliance Test:</strong> to perform intial compliance testing during the development phase.</li>
-<li><em>Triggers</em>: pushing updates to a team's CodeCommit branch called <code>compliance-test</code>.</li>
-<li>
-<p><em>Outcomes</em>: the team's Principal Investigator will recieve an email from AWS's SNS services if the the CI/CD successfully completed.</p>
-</li>
-<li>
-<p><strong>Official Event Submissions:</strong> to officially submit for an event evaluation.</p>
-</li>
-<li><em>Triggers</em>: pushing updates to a team's CodeCommit with a commit tag called <code>submission-phase{PHASE_NUMBER}-{EVENT_TYPE}</code>.<ul>
-<li><code>PHASE_NUMBER = {1,2,3}</code></li>
-<li><code>EVENT_TYPE = {workshop, challenge}</code></li>
-</ul>
-</li>
-<li><em>Outcomes</em>: if a build is successful, an email will be sent to the Principal Investigator and a docker image will be stored for review. Your previous image submission will be overwritten.</li>
-</ul>
-<h2 id="logs">Logs</h2>
-<p>While logs can be configured to save out to teams S3 bucket during development and testing in SageMaker, we will not allow logs to be written to S3 buckets during formal workshop and competition evaluations. Rather, we will copy any logs saved in the client container under <code>/usr/src/app/logs/</code> manually to teams s3 buckets following the completion of an event. 
-As a result, if you submit code to the CI/CD with logs saving in the client-shell to an s3 bucket, your pipeline will fail. </p>
-<p>At the time of the Event submission deadline, the Challenge administrators will automatically pull the images for evaluation.</p>
-<p>More information on the CI/CD can be found in the Data Challenge ICD.</p>
+<h1 id="getting-started-with-bluelightai-cobalt">Getting Started with BluelightAI Cobalt</h1>
+<h2 id="what-is-cobalt">What is Cobalt?</h2>
+<p>Cobalt is a toolbox that helps you diagnose and repair problems with AI models. It uses Topological Data Analysis (TDA) to uncover patterns in the ways models transform their input data into output data. You can use Cobalt with any type of model or data, as long as you can produce vector embeddings of that data. Cobalt uses these to build representations of your data and reveal ways the model fails.</p>
+<h2 id="how-can-i-access-cobalt-within-the-dtc-sagemaker-environment">How can I access Cobalt within the DTC SageMaker environment?</h2>
+<p>Cobalt is pre-installed into a dedicated <code>conda</code> environment, <code>cobalt-env</code>, as part of the default SageMaker Lifecycle Configuration (LCC) script. Run <code>conda env list</code> from the SageMaker terminal to verify that the environment has been installed. If the environment is not available, you may need to restart your SageMaker space, making sure it runs with the Lifecycle Configuration script containing the text "cobalt"; this script is what performs the installation and setup. It will not disturb your existing <code>conda</code> environments.</p>
+<p>You can access this environment within JupyterLab Notebooks by selecting “Python 3 (cobalt-env)” from the Select Kernel dropdown, located at the top-right of each JupyterLab Notebook.</p>
+<h2 id="how-can-i-learn-more-about-using-cobalt">How can I learn more about using Cobalt?</h2>
+<p>We recommend the example notebooks as a great place to start. These are placed at <code>~/.config/cobalt/cobalt-notebooks.tar.gz</code> by the LCC script mentioned above.</p>
+<p>Please refer to the <a href="https://docs.cobalt.bluelightai.com/index.html">Cobalt documentation</a> for a complete guide. The <a href="https://docs.cobalt.bluelightai.com/concepts.html">Concept Overview</a> section is a great place to start to gain a high-level understanding of Cobalt use cases and concepts.</p>
 
 
 
@@ -576,7 +576,7 @@ As a result, if you submit code to the CI/CD with logs saving in the client-shel
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../metrics_guide/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Metrics Guide">
+          <a href="../submission_process/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Submission Process">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
@@ -586,27 +586,11 @@ As a result, if you submit code to the CI/CD with logs saving in the client-shel
                 Previous
               </span>
               <div class="md-ellipsis">
-                Metrics Guide
+                Submission Process
               </div>
             </div>
           </a>
         
-        
-          
-          <a href="../cobalt/" class="md-footer__link md-footer__link--next" aria-label="Next: Getting Started with BluelightAI Cobalt">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              <div class="md-ellipsis">
-                Getting Started with BluelightAI Cobalt
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-            </div>
-          </a>
         
       </nav>
     

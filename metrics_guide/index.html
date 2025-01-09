@@ -88,7 +88,7 @@
 
   
 
-<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href=".." title="DTC-Wiki" class="md-header__button md-logo" aria-label="DTC-Wiki" data-md-component="logo">
       
@@ -181,194 +181,13 @@
     
   </nav>
   
-    
-      
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href=".." class="md-tabs__link">
-        
-  
-    
-  
-  User Guide
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../common_issues/" class="md-tabs__link">
-        
-  
-    
-  
-  Common Issues
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../configure_codecommit/" class="md-tabs__link">
-        
-  
-    
-  
-  CodeCommit Guide
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../running_client_shell/" class="md-tabs__link">
-        
-  
-    
-  
-  Client-Shell Client
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../workspace-selfservice/" class="md-tabs__link">
-        
-  
-    
-  
-  Workspace Management
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../importing_data/" class="md-tabs__link">
-        
-  
-    
-  
-  Importing Data to AWS
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../creating_custom_images/" class="md-tabs__link">
-        
-  
-    
-  
-  Custom Images
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../sagemaker_instances/" class="md-tabs__link">
-        
-  
-    
-  
-  Available Instances
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-    
-  
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
-        
-  
-    
-  
-  Metrics Guide
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../submission_process/" class="md-tabs__link">
-        
-  
-    
-  
-  Submission Process
-
-      </a>
-    </li>
-  
-
-      
-    </ul>
-  </div>
-</nav>
-    
-  
 </header>
     
     <div class="md-container" data-md-component="container">
       
       
+        
+          
         
       
       <main class="md-main" data-md-component="main">
@@ -382,12 +201,10 @@
                     
 
 
-  
-
 
   
 
-<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="DTC-Wiki" class="md-nav__button md-logo" aria-label="DTC-Wiki" data-md-component="logo">
       
@@ -679,6 +496,26 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cobalt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started with BluelightAI Cobalt
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -698,6 +535,7 @@
 
 
 <h1 id="metrics-guide">Metrics Guide</h1>
+<p>(UNDER CONSTRUCTION FOR PHASE 2)</p>
 <h2 id="ground-truth-json">Ground Truth JSON</h2>
 <p>The ground truth JSON contains the relevant ground truth LSIs for each segment of patient data. </p>
 <p>The ground truth JSON has the following format:<br />
@@ -729,26 +567,85 @@
     ]
 }
 </code></pre></div></p>
-<p><strong>Table 1: Ground Truth JSON Fields</strong>
-| Field | Definition |
-| ----- | ---------- |
-|event  |Event name.|
-|ground_truth|List of ground truth for all segments.|
-|case_id|   Unique case id.|
-|segment_id |Unique segment id. See <code>inventory.csv</code> file for ordering.|
-|segment_start_time_sec| Start time in seconds for the segment, relative to start of case. |
-|segment_stop_time_sec| Stop time in seconds for the segment, relative to start of case. |
-|start_of_case| True if the segment is the first segment in the case, false otherwise. |
-|at_admission| True if the segment includes the hospital admission time, false otherwise. |
-|end_of_case| True if the segment is the last segment in the case, false otherwise. |
-|gt_lsi_list| List of ground truth LSIs for segment.|
-|lsi_group  |The category of LSI that was performed. |
-|lsi_description    |The specific LSI that was performed. |
-|in_hospital    |1 if the LSI occurred during hospital admission, 0 otherwise.|
-|elapsed_from_start | LSI time in seconds, relative to start of case.|
-|ehr_file_name| Relative path to EHR data for the segment.
-|vs_file_name|Relative path to VS data for the segment.
-|gt_file_name|Relative path to GT data for the segment.</p>
+<p><strong>Table 1: Ground Truth JSON Fields</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event</td>
+<td>Event name.</td>
+</tr>
+<tr>
+<td>ground_truth</td>
+<td>List of ground truth for all segments.</td>
+</tr>
+<tr>
+<td>case_id</td>
+<td>Unique case id.</td>
+</tr>
+<tr>
+<td>segment_id</td>
+<td>Unique segment id. See <code>inventory.csv</code> file for ordering.</td>
+</tr>
+<tr>
+<td>segment_start_time_sec</td>
+<td>Start time in seconds for the segment, relative to start of case.</td>
+</tr>
+<tr>
+<td>segment_stop_time_sec</td>
+<td>Stop time in seconds for the segment, relative to start of case.</td>
+</tr>
+<tr>
+<td>start_of_case</td>
+<td>True if the segment is the first segment in the case, false otherwise.</td>
+</tr>
+<tr>
+<td>at_admission</td>
+<td>True if the segment includes the hospital admission time, false otherwise.</td>
+</tr>
+<tr>
+<td>end_of_case</td>
+<td>True if the segment is the last segment in the case, false otherwise.</td>
+</tr>
+<tr>
+<td>gt_lsi_list</td>
+<td>List of ground truth LSIs for segment.</td>
+</tr>
+<tr>
+<td>lsi_group</td>
+<td>The category of LSI that was performed.</td>
+</tr>
+<tr>
+<td>lsi_description</td>
+<td>The specific LSI that was performed.</td>
+</tr>
+<tr>
+<td>in_hospital</td>
+<td>1 if the LSI occurred during hospital admission, 0 otherwise.</td>
+</tr>
+<tr>
+<td>elapsed_from_start</td>
+<td>LSI time in seconds, relative to start of case.</td>
+</tr>
+<tr>
+<td>ehr_file_name</td>
+<td>Relative path to EHR data for the segment.</td>
+</tr>
+<tr>
+<td>vs_file_name</td>
+<td>Relative path to VS data for the segment.</td>
+</tr>
+<tr>
+<td>gt_file_name</td>
+<td>Relative path to GT data for the segment.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="response-json">Response JSON</h2>
 <p>The response JSON contains the client model’s prediction responses for each segment of patient data, along with timestamps for when prediction message was sent and received by the evaluation server. </p>
 <p>The response JSON has the following format:<br />
@@ -775,25 +672,81 @@
     ]
 }
 </code></pre></div>
-<strong>Table 2: Response JSON Fields</strong>
-| Field | Definition |
-| ----- | ---------- |
-|team_name  |Team name.|
-|event  |Event name.|
-|evaluation_date    |Date of evaluation run.|
-|response   |List of responses for all segments.|
-|message_sent_time  |UNIX timestamp in seconds when the server’s prediction message was sent to the client for the segment. |
-|message_received_time  |UNIX timestamp in seconds when the client’s prediction message was received by the server for the segment.|
-|case_id|   Unique case id.|
-|segment_id |Unique <code>segment id.</code> See inventory.csv file for ordering.|
-|model_predictions  |List of LSIs predicted for the segment received from the client.|
-|cumulative_runtime_sec |Cumulative runtime over the entire evaluation in seconds for the segment. |
-|run_id |GUID for the evaluation run for the segment.|
-|end_of_case    |Boolean value indicating whether the segment is the last segment of the case.|
-|raw_response   |If error present, original client response for the segment. |
-|error  |Error message from the server, if present.|
-|lsi_confidence_scores| Optional dictionary containing confidence scores for each LSI group. |
-|embeddings| Optional dictionary containing  embeddings at different levels of internal data analysis.|</p>
+<strong>Table 2: Response JSON Fields</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>team_name</td>
+<td>Team name.</td>
+</tr>
+<tr>
+<td>event</td>
+<td>Event name.</td>
+</tr>
+<tr>
+<td>evaluation_date</td>
+<td>Date of evaluation run.</td>
+</tr>
+<tr>
+<td>response</td>
+<td>List of responses for all segments.</td>
+</tr>
+<tr>
+<td>message_sent_time</td>
+<td>UNIX timestamp in seconds when the server’s prediction message was sent to the client for the segment.</td>
+</tr>
+<tr>
+<td>message_received_time</td>
+<td>UNIX timestamp in seconds when the client’s prediction message was received by the server for the segment.</td>
+</tr>
+<tr>
+<td>case_id</td>
+<td>Unique case id.</td>
+</tr>
+<tr>
+<td>segment_id</td>
+<td>Unique <code>segment id.</code> See inventory.csv file for ordering.</td>
+</tr>
+<tr>
+<td>model_predictions</td>
+<td>List of LSIs predicted for the segment received from the client.</td>
+</tr>
+<tr>
+<td>cumulative_runtime_sec</td>
+<td>Cumulative runtime over the entire evaluation in seconds for the segment.</td>
+</tr>
+<tr>
+<td>run_id</td>
+<td>GUID for the evaluation run for the segment.</td>
+</tr>
+<tr>
+<td>end_of_case</td>
+<td>Boolean value indicating whether the segment is the last segment of the case.</td>
+</tr>
+<tr>
+<td>raw_response</td>
+<td>If error present, original client response for the segment.</td>
+</tr>
+<tr>
+<td>error</td>
+<td>Error message from the server, if present.</td>
+</tr>
+<tr>
+<td>lsi_confidence_scores</td>
+<td>Optional dictionary containing confidence scores for each LSI group.</td>
+</tr>
+<tr>
+<td>embeddings</td>
+<td>Optional dictionary containing  embeddings at different levels of internal data analysis.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="metrics-json">Metrics JSON</h2>
 <p>The metrics JSON contains the client model’s two performance metrics calculated for each case: the Jaccard Index (a.k.a., IOU) and Prediction Lead-Time (PLT).
 <span class="arithmatex">\(<span class="arithmatex">\(\text{Jaccard Index}= {|\bigcup\limits_{t=0}^{T} [\hat{Y_t} \cap Y_t]| \over|\bigcup\limits_{t=0}^{T} [\hat{Y_t} \cup Y_t]|}\)</span>\)</span>
@@ -833,26 +786,85 @@ The metrics JSON has the following format:<br />
     ]
 }
 </code></pre></div></p>
-<p><strong>Table 3: Metrics JSON Fields</strong>
-| Field | Definition |
-| ----- | ---------- |
-|team_name| Team name.|
-|event  |Event name.|
-|evaluation_date    |Date of evaluation run.|
-|response_file_name|    Response JSON used to generate this Metrics JSON.|
-|metrics    |List of metrics calculated for each case.|
-|case_id|   Unique case id.|
-|jaccard_index  |Jaccard index for the case. |
-|prediction_lead_time   |Prediction lead-time for the case, excluding any processing delay.|
-|correct_predictions    |List of correctly predicted LSI instances and their individual lead-times, including recurring LSI instances.  |
-|lsi_group  |LSI group for correctly predicted LSI instance. |
-|lead_time  |Time between the earliest prediction time and actual LSI timestamp for correctly predicted LSI instance.|
-|incorrect_predictions  |Incorrect LSI predictions for entire case.|
-|false_positivies   |List of predicted LSI groups that did not occur within any prediction window over the case. |
-|misses|    List of LSI groups that occurred within at least one prediction window but were never predicted over the case.|
-|errors |Errors found by the server during the case.|
-|segment_id |Segment id where error occurred. |
-|error  |Error message from the server.|</p>
+<p><strong>Table 3: Metrics JSON Fields</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>team_name</td>
+<td>Team name.</td>
+</tr>
+<tr>
+<td>event</td>
+<td>Event name.</td>
+</tr>
+<tr>
+<td>evaluation_date</td>
+<td>Date of evaluation run.</td>
+</tr>
+<tr>
+<td>response_file_name</td>
+<td>Response JSON used to generate this Metrics JSON.</td>
+</tr>
+<tr>
+<td>metrics</td>
+<td>List of metrics calculated for each case.</td>
+</tr>
+<tr>
+<td>case_id</td>
+<td>Unique case id.</td>
+</tr>
+<tr>
+<td>jaccard_index</td>
+<td>Jaccard index for the case.</td>
+</tr>
+<tr>
+<td>prediction_lead_time</td>
+<td>Prediction lead-time for the case, excluding any processing delay.</td>
+</tr>
+<tr>
+<td>correct_predictions</td>
+<td>List of correctly predicted LSI instances and their individual lead-times, including recurring LSI instances.</td>
+</tr>
+<tr>
+<td>lsi_group</td>
+<td>LSI group for correctly predicted LSI instance.</td>
+</tr>
+<tr>
+<td>lead_time</td>
+<td>Time between the earliest prediction time and actual LSI timestamp for correctly predicted LSI instance.</td>
+</tr>
+<tr>
+<td>incorrect_predictions</td>
+<td>Incorrect LSI predictions for entire case.</td>
+</tr>
+<tr>
+<td>false_positivies</td>
+<td>List of predicted LSI groups that did not occur within any prediction window over the case.</td>
+</tr>
+<tr>
+<td>misses</td>
+<td>List of LSI groups that occurred within at least one prediction window but were never predicted over the case.</td>
+</tr>
+<tr>
+<td>errors</td>
+<td>Errors found by the server during the case.</td>
+</tr>
+<tr>
+<td>segment_id</td>
+<td>Segment id where error occurred.</td>
+</tr>
+<tr>
+<td>error</td>
+<td>Error message from the server.</td>
+</tr>
+</tbody>
+</table>
 
 
 
@@ -945,7 +957,7 @@ The metrics JSON has the following format:<br />
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.indexes", "navigation.instant", "navigation.footer", "navigation.prune", "navigation.tabs", "navigation.tabs.sticky", "toc.follow", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.indexes", "navigation.instant", "navigation.footer", "navigation.prune", "navigation.sections", "toc.follow", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
