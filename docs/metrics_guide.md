@@ -1,4 +1,5 @@
 # Metrics Guide
+(UNDER CONSTRUCTION FOR PHASE 2)
 
 ## Ground Truth JSON
 
@@ -36,6 +37,7 @@ The ground truth JSON has the following format:
 ```
 
 **Table 1: Ground Truth JSON Fields**
+
 | Field	| Definition |
 | ----- | ---------- |
 |event	|Event name.|
@@ -85,6 +87,7 @@ The response JSON has the following format:
 }
 ```
 **Table 2: Response JSON Fields**
+
 | Field	| Definition |
 | ----- | ---------- |
 |team_name	|Team name.|
@@ -146,6 +149,7 @@ The metrics JSON has the following format:
 ```
 
 **Table 3: Metrics JSON Fields**
+
 | Field	| Definition |
 | ----- | ---------- |
 |team_name|	Team name.|
