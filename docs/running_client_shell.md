@@ -9,7 +9,8 @@ This is the README for the [Client Container Shell](https://us-east-1.console.aw
 - Model that implements methods in provided `DTC_BaseModel` base class: `predict()`, `acknowledge()`, `cleanup()`, and `timed_out()` (See example in *template_model.py* )
 
 ### Quick Start
-1. Clone client-shell repository from CodeCommit: [repo link](https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/client-shell/browse?region=us-east-1)
+1. Clone client-shell repository from CodeCommit   
+  `git clone https://git-codecommit.us-east-1.amazonaws.com/v1/repos/client-shell`  
 2. Configure model according to Client Shell (See **Configuring your Model**)
 3. Download and start RabbitMQ Server (See **Starting the RabbitMQ server**)
 4. Run the client using one of two options: 

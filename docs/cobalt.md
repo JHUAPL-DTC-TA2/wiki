@@ -14,5 +14,5 @@ You can access this environment within JupyterLab Notebooks by selecting “Pyth
 
 We recommend the example notebooks as a great place to start. These are placed at `~/.config/cobalt/cobalt-notebooks.tar.gz` by the LCC script mentioned above.
 
-Please refer to the [Cobalt documentation](https://docs.cobalt.bluelightai.com/index.html) for a complete guide. The [Concept Overview](https://docs.cobalt.bluelightai.com/concepts.html) section is a great place to start to gain a high-level understanding of Cobalt use cases and concepts.
+Please refer to the [Cobalt documentation](https://docs.cobalt.bluelightai.com/index.html) for a complete guide. The [Concept Overview](https://docs.cobalt.bluelightai.com/concepts.html) section is a good starting point to gain a high-level understanding of Cobalt use cases and concepts.
 
