@@ -206,7 +206,7 @@ The script saves off three files within OUTPUT_DIR/metrics:
 2. A **responses** JSON file containing the model's responses to all segments from the evaluation.
 3. A **metrics** JSON containing the Mean Squared Correct (MSC) metrics for each case. 
 
-See this [Metrics Guide](Metrics%20Guide.md) for more details on the contents of these files. 
+See this [Metrics Guide](metrics_guide.md) for more details on the contents of these files. 
 
 To compute metrics for an evaluation run, first install the requirements located in `eval/requirements.txt`:
 
