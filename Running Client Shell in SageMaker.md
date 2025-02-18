@@ -1,4 +1,4 @@
-# Client Container Shell v1.1
+# Client Container Shell v2.0
 
 ## Overview
 This is the README for the [Client Container Shell](https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/client-shell/browse?region=us-east-1) and supporting materials for teams participating in the DARPA Triage Challenge Data Competition. The Client Container Shell can be used to prepare submissions for the workshop and challenge events in accordance with the Data Competition ICD (available at https://triagechallenge.darpa.mil).
@@ -11,36 +11,31 @@ This is the README for the [Client Container Shell](https://us-east-1.console.aw
 ### Quick Start
 1. Clone client-shell repository from CodeCommit   
   `git clone https://git-codecommit.us-east-1.amazonaws.com/v1/repos/client-shell`  
-2. Configure model according to Client Shell (See **Configuring your Model**)
-3. Download and start RabbitMQ Server (See **Starting the RabbitMQ server**)
+2. Configure model according to Client Shell (See [Configuring your Model](#configuring-your-model))
+3. Download and start RabbitMQ Server (See [Starting the RabbitMQ server](#starting-the-rabbitmq-server))
 4. Run the client using one of two options: 
-   * Run as Docker container (See **Running the Client with Docker**)
-   * Run locally within AWS Workspace (See **Running the Client locally**)
-5. Test connection between client and server using messaging stub (See **Passing Messages to the Client**).
-6. Test with dtc-evaluator image and run metrics (See **Evaluating Your Model in SageMaker**).
+   * Run as Docker container (See [Running the Client with Docker](#running-the-client-with-docker))
+   * Run locally within AWS Workspace (See [Running the Client locally](#running-the-client-locally))
+5. Test connection between client and server using messaging stub (See [Passing Messages to the Client](#passing-messages-to-the-client)).
+6. Evaluate client using `dtc-evaluator` and run metrics on output (See [Evaluating Your Model in SageMaker](#evaluating-your-submission-in-sagemaker)).
 
+## Configuring your Model
+Your model must inherit from `dtc_messaging.model.DTC_BaseModel` in order to interface with the evaluator. The model class must override five methods: `predict()`, `acknowledge()`, `cleanup()`, `timed_out()`, `error()`.  Each method above is a callback in response to receipt of one of the message types (MessageType) listed below:
 
-### Message Types and Handlers
-The client supports a fixed set of message types (MessageType) with corresponding callbacks:
-
-- `CONNECTION_MESSAGE`: Establishes initial connection between server and model.
 - `PREDICT_MESSAGE`: Provides new patient data and requests LSI prediction by calling `predict()` in the model.
 - `ACKNOWLEDGE_MESSAGE`: Acknowledges receipt of prediction by calling `acknowledge()` in the model.
 - `CLEANUP_MESSAGE`: Indicates when the processing for the current patient case is complete by calling `cleanup()` in the model.
 - `TIMED_OUT_MESSAGE`: Indicates the model has timed out during the current prediction request by calling `timed_out()` in the model.
 - `ERROR_MESSAGE`: Contains error message from the evaluation server.
 
-Each message type is associated with a specific handler method that calls a corresponding function in the model class or client.
-
-## Configuring your Model
-Your model must inherit from `dtc_messaging.model.DTC_BaseModel` in order to interface with the evaluator. This model class requires implementation of four class methods: `predict()`, `acknowledge()`, `cleanup()`, and `timed_out()`. For a simple example implementation, please see the provided `template_model.py`.
+In addition, there is a `CONNECTION_MESSAGE` that establishes initial connection between server and model, which is handled by the model base class. As a simple example implementation of the methods listed above, please see the provided *template_model.py*.
 
 ## Starting the RabbitMQ server
 To start a RabbitMQ server with the management plugin enabled, run the following commands in your terminal:
 
 `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`
 
-`docker run --network sagemaker --rm  552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-rabbitmq:latest`
+`docker run -d --network sagemaker --rm  552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-rabbitmq:latest`
 
 RabbitMQ will automatically reserve and map ports `15672` and `5672` on the host to ports `15672` and `5672` in the server container, respectively. These ports are used by the RabbitMQ server.
 
@@ -87,8 +82,7 @@ This command runs your application in a Docker container, connecting it to an ex
 
 ## Running the Client locally
 
-To run the Client outside docker install the package `pika` using pip (do this once):
-`python -m pip install pika -e .`
+To run the Client outside docker, you must first install the `dtc_messaging` package and dependencies in your local enviroment. Clone the [dtc-base-image repo](https://git-codecommit.us-east-1.amazonaws.com/v1/repos/dtc-base-image) and run the following within the cloned repo: `python3.10 -m pip install .`. 
 
 The following command will run the client locally with an existing RabbitMQ server:
 `python run_client.py --host localhost --queue rpc_queue`
@@ -96,9 +90,9 @@ The following command will run the client locally with an existing RabbitMQ serv
 
 ## Passing messages to the Client
 
-The `send_message.py` script in the `stub/` directory will send sample messages of each MessageType to a running client container. You may run the command:
+The `send_message.py` script in the `stubs/` directory can be used to test receipt of sample messages of each MessageType with a running client container. You may run the command:
 
-`python send_message.py --queue rpc_queue -m {CONNECTION_MESSAGE|PREDICT_MESSAGE|ACKNOWLEDGE_MESSAGE| ... }`
+`python send_message.py --queue rpc_queue -m {CONNECTION_MESSAGE|PREDICT_MESSAGE|ACKNOWLEDGE_MESSAGE|ERROR_MESSAGE|TIMED_OUT_MESSAGE|CLEANUP_MESSAGE}`
 
 to pass a sample message to the client, where a single message type is selected. This should print out the client response message's channel, method, properties, and body data. For example, using the provided `ExampleModel` class in `template_model.py` as the model, running `python send_message.py -m CONNECTION_MESSAGE` would print this response:
 
@@ -110,10 +104,8 @@ PROPERTIES: <BasicProperties(['correlation_id=9c13597d-7aa1-45f6-9e1e-a6734c8263
 BODY: b'{"response": {"response": "connected"}}'
 ```
 
-Two example segment files have been included to test messaging with a `PREDICT_MESSAGE`. These segment files were generated from a full case in the training dataset using the included script `tools/segment_case.py`.
-
-## Uploading image to AWS ECR (Elastic Container Registry)
-Use the following steps to authenticate and push an image to your team ECR.
+## Uploading docker image to AWS ECR (Elastic Container Registry)
+Use the following steps to authenticate and push an image to your team ECR. Note that for submission, this is done automatically within the CodeBuild CI/CD build process for successful builds.
 
 Start by retrieving an authentication token and authenticate your Docker client to your registry.
 
@@ -121,16 +113,16 @@ Start by retrieving an authentication token and authenticate your Docker client 
 
 Tag your image so you can push the image to this repository:
 
-`docker tag --network sagemaker dtc-<TEAM_NAME>:<TAG> 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-<TEAM_NAME>:<TAG>`
+`docker tag dtc-<TEAM_NAME>:<TAG> 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-<TEAM_NAME>:<TAG>`
 
 Run the following command to push this image to your newly created AWS repository:
 
-`docker push --network sagemaker 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-<TEAM_NAME>:<TAG>`
+`docker push 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-<TEAM_NAME>:<TAG>`
 
 
 ## Configuring Docker
 
-All SageMaker app types (JupyterLab, CodeEditor, Studio Classic) support Docker API access via a proxy docker engine. To access docker in your SageMaker instance, **restart** or **create** an instance using the "install-docker-{app-type}-v4" lifecycle policy.
+All SageMaker app types (JupyterLab, CodeEditor, Studio Classic) support Docker API access via a proxy docker engine. To access docker in your SageMaker instance, **restart** or **create** an instance using the "install-docker-cobalt-{app-type}-v2" lifecycle policy.
 
 > Note: An existing Code Editor or JupyterLab instance will not have Docker installed until you fully stop the instance and re-run with the lifecycle policy. Restarting the instance will not delete any data in the `/home/sagemaker-user/` directory, but will delete data in other directories. 
 
@@ -171,44 +163,58 @@ By default, your credentials will not be passed from SageMaker to your Docker im
 
 
 ## Evaluating Your Submission in SageMaker
-In order to run the evaluator, you must first authenticat your session to the AWS ECR. To authenticate, run `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`
+In order to run the evaluator, you must first authenticate your session to the AWS ECR. To authenticate, run `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`
 Before running the evaluator, ensure that your client container is running (see [Running the Client with Docker](#running-the-client-with-docker) or [Running the Client locally](#running-the-client-locally)).
 
 Additionaly, you need to set two environment variables `KEY` and `SECRET_KEY`. These can be set by running the following the SageMaker terminal:
-`export KEY=<your key>` and `export SECRET_KEY=<your key>` we reccomend you place these in your `~/.bashrc` to prvent having to reset them. These are the keys used for your SageMaker login [here](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/DTC%20Participant%20AWS%20User%20Guide.md#connecting-to-your-teams-sagemaker-studio).
+```
+export KEY=<your key>
+export SECRET_KEY=<your key>
+``` 
+Place these in your `~/.bashrc` to avoid having to set for every session. These are the keys used for your SageMaker login [here](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/DTC%20Participant%20AWS%20User%20Guide.md#connecting-to-your-teams-sagemaker-studio).
 
-The evaluator can be begin the process using a bash script in the client-shell repository under `tools/eval/run_server.sh`
+The evaluator can then be run using a convenience script in the client-shell repository: `eval/run_server.sh`
 
 ### run_server.sh 
-The `run_server.sh` script will pull the latest `dtc-evaluator` from the ECR and run it. You will need to specify the following required arguments.
-**Before running blease ensure your AWS ENV keys (`KEY` and `SECRET_KEY`) are set.**
-- `--output-dir` or `-o` specifies where model predictions and logs will be stored. This path can point to a location that is either local to SageMaker or your team's S3-scratch bucket.
-- `--inventory-file` or `-i` specifies the list of data segments to be used by the evaluator. The inventory file can exist in an S3 bucket or locally. An example inventory file can be found in client_shell/tools/eval.
-- `--dataset-dir` or `-d` specifies the path to the segmented dataset. This can be a local path or an S3 path. 
+The `run_server.sh` script located at `eval/run_server.sh` will pull the latest `dtc-evaluator` from AWS ECR and run it.
+```
+bash ./run_server.sh --output-dir [OUTPUT_DIR] --inventory-file [INVENTORY_FILE] --dataset-dir [DATASET_DIR] [--include-basic-ehr] [--include-expanded-ehr]
+```
 
- Example usage: 
-- `./run_server.sh --output-dir outputs --inventory-file inventory_phase1_v1-2_val.csv --dataset-dir s3://dtc-training-data/phase1_v1-2_segmented/val`
-    This command will store the evaluator's outputs in the `./outputs` directory, using the `./inventory_phase1_v1-2_val.csv` as the inventory file and the `s3://dtc-training-data/phase1_v1-2_segmented/val` as the source dataset.
+The following arguments are used to specify the data and evaluation configuration:
+
+- `--output-dir` or `-o` specifies where model predictions and logs will be stored. This path can point to a location that is either local to SageMaker or your team's S3-scratch bucket.
+- `--inventory-file` or `-i` specifies the list of data segments to be used by the evaluator. This must be from a phase 2 dataset (*phase1_v2+* or *phase2_v1+*). The inventory file can exist in an S3 bucket or locally. An example inventory file can be found in *client_shell/eval*.
+- `--dataset-dir` or `-d` specifies the path to the segmented dataset. This can be a local path or an S3 path. Note that this dataset must correspond to the inventory file provided above.
+- `--include-basic-ehr` is an optional flag that includes basic EHR data in the run for each case.
+- `--include-expanded-ehr` is an optional flag that includes expanded EHR data (as well as basic EHR data) in the run for each case.
+
+Example: 
+```
+./run_server.sh --output-dir outputs --inventory-file inventory_phase1_v2-0_val_mini.csv --dataset-dir s3://dtc-training-data/phase1/phase1_v2-0_segmented/val --include-basic-ehr
+```
+This command will store evaluation outputs in the `./outputs` directory, using the `./inventory_phase1_v2-0_val_mini.csv` as the inventory file and the `s3://dtc-training-data/phase1_v2-0_segmented/val` as the source dataset with basic EHR data included for each case. Example evaluation output and logs can be found in `eval/example_output/out` and `eval/example_output/logs`, respectively.
+
   
 ### run_metrics.sh
 
-The `run_metrics.sh` script located at `tools/eval/run_metrics.sh` will compute performance metrics for an evaluation conducted using `run_server.sh`.
+The `run_metrics.sh` script located at `eval/run_metrics.sh` will compute performance metrics on the evaluation output from `run_server.sh`.
 
 The script saves off three files within OUTPUT_DIR/metrics:
 
-1. A **ground truth** JSON file containing all segments listed in the `inventory.csv`.
+1. A **ground truth** JSON file containg ground truth for all segments listed in the inventory file.
 2. A **responses** JSON file containing the model's responses to all segments from the evaluation.
-3. A **metrics** JSON containing the Jaccard Index and Prediction Lead-Time for each case. 
+3. A **metrics** JSON containing the Mean Squared Correct (MSC) metrics for each case. 
 
 See this [Metrics Guide](Metrics%20Guide.md) for more details on the contents of these files. 
 
-To compute metrics for an evaluation run, first install the requirements located in `tools/eval/requirements.txt`:
+To compute metrics for an evaluation run, first install the requirements located in `eval/requirements.txt`:
 
 ```
-pip install -r requirements.txt --timeout 1000
+pip install -r eval/requirements.txt --timeout 1000
 ```
 
-After installing the requirements, run the metrics script:
+After installing the requirements, run the metrics script from within the `eval/` directory:
 
 ```
 bash ./run_metrics.sh --output-dir [OUTPUT_DIR] --inventory-file [INVENTORY_FILE] --dataset-dir [DATASET_DIR] [--allow-incomplete]
@@ -218,9 +224,18 @@ The `output-dir`, `inventory-file`, and `dataset-dir` should match the inputs us
 
 If you want to run metrics on an incomplete run, you may include the optional `allow-incomplete` flag. Otherwise, the script will check to ensure all segments in the inventory file were run and throw an error if responses are missing.
 
-The python scripts used to generate the ground truth, response, and metrics JSONs are located in `tools/eval/src`, but should not be altered.  
+The python scripts used to generate the ground truth, response, and metrics JSONs are located in `eval/src`, but these scripts should not be altered to ensure consistent metrics with the competition.
+
+Example output of the metrics can be found in `eval/example_output/metrics`.
 
 ## Release Notes
+### v2.0
+- updated metrics scripts for phase 2
+- addition of new CLI args to run_server.sh (--include-basic-ehr, --include-expanded-ehr) with minor refactoring
+- moved eval/ and stubs/ to top-level directory
+- added example output from evaluator for phase 2
+- updated Dockerfile entrypoint so it includes run_client.py for easier override of args
+
 ### v1.3
 - Added ENV passable variables to evaluator and client-shell for AWS keys
 
@@ -257,4 +272,4 @@ New Features:
 - Factory Pattern for Message Handlers: Simplifies the creation of message handlers based on the message type, supporting scalable and modular development.
 
 ---
-(c) 2024 The Johns Hopkins University Applied Physics Laboratory LLC
+(c) 2025 The Johns Hopkins University Applied Physics Laboratory LLC
