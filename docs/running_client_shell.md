@@ -1,4 +1,4 @@
-# Client Container Shell v2.0
+# Client Container Shell
 
 ## Overview
 This is the README for the [Client Container Shell](https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/client-shell/browse?region=us-east-1) and supporting materials for teams participating in the DARPA Triage Challenge Data Competition. The Client Container Shell can be used to prepare submissions for the workshop and challenge events in accordance with the Data Competition ICD (available at https://triagechallenge.darpa.mil).
@@ -226,9 +226,25 @@ If you want to run metrics on an incomplete run, you may include the optional `a
 
 The python scripts used to generate the ground truth, response, and metrics JSONs are located in `eval/src`, but these scripts should not be altered to ensure consistent metrics with the competition.
 
+### Evaluation resources
+
 Example output of the metrics can be found in `eval/example_output/metrics`.
 
+The config file used to create the segmented datasets is provided in `eval/segment_config.csv`. This file lists each field in the EHR data and how it is included in the segmented data at evaluation time. The CSV file has the following columns:
+- *source*: dataset source ("UMB" or "UPitt")
+- *table*: table name
+- *field*: field name 
+- *deliver-at*: whether and when the field is included in the segmented data. "start" indicates start of case, "timestamp" indicates at accompanying timestamp, "admission" indicates at admission time, and "exclude" indicates it is excluded from segmented data.
+- *segment-file*: if the field is not excluded, the segmented data file in which it is included. This takes values: "basic-ehr", "expanded-ehr", and "lsi".
+- *notes*: accompanying notes indicating reason for inclusion/exclusion, as well as indication of new fields in the phase 2 dataset.
+
 ## Release Notes
+
+### v2.1
+- updated metrics weights to balance datasets equally
+- updated metrics with 5-minute prediction lead time
+- added segment_config.csv with information about what EHR fields are provided during evaluation
+
 ### v2.0
 - updated metrics scripts for phase 2
 - addition of new CLI args to run_server.sh (--include-basic-ehr, --include-expanded-ehr) with minor refactoring
