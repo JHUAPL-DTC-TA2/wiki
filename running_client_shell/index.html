@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#client-container-shell-v20" class="md-skip">
+        <a href="#client-container-shell" class="md-skip">
           Skip to content
         </a>
       
@@ -518,6 +518,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#evaluation-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Evaluation resources
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -532,6 +541,15 @@
   
     <nav class="md-nav" aria-label="Release Notes">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v21" class="md-nav__link">
+    <span class="md-ellipsis">
+      v2.1
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#v20" class="md-nav__link">
@@ -757,7 +775,7 @@
   
 
 
-<h1 id="client-container-shell-v20">Client Container Shell v2.0</h1>
+<h1 id="client-container-shell">Client Container Shell</h1>
 <h2 id="overview">Overview</h2>
 <p>This is the README for the <a href="https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/client-shell/browse?region=us-east-1">Client Container Shell</a> and supporting materials for teams participating in the DARPA Triage Challenge Data Competition. The Client Container Shell can be used to prepare submissions for the workshop and challenge events in accordance with the Data Competition ICD (available at https://triagechallenge.darpa.mil).</p>
 <h3 id="minimum-requirements">Minimum Requirements</h3>
@@ -938,8 +956,22 @@ This command will store evaluation outputs in the <code>./outputs</code> directo
 <p>The <code>output-dir</code>, <code>inventory-file</code>, and <code>dataset-dir</code> should match the inputs used for <code>run_server.sh</code>.</p>
 <p>If you want to run metrics on an incomplete run, you may include the optional <code>allow-incomplete</code> flag. Otherwise, the script will check to ensure all segments in the inventory file were run and throw an error if responses are missing.</p>
 <p>The python scripts used to generate the ground truth, response, and metrics JSONs are located in <code>eval/src</code>, but these scripts should not be altered to ensure consistent metrics with the competition.</p>
+<h3 id="evaluation-resources">Evaluation resources</h3>
 <p>Example output of the metrics can be found in <code>eval/example_output/metrics</code>.</p>
+<p>The config file used to create the segmented datasets is provided in <code>eval/segment_config.csv</code>. This file lists each field in the EHR data and how it is included in the segmented data at evaluation time. The CSV file has the following columns:
+- <em>source</em>: dataset source ("UMB" or "UPitt")
+- <em>table</em>: table name
+- <em>field</em>: field name 
+- <em>deliver-at</em>: whether and when the field is included in the segmented data. "start" indicates start of case, "timestamp" indicates at accompanying timestamp, "admission" indicates at admission time, and "exclude" indicates it is excluded from segmented data.
+- <em>segment-file</em>: if the field is not excluded, the segmented data file in which it is included. This takes values: "basic-ehr", "expanded-ehr", and "lsi".
+- <em>notes</em>: accompanying notes indicating reason for inclusion/exclusion, as well as indication of new fields in the phase 2 dataset.</p>
 <h2 id="release-notes">Release Notes</h2>
+<h3 id="v21">v2.1</h3>
+<ul>
+<li>updated metrics weights to balance datasets equally</li>
+<li>updated metrics with 5-minute prediction lead time</li>
+<li>added segment_config.csv with information about what EHR fields are provided during evaluation</li>
+</ul>
 <h3 id="v20">v2.0</h3>
 <ul>
 <li>updated metrics scripts for phase 2</li>
