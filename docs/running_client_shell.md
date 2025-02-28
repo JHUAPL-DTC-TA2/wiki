@@ -183,6 +183,7 @@ bash ./run_server.sh --output-dir [OUTPUT_DIR] --inventory-file [INVENTORY_FILE]
 
 The following arguments are used to specify the data and evaluation configuration:
 
+- `--name` or `-n` specifies a name for the evaluation run. This appears in all output filenames (logs and response files) for easier tracking of separate runs.
 - `--output-dir` or `-o` specifies where model predictions and logs will be stored. This path can point to a location that is either local to SageMaker or your team's S3-scratch bucket.
 - `--inventory-file` or `-i` specifies the list of data segments to be used by the evaluator. This must be from a phase 2 dataset (*phase1_v2+* or *phase2_v1+*). The inventory file can exist in an S3 bucket or locally. An example inventory file can be found in *client_shell/eval*.
 - `--dataset-dir` or `-d` specifies the path to the segmented dataset. This can be a local path or an S3 path. Note that this dataset must correspond to the inventory file provided above.
@@ -191,7 +192,7 @@ The following arguments are used to specify the data and evaluation configuratio
 
 Example: 
 ```
-./run_server.sh --output-dir outputs --inventory-file inventory_phase1_v2-0_val_mini.csv --dataset-dir s3://dtc-training-data/phase1/phase1_v2-0_segmented/val --include-basic-ehr
+./run_server.sh --name test --output-dir outputs --inventory-file inventory_phase1_v2-0_val_mini.csv --dataset-dir s3://dtc-training-data/phase1/phase1_v2-0_segmented/val --include-basic-ehr
 ```
 This command will store evaluation outputs in the `./outputs` directory, using the `./inventory_phase1_v2-0_val_mini.csv` as the inventory file and the `s3://dtc-training-data/phase1_v2-0_segmented/val` as the source dataset with basic EHR data included for each case. Example evaluation output and logs can be found in `eval/example_output/out` and `eval/example_output/logs`, respectively.
 
