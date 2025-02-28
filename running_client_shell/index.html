@@ -928,6 +928,7 @@ Place these in your <code>~/.bashrc</code> to avoid having to set for every sess
 </code></pre></div></p>
 <p>The following arguments are used to specify the data and evaluation configuration:</p>
 <ul>
+<li><code>--name</code> or <code>-n</code> specifies a name for the evaluation run. This appears in all output filenames (logs and response files) for easier tracking of separate runs.</li>
 <li><code>--output-dir</code> or <code>-o</code> specifies where model predictions and logs will be stored. This path can point to a location that is either local to SageMaker or your team's S3-scratch bucket.</li>
 <li><code>--inventory-file</code> or <code>-i</code> specifies the list of data segments to be used by the evaluator. This must be from a phase 2 dataset (<em>phase1_v2+</em> or <em>phase2_v1+</em>). The inventory file can exist in an S3 bucket or locally. An example inventory file can be found in <em>client_shell/eval</em>.</li>
 <li><code>--dataset-dir</code> or <code>-d</code> specifies the path to the segmented dataset. This can be a local path or an S3 path. Note that this dataset must correspond to the inventory file provided above.</li>
@@ -935,7 +936,7 @@ Place these in your <code>~/.bashrc</code> to avoid having to set for every sess
 <li><code>--include-expanded-ehr</code> is an optional flag that includes expanded EHR data (as well as basic EHR data) in the run for each case.</li>
 </ul>
 <p>Example: 
-<div class="highlight"><pre><span></span><code>./run_server.sh --output-dir outputs --inventory-file inventory_phase1_v2-0_val_mini.csv --dataset-dir s3://dtc-training-data/phase1/phase1_v2-0_segmented/val --include-basic-ehr
+<div class="highlight"><pre><span></span><code>./run_server.sh --name test --output-dir outputs --inventory-file inventory_phase1_v2-0_val_mini.csv --dataset-dir s3://dtc-training-data/phase1/phase1_v2-0_segmented/val --include-basic-ehr
 </code></pre></div>
 This command will store evaluation outputs in the <code>./outputs</code> directory, using the <code>./inventory_phase1_v2-0_val_mini.csv</code> as the inventory file and the <code>s3://dtc-training-data/phase1_v2-0_segmented/val</code> as the source dataset with basic EHR data included for each case. Example evaluation output and logs can be found in <code>eval/example_output/out</code> and <code>eval/example_output/logs</code>, respectively.</p>
 <h3 id="run_metricssh">run_metrics.sh</h3>
