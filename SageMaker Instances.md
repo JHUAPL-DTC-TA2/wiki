@@ -1,4 +1,7 @@
 # Recommended Instance Types for SageMaker Studio Classic
+  
+**Note**: Instance and cost information are subject to change.   
+Follow the "Details" link to see most up-to-date instance details, inclluding cost. 
 
 |   |   |   |   |   |   |
 |---|---|---|---|---|---|

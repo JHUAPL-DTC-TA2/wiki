@@ -16,7 +16,7 @@ This user guide provides step-by-step instructions to configure your AWS WorkSpa
 
 AWS WorkSpace is a Desktop-As-A-Service platform that streams a virtualized desktop environment to your local machine. For this challenge, we use WorkSpaces to provide participants a pre-configured, secure environment to access DTC data and computing resources to develop their models. 
 
-Currently, all participants will use the same WorkSpace bundle: Ubuntu 20.04 Power Bundle (4 vCPU, 16 GiB RAM) with the following pre-installed libraries and programs: FireFox, Python 3.9, VSCode, and MySQL WorkBench. We may change the default bundle or provide alternative bundles in the future. 
+Currently, all participants will use the same WorkSpace bundle: Ubuntu 22.04 Power Bundle (4 vCPU, 16 GiB RAM) with the following pre-installed libraries and programs: FireFox, Python 3.9, VSCode, and MySQL WorkBench. We may change the default bundle or provide alternative bundles in the future. 
 
 Once you are permitted to participate in the TA2 challenge, you should receive two emails contain information about accessing WorkSpaces and SageMaker domain. The WorkSpaces email will look similar to the one show below and contains the information you need to configure your WorkSpace.
 
@@ -107,10 +107,11 @@ Running the launch script should open a new tab or window on your browser and lo
 
 <img src="images/sagemaker-3.png">
 
-A few important things to consider when using SageMaker instances:
-- DARPA provided each team a budget for Phase I to maintain your team’s infrastructure, perform analysis, and develop models. Please use your resources judiciously and efficiently!
-- SageMaker instances will continually accrue expenses so long as they are active. We strongly advise that you shut down any unused or idle instances to avoid accruing unwanted costs. The table below lists the available instances and their associated rates. These rates are subject to change.
-- APL will be sending weekly cost reports via email to inform you of the status of your weekly/total cost accrual and resource usage statistics. We will deliver the first cost report next week.
+A few important things to consider when using SageMaker instances:    
+- DARPA provided each team a budget to maintain the team’s infrastructure, perform analysis, and develop models. Please use your resources judiciously and efficiently!   
+- SageMaker instances will continually accrue expenses so long as they are active. We strongly advise that you shut down any unused or idle instances to avoid accruing unwanted costs. See [SageMaker Instances](SageMaker%20Instances.md) for available instances and their associated rates. These rates are subject to change.   
+- APL will be sending weekly cost reports via email to inform you of the status of your weekly/total cost accrual and resource usage statistics.  
+  
 
 ### Quick Start SageMaker Studio
 
@@ -129,7 +130,7 @@ Using SageMaker Studio tool, you will be able to access GPU resources to train a
 Select your Python image:
 <img src="images/quick-start-3.png">
 
-Select your [SageMaker instance](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/SageMaker%20Instances.md):
+Select your [SageMaker instance](SageMaker%20Instances.md):
 <img src="images/quick-start-4.png">
 
 Once selected click the "Select" button.
