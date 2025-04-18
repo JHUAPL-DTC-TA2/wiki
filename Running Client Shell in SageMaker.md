@@ -15,7 +15,7 @@ This is the README for the [Client Container Shell](https://us-east-1.console.aw
 3. Download and start RabbitMQ Server (See [Starting the RabbitMQ server](#starting-the-rabbitmq-server))
 4. Run the client using one of two options: 
    * Run as Docker container (See [Running the Client with Docker](#running-the-client-with-docker))
-   * Run locally within AWS Workspace (See [Running the Client locally](#running-the-client-locally))
+   * Run locally within AWS WorkSpace (See [Running the Client locally](#running-the-client-locally))
 5. Test connection between client and server using messaging stub (See [Passing Messages to the Client](#passing-messages-to-the-client)).
 6. Evaluate client using `dtc-evaluator` and run metrics on output (See [Evaluating Your Model in SageMaker](#evaluating-your-submission-in-sagemaker)).
 

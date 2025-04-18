@@ -10,7 +10,7 @@ In some cases, browser cache can affect the reset password screen. If you encoun
 
 
 2. **"Unable to connect to Network"**  
-Connection issues to workspaces are typically a result of an external firewall or network restriction blocking the WorkSpaces port. [This AWS document](https://docs.aws.amazon.com/workspaces/latest/adminguide/workspaces-port-requirements.html) describes the ports that need to be available for the WorkSpaces to properly stream to the client.  
+Connection issues to WorkSpaces are typically a result of an external firewall or network restriction blocking the WorkSpaces port. [This AWS document](https://docs.aws.amazon.com/workspaces/latest/adminguide/workspaces-port-requirements.html) describes the ports that need to be available for the WorkSpaces to properly stream to the client.  
 If the issues still persists, follow the logging steps described [here](https://docs.aws.amazon.com/whitepapers/latest/best-practices-deploying-amazon-workspaces/collecting-a-workspaces-support-log-bundle-for-debugging.html) for low-level system logs. Send these logs to the APL team and we will help debug and troubleshoot. 
 
 3. **Sudo Access and Installing Applications**  

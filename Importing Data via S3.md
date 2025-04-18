@@ -10,7 +10,7 @@ This guide will go over how to use the S3 bucket "dtc-import" for transferring d
 
 ## Finding Your Team's Prefix
 
-Each team has been assigned a unique prefix within the `dtc-import` bucket. Your team's prefix is structured as follows: `team-tag/`. Replace `team-tag` with your actual tag. Your team tag is typically the first part of your WorkSpace or SageMaker username, before the hyphen. For example, if your workspace username is `apl-smithj`, your team tag is `apl`.   
+Each team has been assigned a unique prefix within the `dtc-import` bucket. Your team's prefix is structured as follows: `team-tag/`. Replace `team-tag` with your actual tag. Your team tag is typically the first part of your WorkSpace or SageMaker username, before the hyphen. For example, if your WorkSpace username is `apl-smithj`, your team tag is `apl`.   
 
 ## Uploading Files to Your Team's Prefix
 

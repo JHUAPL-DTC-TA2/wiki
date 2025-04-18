@@ -1,6 +1,6 @@
 # DTC Participant AWS User Guide
 
-This user guide provides step-by-step instructions to configure your AWS Workspace and AWS SageMaker environment as well as troubleshooting notes for common issues. Contact the JHU APL team if you have any questions at APL-DTC-Help@jhuapl.edu.
+This user guide provides step-by-step instructions to configure your AWS WorkSpace and AWS SageMaker environment as well as troubleshooting notes for common issues. Contact the JHU APL team if you have any questions at APL-DTC-Help@jhuapl.edu.
 
 
 ## Table of Contents
@@ -58,14 +58,14 @@ Follow the steps below to finish setting up your WorkSpace.
 <img src="images/workspace-4.png">
 
 That's it! A couple of additional points:
-- The default WorkSpace supports "Paste-Only" clipboard redirect (using Ctrl+Shift+V in your workspace). This means you can copy and paste things from your local workstation to the WorkSpace, but not the other way around.
+- The default WorkSpace supports "Paste-Only" clipboard redirect (using Ctrl+Shift+V in your WorkSpace). This means you can copy and paste things from your local workstation to the WorkSpace, but not the other way around.
 - Your WorkSpace user will not have access as local administrator by default, but the user account is able to install user level libraries and packages. 
 - Pre-installed applications such as FireFox, VSCode, and MySQL WorkBench can be found in the Applications library, which can be opened by clicking "Show Applications".
 - WorkSpaces will shut down after an hour of inactivity.
 
 ### Connecting to your team's SageMaker Studio
 
-SageMaker Studio is a web-based IDE, similar to JupyterLab, that enables you run code on AWS instances. Each team is provided a Sagemaker domain, and individual users are provided user profiles. Each user profile has an *Elastic File Store* within their profile to store files. When creating a kernel or running arbitrary code, SageMaker studio will prompt you to create an instance from an image. Instances define the hardware specifications and images define the software specifications. To access SageMaker Studio, we provided you a set-up script that will create a log-in application within your workspace (i.e., `open_presigned_domain_url.sh`). The instructions below allows you to configure your workspace to generate this log-in application.
+SageMaker Studio is a web-based IDE, similar to JupyterLab, that enables you run code on AWS instances. Each team is provided a SageMaker domain, and individual users are provided user profiles. Each user profile has an *Elastic File Store* within their profile to store files. When creating a kernel or running arbitrary code, SageMaker studio will prompt you to create an instance from an image. Instances define the hardware specifications and images define the software specifications. To access SageMaker Studio, we provided you a set-up script that will create a log-in application within your WorkSpace (i.e., `open_presigned_domain_url.sh`). The instructions below allows you to configure your WorkSpace to generate this log-in application.
 
 You should receive two emails containing information about the WorkSpace and SageMaker domain. The SageMaker domain email will look similar to the one show below and contains the information you need to connect to SageMaker. **You will need to first set up your WorkSpace before proceeding to connect to SageMaker.**
 
