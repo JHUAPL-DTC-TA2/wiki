@@ -55,9 +55,9 @@ Both images include the `dtc_messaging` python package used to interface with th
 
 
 #### Base Images
-There are two base images available for your use in the AWS ECR:
-- dtc-base-image:latest 
-- dtc-base-image-cpu:latest
+There are two base images available for your use in the AWS ECR:  
+- dtc-base-image:latest   
+- dtc-base-image-cpu:latest  
 
 `dtc-base-image:latest` is configured for teams whose models require GPU and is built off of `nvidia/cuda:12.3.2-cudnn9-devel-ubuntu22.04`, while `dtc-base-image-cpu:latest` holds a lighter-weight framework for those models that only run on CPU, and it is built off of `ubuntu:22.04`.
 

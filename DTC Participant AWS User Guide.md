@@ -115,7 +115,7 @@ A few important things to consider when using SageMaker instances:
 
 ### Quick Start SageMaker Studio
 
-Using SageMaker Studio tool, you will be able to access GPU resources to train and evaluate your models. We recommend that you go through the [AWS official documentation](https://docs.aws.amazon.com/sagemaker/latest/dg/studio-ui.html) to familiarize yourself with the tools available to you.
+Using SageMaker Studio tool, you will be able to access GPU resources to train and evaluate your models. We recommend that you go through the [AWS official documentation](https://docs.aws.amazon.com/sagemaker/latest/dg/studio-updated.html) to familiarize yourself with the tools available to you.
 
 #### Quick Start 
 
@@ -170,7 +170,7 @@ You can access your private storage within SageMaker Studio. To transfer files f
 1. Open SageMaker Studio's launcher and select "System Terminal":
 <img src="images/storage-1.png">
 
-In the terminal, you may use the [AWS CLI S3](https://docs.aws.amazon.com/cli/latest/reference/s3/) to run commands (e.g., `cp`, `ls`, `rm`, etc.).
+In the terminal, you may use the [AWS CLI S3](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/s3/index.html) to run commands (e.g., `cp`, `ls`, `rm`, etc.).
 
 2. To copy (`cp`) files from the scratch bucket to the into your (EFS) from you can use the command `aws s3 cp s3://dtc-scratch-{team_name}/path/to/file .`. To copy files into the scratch bucket from your EFS storage, you may use `aws s3 cp <filename> s3://dtc-scratch-{team_name}/path/`.
 
