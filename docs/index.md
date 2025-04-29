@@ -109,7 +109,7 @@ Running the launch script should open a new tab or window on your browser and lo
 
 A few important things to consider when using SageMaker instances:    
 - DARPA provided each team a budget to maintain the team’s infrastructure, perform analysis, and develop models. Please use your resources judiciously and efficiently!   
-- SageMaker instances will continually accrue expenses so long as they are active. We strongly advise that you shut down any unused or idle instances to avoid accruing unwanted costs. See [SageMaker Instances](SageMaker%20Instances.md) for available instances and their associated rates. These rates are subject to change.   
+- SageMaker instances will continually accrue expenses so long as they are active. We strongly advise that you shut down any unused or idle instances to avoid accruing unwanted costs. See [SageMaker Instances](sagemaker_instances.md) for available instances and their associated rates. These rates are subject to change.   
 - APL will be sending weekly cost reports via email to inform you of the status of your weekly/total cost accrual and resource usage statistics.  
   
 
@@ -130,7 +130,7 @@ Using SageMaker Studio tool, you will be able to access GPU resources to train a
 Select your Python image:
 <img src="images/quick-start-3.png">
 
-Select your [SageMaker instance](SageMaker%20Instances.md):
+Select your [SageMaker instance](sagemaker_instances.md):
 <img src="images/quick-start-4.png">
 
 Once selected click the "Select" button.

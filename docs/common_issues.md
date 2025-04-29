@@ -19,7 +19,7 @@ Participants are unable to perform "sudo" commands on their WorkSpace, making it
 ## SageMaker
 1. **Managing Environment**  
 Refer to this [link](https://docs.aws.amazon.com/sagemaker/latest/dg/studio-lab-use-manage.html) for best-practices and tutorials on how to manage conda environments within SageMaker.  
-When executing code in a notebook or script, SageMaker will prompt you to start an "instance". We recommend you pick an instance that matches the requirements for the code to run successfully. (i.e. pick a high RAM instance if your code needs a lot of memory, or a GPU instance if your code needs CUDA.) Refer to [SageMaker Instances](SageMaker%20Instances.md) for a list of instance types and their specifications.  
+When executing code in a notebook or script, SageMaker will prompt you to start an "instance". We recommend you pick an instance that matches the requirements for the code to run successfully. (i.e. pick a high RAM instance if your code needs a lot of memory, or a GPU instance if your code needs CUDA.) Refer to [SageMaker Instances](sagemaker_instances.md) for a list of instance types and their specifications.  
 Make sure to shutdown instances when you are done using them via the instance management panel in the SageMaker UI. 
 
 2. **Broken Packages/Images**  
