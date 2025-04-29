@@ -1,7 +1,9 @@
-# Recommended Instance Types for SageMaker Studio Apps (CodeEditor and JupyterLab)
+# Recommended Instance Types for SageMaker Studio Apps  
+
+Applies for CodeEditor and JupyterLab instances.    
 
 **Note**: Instance and cost information are subject to change.   
-Follow the "Details" link to see most up-to-date instance details, including cost.
+See the **"Details Link"** column for the most up-to-date instance details, including cost.
   
 | Row | Instance Type  | CPU | RAM (GiB) | GPU | GPU Memory (GiB) | GPU Type       | Purpose          | Quota       | Price per Hour ($) | Details Link                                              |
 |-----|----------------|-----|-----------|-----|------------------|----------------|------------------|-------------|-------------------|----------------------------------------------------------|

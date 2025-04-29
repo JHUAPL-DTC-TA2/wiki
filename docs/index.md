@@ -38,30 +38,28 @@ Once you are permitted to participate in the TA2 challenge, you should receive t
 >
 >Amazon WorkSpaces 
 
-Follow the steps below to finish setting up your WorkSpace.
-1. Click the link for your user profile and create a password for your account. Account passwords can be reset by an administrator or through the client.
-
-<img src="images/workspace-1.png">
+Follow the steps below to finish setting up your WorkSpace.    
+  
+1. Click the link for your user profile and create a password for your account. Account passwords can be reset by an administrator or through the client.  
+    <p align="center"><img src="images/workspace-1.png" alt="workspace-1" width="400"/></p>
 
 2. If you haven't already, download and install the WorkSpaces client at https://clients.amazonworkspaces.com/. The WorkSpaces client is compatible with most operating systems.
 
 3. Open the WorkSpace client and input your registration code in the in the input box.
+    <p align="center"><img src="images/workspace-2.png" alt="workspace-2" width="500"/></p>
 
-<img src="images/workspace-2.png">
+4. Log-in using the username from the WorkSpaces email and the password you created in Step 1.  
+    <p align="center"><img src="images/workspace-3.png" alt="workspace-3" width="500"/></p>
 
-4. Log-in using the username from the WorkSpaces email and the password you created in Step 1. 
+5. Once you successfully log-in, the client will expand to fill your screen and load your WorkSpace. On its first load, this may take a couple minutes to fully initialize. If you have a multi-monitor or high-resolution screen, the WorkSpace desktop may seem zoomed-out or cropped. Closing the client and re-logging in sometimes helps with this issue. If the issue persists, disable High-DPI mode in Settings -> Display Settings.
+    <p align="center"><img src="images/workspace-4.png" alt="workspace-4" width="900"/></p>
 
-<img src="images/workspace-3.png">
-
-5. Once you successfully log-in, the client will expand to fill your screen and load your WorkSpace. On its first load, this may take a couple minutes to fully initialize. If you have a multi-monitor or high-resolution screen, the WorkSpace desktop may seem zoomed-out or cropped. Closing the client and re-logging in sometimes helps with this issue. If the issue persists, disable High-DPI mode in Settings -> Display Settings. 
-
-<img src="images/workspace-4.png">
-
-That's it! A couple of additional points:
-- The default WorkSpace supports "Paste-Only" clipboard redirect (using Ctrl+Shift+V in your WorkSpace). This means you can copy and paste things from your local workstation to the WorkSpace, but not the other way around.
-- Your WorkSpace user will not have access as local administrator by default, but the user account is able to install user level libraries and packages. 
-- Pre-installed applications such as FireFox, VSCode, and MySQL WorkBench can be found in the Applications library, which can be opened by clicking "Show Applications".
-- WorkSpaces will shut down after an hour of inactivity.
+That's it! A couple of additional points:    
+  
+- The default WorkSpace supports "Paste-Only" clipboard redirect (using Ctrl+Shift+V in your WorkSpace). This means you can copy and paste things from your local workstation to the WorkSpace, but not the other way around.  
+- Your WorkSpace user will not have access as local administrator by default, but the user account is able to install user level libraries and packages.   
+- Pre-installed applications such as FireFox, VSCode, and MySQL WorkBench can be found in the Applications library, which can be opened by clicking "Show Applications".  
+- WorkSpaces will shut down after an hour of inactivity.  
 
 ### Connecting to your team's SageMaker Studio
 
@@ -95,19 +93,20 @@ Follow the steps below to configure your WorkSpaces to connect to your SageMaker
 
 	`dtc-setup.sh <TEAM_DOMAIN_ID> <USER_PROFILE_NAME>`
 
-<img src="images/sagemaker-1.png">
+<p align="center"><img src="images/sagemaker-1.png" alt="sagemaker-1" width="700"/></p>
 
 You'll know the script ran successfully when there is a new file on your desktop named `open_presigned_domain_url.sh`. 
 
 4. Launch the script directly from the Desktop by right-clicking it and clicking "Run as Program". Alternatively, you can run it from the terminal.
 
-<img src="images/sagemaker-2.png">
+<p align="center"><img src="images/sagemaker-2.png" alt="sagemaker-2" width="300"/></p>
 
 Running the launch script should open a new tab or window on your browser and load SageMaker Studio default page. 
 
-<img src="images/sagemaker-3.png">
+<p align="center"><img src="images/sagemaker-3.png" alt="sagemaker-3" width="900"/></p>
 
-A few important things to consider when using SageMaker instances:    
+A few important things to consider when using SageMaker instances:      
+  
 - DARPA provided each team a budget to maintain the team’s infrastructure, perform analysis, and develop models. Please use your resources judiciously and efficiently!   
 - SageMaker instances will continually accrue expenses so long as they are active. We strongly advise that you shut down any unused or idle instances to avoid accruing unwanted costs. See [SageMaker Instances](sagemaker_instances.md) for available instances and their associated rates. These rates are subject to change.   
 - APL will be sending weekly cost reports via email to inform you of the status of your weekly/total cost accrual and resource usage statistics.  
@@ -121,39 +120,39 @@ Using SageMaker Studio tool, you will be able to access GPU resources to train a
 
 1. Once you have SageMaker Studio loaded on your browser, select "Open Launcher" button.
 
-<img src="images/quick-start-1.png">
+<p align="center"><img src="images/quick-start-1.png" alt="quick-start-1" width="700"/></p>
 
 2. Configure your python environment by selecting your Python image and SageMaker instance. 
 
-<img src="images/quick-start-2.png">
+<p align="center"><img src="images/quick-start-2.png" alt="quick-start-2" width="600"/></p>
 
 Select your Python image:
-<img src="images/quick-start-3.png">
+<p align="center"><img src="images/quick-start-3.png" alt="quick-start-3" width="600"/></p>
 
 Select your [SageMaker instance](sagemaker_instances.md):
-<img src="images/quick-start-4.png">
+<p align="center"><img src="images/quick-start-4.png" alt="quick-start-4" width="600"/></p>
 
 Once selected click the "Select" button.
 
 3. Instantiate a notebook
-<img src="images/quick-start-5.png">
+<p align="center"><img src="images/quick-start-5.png" alt="quick-start-5" width="600"/></p>
 
 This will create a "Untitled.ipynb" file and begin instantiating the kernel with the selected Python image and SageMaker instance. This instantiation process may take a while as SageMaker is provisioning your environment with the necessary resources. You will encounter this notification:
 
-<img src="images/quick-start-6.png">
+<p align="center"><img src="images/quick-start-6.png" alt="quick-start-6" width="600"/></p>
 
 4. Once the instantiation process is complete and you see this screen below, you may begin developing!
 
-<img src="images/quick-start-7.png">
+<p align="center"><img src="images/quick-start-7.png" alt="quick-start-7" width="600"/></p>
 
 
 5. To shutdown a SageMaker instance, click on the "Running Instances" Icon (left side of the dashboard). 
 
-<img src="images/quick-start-8.png">
+<p align="center"><img src="images/quick-start-8.png" alt="quick-start-8" width="600"/></p>
 
 Click on the "Power" button to turn off a specific instance:
 
-<img src="images/quick-start-9.png" alt="drawing" width="200">
+<p align="center"><img src="images/quick-start-1.png" alt="quick-start-1" width="600"/></p>
 
 ### Transferring data to and from S3 buckets
 
@@ -168,7 +167,7 @@ You can access your private storage within SageMaker Studio. To transfer files f
 #### Transferring files using terminal:
 
 1. Open SageMaker Studio's launcher and select "System Terminal":
-<img src="images/storage-1.png">
+<p align="center"><img src="images/storage-1.png" alt="storage-1" width="600"/></p>
 
 In the terminal, you may use the [AWS CLI S3](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/s3/index.html) to run commands (e.g., `cp`, `ls`, `rm`, etc.).
 
