@@ -1,0 +1,64 @@
+site_name: DTC-Wiki
+site_url: https://JHUAPL-DTC-TA2.github.io/wiki/
+repo_url: https://github.com/JHUAPL-DTC-TA2/wiki
+repo_name: JHUAPL-DTC-TA2/wiki
+
+theme:
+  name: material
+  language: en
+  palette:
+    primary: blue grey
+    accent: deep orange
+  font:
+    text: Bitter
+    code: Inconsolata
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - navigation.indexes
+    - navigation.instant
+    - navigation.footer
+    # - navigation.path
+    - navigation.prune
+    - navigation.sections # toggle to have sections in side nav
+    # - navigation.tabs # toggle to mainly use top nav
+    # - navigation.tabs.sticky
+    - toc.follow
+    - toc.integrate # whether to include the toc in the main nav bar to the left
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+nav:
+- User Guide: index.md
+- Common Issues: common_issues.md
+- CodeCommit Guide: configure_codecommit.md
+- Client-Shell Client: running_client_shell.md
+- Workspace Management: workspace-selfservice.md
+- Importing Data to AWS: importing_data.md
+- Custom Images: creating_custom_images.md
+- Available Instances: sagemaker_instances.md
+- Metrics Guide: metrics_guide.md
+- Submission Process: submission_process.md
+- Getting Started with BluelightAI Cobalt: cobalt.md
+markdown_extensions:
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - attr_list
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight:
+      linenums: false
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.details
+  - admonition
+  - tables
+plugins:
+  - mkdocstrings:
+      default_handler: python
+  - material/search
+

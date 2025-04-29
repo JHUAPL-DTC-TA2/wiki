@@ -74,7 +74,7 @@ I would NOT be able to create a repository with name `apl-foxtrot` or `apl-limaS
 To create a repository that has a team prefix in the name and includes a tag, use the following command:
 
 ```bash
-aws codecommit create-repository --repository-name <team-tag>-<repo-name> --repository-description "Repository for project" --tags 'Key=dtc-team,Value=<team-tag>'
+aws codecommit create-repository --repository-name <team-tag>-<repo-name> --repository-description "Repository for project" --tags 'dtc-team=<team-tag>'
 ```
 
 #### Parameters:
