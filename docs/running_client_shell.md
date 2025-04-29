@@ -231,14 +231,15 @@ The python scripts used to generate the ground truth, response, and metrics JSON
 
 Example output of the metrics can be found in `eval/example_output/metrics`.
 
-The config file used to create the segmented datasets is provided in `eval/segment_config.csv`. This file lists each field in the EHR data and how it is included in the segmented data at evaluation time. The CSV file has the following columns:
-- *source*: dataset source ("UMB" or "UPitt")
-- *table*: table name
-- *field*: field name 
-- *deliver-at*: whether and when the field is included in the segmented data. "start" indicates start of case, "timestamp" indicates at accompanying timestamp, "admission" indicates at admission time, and "exclude" indicates it is excluded from segmented data.
-- *segment-file*: if the field is not excluded, the segmented data file in which it is included. This takes values: "basic-ehr", "expanded-ehr", and "lsi".
-- *notes*: accompanying notes indicating reason for inclusion/exclusion, as well as indication of new fields in the phase 2 dataset.
-
+The config file used to create the segmented datasets is provided in `eval/segment_config.csv`. This file lists each field in the EHR data and how it is included in the segmented data at evaluation time. The CSV file has the following columns:  
+  
+- *source*: dataset source ("UMB" or "UPitt")  
+- *table*: table name  
+- *field*: field name   
+- *deliver-at*: whether and when the field is included in the segmented data. "start" indicates start of case, "timestamp" indicates at accompanying timestamp, "admission" indicates at admission time, and "exclude" indicates it is excluded from segmented data.  
+- *segment-file*: if the field is not excluded, the segmented data file in which it is included. This takes values: "basic-ehr", "expanded-ehr", and "lsi".  
+- *notes*: accompanying notes indicating reason for inclusion/exclusion, as well as indication of new fields in the phase 2 dataset.  
+ 
 ## Release Notes
 
 ### v2.1

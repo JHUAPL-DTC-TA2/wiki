@@ -16,9 +16,9 @@ The ground truth CSV contains the relevant ground truth LSIs for each segment of
 |gt| 1 if the LSI occurred during the segment's prediction window, 0 otherwise. |
 
 ## Response JSON
-The response JSON contains the client model’s prediction responses for each segment of patient data, along with timestamps for when prediction message was sent and received by the evaluation server. 
+The response JSON contains the client model’s prediction responses for each segment of patient data, along with timestamps for when prediction message was sent and received by the evaluation server.
 
-The response JSON has the following format:  
+The response JSON has the following format:
 ```
 {
     "team_name": <string>,
@@ -69,7 +69,7 @@ The response JSON has the following format:
 ## Metrics JSON
 The metrics JSON contains the client model performance metrics calculated for each case: the Mean Squared Correct (MSC).
 
-The metrics JSON has the following format:  
+The metrics JSON has the following format:
 ```
 {
     "team_name": <string>,
