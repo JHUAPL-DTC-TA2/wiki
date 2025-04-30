@@ -93,9 +93,9 @@ Follow the steps below to configure your WorkSpaces to connect to your SageMaker
 
 	`dtc-setup.sh <TEAM_DOMAIN_ID> <USER_PROFILE_NAME>`
 
-<p align="center"><img src="images/sagemaker-1.png" alt="sagemaker-1" width="700"/></p>
+    <p align="center"><img src="images/sagemaker-1.png" alt="sagemaker-1" width="700"/></p>
 
-You'll know the script ran successfully when there is a new file on your desktop named `open_presigned_domain_url.sh`. 
+    You'll know the script ran successfully when there is a new file on your desktop named `open_presigned_domain_url.sh`. 
 
 4. Launch the script directly from the Desktop by right-clicking it and clicking "Run as Program". Alternatively, you can run it from the terminal.
 
@@ -162,10 +162,11 @@ You can access your private storage within SageMaker Studio. To transfer files f
 
 #### Transferring files using terminal:
 
-1. Open SageMaker Studio's launcher and select "System Terminal":
-<p align="center"><img src="images/storage-1.png" alt="storage-1" width="600"/></p>
+1. From within a JupyterLab environment, open a terminal. (This can also be done in Code Editor).  
 
-In the terminal, you may use the [AWS CLI S3](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/s3/index.html) to run commands (e.g., `cp`, `ls`, `rm`, etc.).
+    <p align="center"><img src="images/quick-start-5-terminal.png" alt="quick-start-5-terminal" width="600"/></p>
+
+    In the terminal, you may use the [AWS CLI S3](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/s3/index.html) to run commands (e.g., `cp`, `ls`, `rm`, etc.).
 
 2. To copy (`cp`) files from the scratch bucket to the into your (EFS) from you can use the command `aws s3 cp s3://dtc-scratch-{team_name}/path/to/file .`. To copy files into the scratch bucket from your EFS storage, you may use `aws s3 cp <filename> s3://dtc-scratch-{team_name}/path/`.
 
@@ -173,22 +174,27 @@ In the terminal, you may use the [AWS CLI S3](https://awscli.amazonaws.com/v2/do
 
 You man transfer files between storage containers using an array of python packages (e.g., `S3Fs`, `boto3`, etc.)
 
-1. Create a notebook. In a cell, run:
+1. Create a notebook.     
+2. Update "team_name" to be your team's tag.      
+3. Create a test.txt file in the same directory as your notebook.  
+3. In a cell, run:
 
 ```python
 import s3fs
-fs = s3fs.S3FileSystem()
-
-# To List 5 files in your team scratch bucket
-fs.ls('s3://dtc-scratch-{team_name}/')[:5]
-
-# Open files directly
-with fs.open('s3://dtc-scratch-{team_name}/test.txt') as f:
-    print(f.read())
-
-# Download files to EFS
-fs.download('s3://dtc-scratch-{team_name}/filename', "test.txt")
+fs = s3fs.S3FileSystem()  
+  
+team_name = ""
 
 # Upload files to S3 bucket
-fs.upload("test.txt", 's3://dtc-scratch-{team_name}/test.txt')
+fs.upload("test.txt", f's3://dtc-scratch-{team_name}/test.txt')
+
+# Download files to EFS
+fs.download(f's3://dtc-scratch-{team_name}/test.txt', "test.txt")
+
+# To List 5 files in your team scratch bucket
+print(fs.ls(f's3://dtc-scratch-{team_name}/')[:5])
+
+# Open files directly
+with fs.open(f's3://dtc-scratch-{team_name}/test.txt') as f:
+    print(f.read())
 ```
