@@ -118,41 +118,37 @@ Using SageMaker Studio tool, you will be able to access GPU resources to train a
 
 #### Quick Start 
 
-1. Once you have SageMaker Studio loaded on your browser, select "Open Launcher" button.
+1. Once you have SageMaker Studio loaded on your browser, select whether you want to create a JupyterLab space or a Code Editor space. Both types of spaces will provide access to a Python environment and a terminal.  
 
-<p align="center"><img src="images/quick-start-1.png" alt="quick-start-1" width="700"/></p>
+    <p align="center"><img src="images/quick-start-1.png" alt="quick-start-1" width="800"/></p>
 
-2. Configure your python environment by selecting your Python image and SageMaker instance. 
+2. Configure your environment by selecting your SageMaker instance type and storage options. 
 
-<p align="center"><img src="images/quick-start-2.png" alt="quick-start-2" width="600"/></p>
+    <p align="center"><img src="images/quick-start-2.png" alt="quick-start-2" width="900"/></p>
 
-Select your Python image:
-<p align="center"><img src="images/quick-start-3.png" alt="quick-start-3" width="600"/></p>
+    Select your [SageMaker instance](sagemaker_instances.md):  
+    <p align="center"><img src="images/quick-start-3.png" alt="quick-start-3" width="600"/></p>
+  
+3. Once satisfied with the configured options (these can be updated from this same page in the future), select "Run Space" to start environment.
+  
+    The environment will take a few minutes to start up. Click the "JupyterLab" (or Code Editor if that is the space type you chose) icon from the left navigation bar, your new space should be in the given list. Wait until your space status has changed from "Starting" to "Running" before opening your space.
+    <p align="center"><img src="images/quick-start-4.png" alt="quick-start-4" width="1000"/></p>  
+  
+4. Once you are able to open the environment the launch page will load where you can choose what Python environment to open.
+    <p align="center"><img src="images/quick-start-5.png" alt="quick-start-5" width="800"/></p>
 
-Select your [SageMaker instance](sagemaker_instances.md):
-<p align="center"><img src="images/quick-start-4.png" alt="quick-start-4" width="600"/></p>
-
-Once selected click the "Select" button.
-
-3. Instantiate a notebook
-<p align="center"><img src="images/quick-start-5.png" alt="quick-start-5" width="600"/></p>
-
-This will create a "Untitled.ipynb" file and begin instantiating the kernel with the selected Python image and SageMaker instance. This instantiation process may take a while as SageMaker is provisioning your environment with the necessary resources. You will encounter this notification:
-
-<p align="center"><img src="images/quick-start-6.png" alt="quick-start-6" width="600"/></p>
+    Selecting any of the Notebook types will create a "Untitled.ipynb" file and begin instantiating the kernel. This instantiation process may take a while as SageMaker is provisioning your environment with the necessary resources. You may encounter this notification:
+    <p align="center"><img src="images/quick-start-6.png" alt="quick-start-6" width="800"/></p>
 
 4. Once the instantiation process is complete and you see this screen below, you may begin developing!
 
-<p align="center"><img src="images/quick-start-7.png" alt="quick-start-7" width="600"/></p>
+    <p align="center"><img src="images/quick-start-7.png" alt="quick-start-7" width="800"/></p>
+  
 
+To shutdown a SageMaker instance, click on the "Running Instances" icon (left side of the dashboard).   
+It is recommended to turn off spaces that are not in use to prevent accruing unnecessary costs.
 
-5. To shutdown a SageMaker instance, click on the "Running Instances" Icon (left side of the dashboard). 
-
-<p align="center"><img src="images/quick-start-8.png" alt="quick-start-8" width="600"/></p>
-
-Click on the "Power" button to turn off a specific instance:
-
-<p align="center"><img src="images/quick-start-1.png" alt="quick-start-1" width="600"/></p>
+<p align="center"><img src="images/quick-start-8.png" alt="quick-start-8" width="700"/></p>
 
 ### Transferring data to and from S3 buckets
 
