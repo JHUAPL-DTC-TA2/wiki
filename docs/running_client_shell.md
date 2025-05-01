@@ -4,18 +4,21 @@
 This is the README for the [Client Container Shell](https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/client-shell/browse?region=us-east-1) and supporting materials for teams participating in the DARPA Triage Challenge Data Competition. The Client Container Shell can be used to prepare submissions for the workshop and challenge events in accordance with the Data Competition ICD (available at https://triagechallenge.darpa.mil).
 
 ### Minimum Requirements
-- Python 3.10 or newer
-- Docker (See Configuring Docker)
-- Model that implements methods in provided `DTC_BaseModel` base class: `predict()`, `acknowledge()`, `cleanup()`, and `timed_out()` (See example in *template_model.py* )
+- Python 3.10 or newer*
+- Docker* (See [Configuring Docker](#configuring-docker))
+- Model that implements methods in provided `DTC_BaseModel` base class: `predict()`, `acknowledge()`, `cleanup()`, and `timed_out()` (See example in *template_model.py* )    
+  
+    
+*Note: these installations should already be available when working from within the [SageMaker environment](index.md#connecting-to-your-teams-sagemaker-studio).
 
 ### Quick Start
 1. Clone client-shell repository from CodeCommit   
   `git clone https://git-codecommit.us-east-1.amazonaws.com/v1/repos/client-shell`  
 2. Configure model according to Client Shell (See [Configuring your Model](#configuring-your-model))
 3. Download and start RabbitMQ Server (See [Starting the RabbitMQ server](#starting-the-rabbitmq-server))
-4. Run the client using one of two options: 
-   * Run as Docker container (See [Running the Client with Docker](#running-the-client-with-docker))
-   * Run locally within AWS WorkSpace (See [Running the Client locally](#running-the-client-locally))
+4. Run the client using one of two options:   
+    * Run as Docker container (See [Running the Client with Docker](#running-the-client-with-docker))  
+    * Run locally within AWS WorkSpace (See [Running the Client locally](#running-the-client-locally))   
 5. Test connection between client and server using messaging stub (See [Passing Messages to the Client](#passing-messages-to-the-client)).
 6. Evaluate client using `dtc-evaluator` and run metrics on output (See [Evaluating Your Model in SageMaker](#evaluating-your-submission-in-sagemaker)).
 
@@ -120,13 +123,14 @@ Run the following command to push this image to your newly created AWS repositor
 `docker push 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-<TEAM_NAME>:<TAG>`
 
 
-## Configuring Docker
-
-All SageMaker app types (JupyterLab, CodeEditor, Studio Classic) support Docker API access via a proxy docker engine. To access docker in your SageMaker instance, **restart** or **create** an instance using the "install-docker-cobalt-{app-type}-v2" lifecycle policy.
+## Configuring Docker  
+  
+To check if Docker is installed correctly, run `docker version` on a system terminal to output API and engine details.  
+  
+If Docker is not installed properly, you will need to modify your SageMaker app's lifecycle policy.
+All SageMaker app types (JupyterLab, CodeEditor, Studio Classic) support Docker API access via a proxy docker engine. To access docker in your SageMaker instance, **restart** or **create** an instance using the "install-docker-cobalt-{app-type}" lifecycle policy.
 
 > Note: An existing Code Editor or JupyterLab instance will not have Docker installed until you fully stop the instance and re-run with the lifecycle policy. Restarting the instance will not delete any data in the `/home/sagemaker-user/` directory, but will delete data in other directories. 
-
-To check Docker installed correctly, run `docker version` on a system terminal to output API and engine details.
 
 
 ## Configuring Docker Images to Access S3 Buckets Using AWS Credentials
@@ -171,7 +175,7 @@ Additionaly, you need to set two environment variables `KEY` and `SECRET_KEY`. T
 export KEY=<your key>
 export SECRET_KEY=<your key>
 ``` 
-Place these in your `~/.bashrc` to avoid having to set for every session. These are the keys used for your SageMaker login [here](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/DTC%20Participant%20AWS%20User%20Guide.md#connecting-to-your-teams-sagemaker-studio).
+Place these in your `~/.bashrc` to avoid having to set for every session. These are the keys used for your SageMaker login [here](index.md#connecting-to-your-teams-sagemaker-studio).
 
 The evaluator can then be run using a convenience script in the client-shell repository: `eval/run_server.sh`
 
