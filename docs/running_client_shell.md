@@ -203,9 +203,11 @@ The `run_metrics.sh` script located at `eval/run_metrics.sh` will compute perfor
 
 The script saves off three files within OUTPUT_DIR/metrics:
 
-1. A **ground truth** JSON file containg ground truth for all segments listed in the inventory file.
+1. A **ground truth** CSV file containg ground truth for all segments listed in the inventory file.
 2. A **responses** JSON file containing the model's responses to all segments from the evaluation.
-3. A **metrics** JSON containing the Mean Squared Correct (MSC) metrics for each case. 
+3. A **metrics** JSON containing the Mean Squared Correct (MSC) metrics for each case.
+4. A **detailed metrics** CSV containing the MSC metrics for each segment.
+5. A **threshold metrics** CSV containing binary classification metrics across thresholds for each LSI group. 
 
 See this [Metrics Guide](metrics_guide.md) for more details on the contents of these files. 
 
