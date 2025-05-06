@@ -45,5 +45,5 @@ You can change your WorkSpace to a different compute type to better suit your pe
 | Power        | 4    | 16          | 80               | 100              | $125                     |
 | PowerPro     | 8    | 32          | 80               | 100              | $225                     |
 
-**Note**: GPU Compute types are currently unavailable as a direct upgrade from your existing workspace, but we plan on rolling them out as a shared team resource in the near future.  
+**Note**: GPU WorkSpace bundles are available upon request.  
 **Note**: Compute type cost information is subject to change. See the [AWS pricing details](https://aws.amazon.com/workspaces-family/workspaces/pricing/) for the most up-to-date compute type pricing details.
