@@ -1,8 +1,18 @@
 # Metrics Guide
 
+The metrics scripts included in the `client-shell` output the following files:
+* [Ground Truth CSV](#ground-truth-csv)
+* [Response JSON](#response-json)
+* [Metrics JSON](#metrics-json)
+* [Detailed Metrics CSV](#detailed-metrics-csv)
+* [Threshold Metrics CSV](#threshold-metrics-csv)
+
 ## Ground Truth CSV
 
-The ground truth CSV contains the relevant ground truth LSIs for each segment of patient data. The CSV has the following fields, indicated by a header row in the first line.
+The ground truth CSV contains the relevant ground truth LSIs for each segment of patient data. It uses the following file name convention:
+`<PHASE>_<EVENT>_gt_<DATE>.csv`.
+
+The ground truth CSV has the following fields, indicated by a header row in the first line.
 
 **Table 1: Ground Truth CSV Fields**
 
@@ -19,7 +29,8 @@ The ground truth CSV contains the relevant ground truth LSIs for each segment of
 |time_since_adm_sec| Time elapsed from hospital admission to `segment_stop_time` |
 
 ## Response JSON
-The response JSON contains the client model’s prediction responses for each segment of patient data, along with timestamps for when prediction message was sent and received by the evaluation server.
+The response JSON contains the client model’s prediction responses for each segment of patient data, along with timestamps for when prediction message was sent and received by the evaluation server. It uses the following file name convention:
+`<PHASE>_<EVENT>_responses_<TEAM>-<RUNTYPE>_<DATE>.json`.
 
 The response JSON has the following format:
 ```
@@ -70,7 +81,8 @@ The response JSON has the following format:
 |embeddings| Optional dictionary containing  embeddings at different levels of internal data analysis.|
 
 ## Metrics JSON
-The metrics JSON contains the client model performance metrics calculated for each case: the Mean Squared Correct (MSC).
+The metrics JSON contains the client model performance metrics calculated for each case: the Mean Squared Correct (MSC). It uses the following file name convention:
+`<PHASE>_<EVENT>_metrics_<TEAM>-<RUNTYPE>_<DATE>.json`.
 
 The metrics JSON has the following format:
 ```
@@ -131,13 +143,13 @@ The metrics JSON has the following format:
 |benchmark| Dictionary of LSI group and minimum avg sensitivity/specificity score.|
 |surpassed| True if run passed all LSI benchmarks, False otherwise.|
 |segment_weights| Dictionary of weights by source, LSI group, and ground truth value.|
-|sensitivity_specificity_by_LSI| List of highest balanced accuracy per LSI group.|
+|sensitivity_specificity_by_LSI| List of specificty and sensitivity with highest balanced accuracy per LSI group.|
 |lsi_group| The LSI category.|
 |threshold| Threshold for max balanced accuracy.|
 |sensitivity| Sensitivity at threshold.|
 |specificity| Specificity at threshold.|
 |balanced_accuracy| Average of specificity and sensitivity.|
-|metrics	|List of metrics calculated for each case.|
+|metrics_by_case	|List of metrics calculated for each case.|
 |studyid|	Case identifier.|
 |case_normalized_msc| Normalized MSC calculated for case.|
 |runtime	|Cumulative runtime in seconds at the end of the case.|
@@ -146,7 +158,8 @@ The metrics JSON has the following format:
 |error	|Error message from the server.|
 
 ## Detailed Metrics CSV
-The detailed metrics CSV contains the client model performance metrics calculated for each segment and LSI group.
+The detailed metrics CSV contains the client model performance metrics calculated for each segment and LSI group. It uses the following file name convention:
+`<PHASE>_<EVENT>_detailed-metrics_<TEAM>-<RUNTYPE>_<DATE>.csv`.
 
 **Table 4: Detailed Metrics CSV Fields**
 
@@ -159,13 +172,13 @@ The detailed metrics CSV contains the client model performance metrics calculate
 |segment_end_time| Stop time in seconds for the segment, relative to start of case.|
 |lsi_group|The LSI category.|
 |max_lsi_time| Time of last LSI for given LSI group, relative to start of case.|
-|gt| 1 if the LSI occurred during the segment's prediction window, 0 otherwise. |
+|gt| 1 if the LSI occurrs within the segment's prediction window, 0 otherwise. |
 |time_since_adm_sec| Time elapsed from hospital admission to `segment_stop_time` |
-|ignore_segment| 0 if segment counts towards final MSC, 1 if ignored. |	
+|ignore_segment| 0 if segment prediction contributes to MSC, 1 if ignored due to minimum prediction horizon or minimum lead time. |	
 |segment_weight| Unnormalized weight based on inverse frequency of segments with same source and LSI ground truth, 0 if this prediction is within minimum lead time or outside of prediction horizon. |
 | case_normalized_segment_weight|`segment_weight` divided by sum of `segment_weight`s over case.|
 | run_normalized_segment_weight	| `segment_weight` divided by sum of `segment_weight`s over run. |
-| event_normalized_segment_weight | `run_normalized_segment_weight` multiplied by run weight (1/3) |
+| event_normalized_segment_weight | `run_normalized_segment_weight` multiplied by run weight. |
 | model_prediction| LSI confidence score for segment. |
 | cumulative_runtime_sec | Cumulative runtime in seconds at the end of the segment. |
 | error	| Errors found by the server during the segment.|
@@ -175,7 +188,8 @@ The detailed metrics CSV contains the client model performance metrics calculate
 |event_normalized_msc| `unweighted_msc` *  `event_normalized_segment_weight` |
 
 ## Threshold Metrics CSV
-The threshold metrics CSV contains the client model binary classification metrics calculated at different thresholds for each LSI group.
+The threshold metrics CSV contains the client model binary classification metrics calculated at different thresholds for each LSI group. It uses the following file name convention:
+`<PHASE>_<EVENT>_threshold-metrics_<TEAM>-<RUNTYPE>_<DATE>.csv`.
 
 **Table 4: Threshold Metrics CSV Fields**
 
