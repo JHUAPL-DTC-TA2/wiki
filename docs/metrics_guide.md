@@ -1,10 +1,15 @@
 # Metrics Guide
 
 The metrics scripts included in the `client-shell` output the following files:
+
 * [Ground Truth CSV](#ground-truth-csv)
+
 * [Response JSON](#response-json)
+
 * [Metrics JSON](#metrics-json)
+
 * [Detailed Metrics CSV](#detailed-metrics-csv)
+
 * [Threshold Metrics CSV](#threshold-metrics-csv)
 
 ## Ground Truth CSV
