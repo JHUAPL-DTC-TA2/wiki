@@ -2,6 +2,7 @@ site_name: DTC-Wiki
 site_url: https://JHUAPL-DTC-TA2.github.io/wiki/
 repo_url: https://github.com/JHUAPL-DTC-TA2/wiki
 repo_name: JHUAPL-DTC-TA2/wiki
+copyright: Copyright &copy; 2025 The Johns Hopkins University Applied Physics Laboratory LLC
 
 theme:
   name: material

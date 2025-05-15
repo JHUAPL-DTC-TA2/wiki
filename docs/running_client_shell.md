@@ -256,27 +256,27 @@ The config file used to create the segmented datasets is provided in `eval/segme
 ## Release Notes
 
 ### v2.2
-- Added new weights from rules document
-- Excludes segments > 60 min after hospital admission from metrics calculations
-- Added average of sensitivity/specificity benchmark
-- Added detailed metrics and threshold metrics CSVs
-- Added new example inventory file
-- NOTE: backwards compatible with old inventory and response files
+- Added new weights from rules document.
+- Excludes segments > 60 min after hospital admission from metrics calculations.
+- Added average of sensitivity/specificity benchmark.
+- Added detailed metrics and threshold metrics CSVs.
+- Added new example inventory file.
+- NOTE: backwards compatible with old inventory and response files.
 
 ### v2.1
-- updated metrics weights to balance datasets equally
-- updated metrics with 5-minute prediction lead time
-- added segment_config.csv with information about what EHR fields are provided during evaluation
+- Updated metrics weights to balance datasets equally.
+- Updated metrics with 5-minute prediction lead time.
+- Added segment_config.csv with information about what EHR fields are provided during evaluation.
 
 ### v2.0
-- updated metrics scripts for phase 2
-- addition of new CLI args to run_server.sh (--include-basic-ehr, --include-expanded-ehr) with minor refactoring
-- moved eval/ and stubs/ to top-level directory
-- added example output from evaluator for phase 2
-- updated Dockerfile entrypoint so it includes run_client.py for easier override of args
+- Updated metrics scripts for phase 2.
+- Addition of new CLI args to run_server.sh (--include-basic-ehr, --include-expanded-ehr) with minor refactoring.
+- Moved eval/ and stubs/ to top-level directory.
+- Added example output from evaluator for phase 2.
+- Updated Dockerfile entrypoint so it includes run_client.py for easier override of args.
 
 ### v1.3
-- Added ENV passable variables to evaluator and client-shell for AWS keys
+- Added ENV passable variables to evaluator and client-shell for AWS keys.
 
 ### v1.2
 - Added support for cpu-only base image and updated base-image tags to reflect versions.
@@ -309,6 +309,3 @@ New Features:
 - MessageType Enum: Categorizes communication with predefined message types including connection, prediction, acknowledgment, and error handling signals.
 - Message Handlers: Includes an abstract base class and specific implementations for handling various message types, ensuring appropriate communication with the evaluator.
 - Factory Pattern for Message Handlers: Simplifies the creation of message handlers based on the message type, supporting scalable and modular development.
-
----
-(c) 2025 The Johns Hopkins University Applied Physics Laboratory LLC

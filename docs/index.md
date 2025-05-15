@@ -162,7 +162,7 @@ You can access your private storage within SageMaker Studio. To transfer files f
 
 #### Transferring files using terminal:
 
-1. From within a JupyterLab environment, open a terminal. (This can also be done in Code Editor).  
+1. From within a JupyterLab environment, open a terminal. (This can also be done in Code Editor.)  
 
     <p align="center"><img src="images/quick-start-5-terminal.png" alt="quick-start-5-terminal" width="600"/></p>
 
