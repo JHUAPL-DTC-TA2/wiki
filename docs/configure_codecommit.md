@@ -4,7 +4,7 @@ This guide outlines the steps for team members to obtain AWS CodeCommit credenti
 
 ## Obtaining Git CodeCommit Credentials
 
-The AWS Secrets Manager securely stores your team's CodeCommit credentials. To access your credentials, you can use the AWS Command Line Interface (CLI) from your SageMaker (or Workspace) terminal. It's important to note that access is restricted to your own team's credentials, ensuring each team member can only retrieve their respective credentials. However, this setup also ensures that every team member has the capability to securely access their team's CodeCommit credentials.
+The AWS Secrets Manager securely stores your team's CodeCommit credentials. To access your credentials, you can use the AWS Command Line Interface (CLI) from your SageMaker (or WorkSpace) terminal. It's important to note that access is restricted to your own team's credentials, ensuring each team member can only retrieve their respective credentials. However, this setup also ensures that every team member has the capability to securely access their team's CodeCommit credentials.
 
 To retrieve your CodeCommit credentials, replace {team_tag} with your actual team name and execute the following command:
 

@@ -31,7 +31,7 @@ aws ecr get-login-password --region us-east-1 | docker login --username AWS --pa
 Navigate to the directory containing your Dockerfile and run the following command, replacing {image-name} with your desired image name. If not specified, it will default to `latest`.
 
 ```bash
-docker build -t dtc-{team-prefix}:{image-name} .
+docker build --network sagemaker -t dtc-{team-prefix}:{image-name} .
 ```
 
 Tag the image to the ECR repository URL. 
