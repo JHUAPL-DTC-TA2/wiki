@@ -85,9 +85,10 @@ This command runs your application in a Docker container, connecting it to an ex
 
 ## Running the Client locally
 
-To run the Client outside docker, you must first install the `dtc_messaging` package and dependencies in your local enviroment. Clone the [dtc-base-image repo](https://git-codecommit.us-east-1.amazonaws.com/v1/repos/dtc-base-image) and run the following within the cloned repo: `python3.10 -m pip install .`. 
+To run the Client outside docker, you must first install the `dtc_messaging` package and dependencies in your local environment. Clone the [dtc-base-image repo](https://git-codecommit.us-east-1.amazonaws.com/v1/repos/dtc-base-image) and run the following within the cloned repo:   
+`python -m pip install .` 
 
-The following command will run the client locally with an existing RabbitMQ server:
+The following command will run the client locally with an existing RabbitMQ server:  
 `python run_client.py --host localhost --queue rpc_queue`
 
 
@@ -135,13 +136,13 @@ All SageMaker app types (JupyterLab, CodeEditor, Studio Classic) support Docker 
 
 ## Configuring Docker Images to Access S3 Buckets Using AWS Credentials
 
-By default, your credentials will not be passed from SageMaker to your Docker images. As a result, your Docker images is restricted to access your provisioned AWS services. If your submission requires accessing data from your team’s S3 bucket, you may transfer your SageMaker credentials to your Docker image by passing your AWS credentials (i.e., `USER_AWS_ACCESS_KEY`, `USER_AWS_SECRET_ACCESS_KEY`) to the Docker image. These access keys should have been emailed to you for your SageMaker account in an email that looks similar to [this](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/DTC%20Participant%20AWS%20User%20Guide.md#connecting-to-your-teams-sagemaker-studio). Follow these steps:
+By default, your credentials will not be passed from SageMaker to your Docker images. As a result, your Docker images is restricted to access your provisioned AWS services. If your submission requires accessing data from your team’s S3 bucket, you may transfer your SageMaker credentials to your Docker image by passing your AWS credentials (i.e., `AWS_ACCESS_KEY`, `AWS_SECRET_ACCESS_KEY`) to the Docker image. These access keys should have been emailed to you for your SageMaker account in an email that looks similar to [this](index.md#connecting-to-your-teams-sagemaker-studio). Follow these steps:
 
-1. In your SageMaker terminal, set the environmental variables for `KEY` and `SECRET KEY` with your `USER_AWS_ACCESS_KEY` and `USER_AWS_SECRET_ACCESS_KEY`, respectively.
+1. In your SageMaker terminal, set the environmental variables for `KEY` and `SECRET KEY` with your `AWS_ACCESS_KEY` and `AWS_SECRET_ACCESS_KEY`, respectively.
     
    ```
-   export KEY=<YOUR_AWS_ACCESS_KEY>
-   export SECRET_KEY=<YOUR_AWS_SECRET_KEY>
+   export KEY=<AWS_ACCESS_KEY>
+   export SECRET_KEY=<AWS_SECRET_KEY>
    ```
     To ensure persistence of these variables, it is recommended you add these two lines to your `~/.bashrc` file.
 
@@ -157,17 +158,23 @@ By default, your credentials will not be passed from SageMaker to your Docker im
     ENV AWS_ACCESS_KEY_ID=$KEY
     ENV AWS_SECRET_ACCESS_KEY=$SECRET_KEY
     ```
-
-   These specify your credentials, as build arguments, to be passed into the Dockerfile. These will be used to during Docker build phase to access your S3 bucket. When you are ready to build your `Dockerfile`, run the command:
-    ```docker build --network sagemaker --build-arg KEY=$KEY --build-arg SECRET_KEY=$SECRET_KEY -t {image_name}:{image_tag} . ```
-    Note: The CI/CD is expecting these build arguments, so your Dockerfile submission must provide them. Refer to the ICD and [these instructions](https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/Submission%20Process.md) for more information.
-    **Warning:** For security reasons, do not push your credentials to CodeCommit.
+  
+    These specify your credentials, as build arguments, to be passed into the Dockerfile. These will be used to during Docker build phase to access your S3 bucket.     
+  
+  4.  When you are ready to build your `Dockerfile`, run the following command:  
+    ```docker build --network sagemaker --build-arg KEY=$KEY --build-arg SECRET_KEY=$SECRET_KEY -t {image_name}:{image_tag} . ```  
+      
+> Note: The CI/CD is expecting these build arguments, so your Dockerfile submission must provide them. Refer to the ICD and [these instructions](submission_process.md) for more information.
+      
+**Warning:** For security reasons, do not push your credentials to CodeCommit.
    
 
 
 
 ## Evaluating Your Submission in SageMaker
-In order to run the evaluator, you must first authenticate your session to the AWS ECR. To authenticate, run `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`
+In order to run the evaluator, you must first authenticate your session to the AWS ECR. To authenticate, run:  
+`aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`  
+  
 Before running the evaluator, ensure that your client container is running (see [Running the Client with Docker](#running-the-client-with-docker) or [Running the Client locally](#running-the-client-locally)).
 
 Additionaly, you need to set two environment variables `KEY` and `SECRET_KEY`. These can be set by running the following the SageMaker terminal:
@@ -182,7 +189,7 @@ The evaluator can then be run using a convenience script in the client-shell rep
 ### run_server.sh 
 The `run_server.sh` script located at `eval/run_server.sh` will pull the latest `dtc-evaluator` from AWS ECR and run it.
 ```
-bash ./run_server.sh --output-dir [OUTPUT_DIR] --inventory-file [INVENTORY_FILE] --dataset-dir [DATASET_DIR] [--include-basic-ehr] [--include-expanded-ehr]
+bash ./run_server.sh --name [EVAL_RUN_NAME] --output-dir [OUTPUT_DIR] --inventory-file [INVENTORY_FILE] --dataset-dir [DATASET_DIR] [--include-basic-ehr] [--include-expanded-ehr]
 ```
 
 The following arguments are used to specify the data and evaluation configuration:
