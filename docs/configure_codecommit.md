@@ -12,7 +12,24 @@ To retrieve your CodeCommit credentials, replace {team_tag} with your actual tea
 aws secretsmanager get-secret-value --secret-id {team_tag}/codecommit
 ```
 
-Executing this command will produce a JSON object containing your credentials. To locate your username and password, search for the `SecretString` field within the JSON output.
+Executing this command will produce a JSON object containing your credentials. It should return an output with the following format:  
+```json  
+{
+    "ARN": "arn:aws:secretsmanager:us-east-2:123456789012:secret:teamname/codecommit-a1b2c3",
+    "Name": "teamname/codecommit",
+    "VersionId": "a1b2c3d4-5678-90ab-cdef-EXAMPLE11111",
+    "SecretString": "{\"GitUsername\":\"dtc-teamname-admin-at-5589909584939\",\"password\":\"EXAMPLE-PASSWORD\"}",
+    "VersionStages": [
+        "AWSCURRENT"
+    ],
+    "CreatedDate": "2024-03-08T17:40:33.06400+00:00"
+}  
+```
+  
+To locate your username and password, search for the `SecretString` field within the JSON output.  
+**Note**: The GitUsername and password are surrounded by escaped quotes (e.g. `\"`). 
+Be sure to only copy the characters inside the escaped quotations. Including the escape characters will cause a 403 error.
+
 
 Should you encounter the error message No such file or directory: 'less', this issue can be resolved by installing the less package. Run the following command to install less:
 
