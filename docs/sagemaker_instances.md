@@ -1,5 +1,10 @@
-# Recommended Instance Types for SageMaker Studio Apps (CodeEditor and JupyterLab)
+# Recommended Instance Types for SageMaker Studio Apps  
 
+Applies for CodeEditor and JupyterLab instances.    
+
+**Note**: Instance and cost information are subject to change.   
+See the **"Details Link"** column for the most up-to-date instance details, including cost.
+  
 | Row | Instance Type  | CPU | RAM (GiB) | GPU | GPU Memory (GiB) | GPU Type       | Purpose          | Quota       | Price per Hour ($) | Details Link                                              |
 |-----|----------------|-----|-----------|-----|------------------|----------------|------------------|-------------|-------------------|----------------------------------------------------------|
 | 1   | ml.t3.medium   | 2   | 4         | 0   | 0                | None           | General Purpose  | 15 per team  | 0.05              | [Details](https://instances.vantage.sh/aws/ec2/t3.medium) |
