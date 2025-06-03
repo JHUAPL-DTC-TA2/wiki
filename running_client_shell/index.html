@@ -50,6 +50,8 @@
     
       <link rel="stylesheet" href="../assets/_mkdocstrings.css">
     
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -776,19 +778,22 @@
 <p>This is the README for the <a href="https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/client-shell/browse?region=us-east-1">Client Container Shell</a> and supporting materials for teams participating in the DARPA Triage Challenge Data Competition. The Client Container Shell can be used to prepare submissions for the workshop and challenge events in accordance with the Data Competition ICD (available at https://triagechallenge.darpa.mil).</p>
 <h3 id="minimum-requirements">Minimum Requirements</h3>
 <ul>
-<li>Python 3.10 or newer</li>
-<li>Docker (See Configuring Docker)</li>
-<li>Model that implements methods in provided <code>DTC_BaseModel</code> base class: <code>predict()</code>, <code>acknowledge()</code>, <code>cleanup()</code>, and <code>timed_out()</code> (See example in <em>template_model.py</em> )</li>
+<li>Python 3.10 or newer*</li>
+<li>Docker* (See <a href="#configuring-docker">Configuring Docker</a>)</li>
+<li>Model that implements methods in provided <code>DTC_BaseModel</code> base class: <code>predict()</code>, <code>acknowledge()</code>, <code>cleanup()</code>, and <code>timed_out()</code> (See example in <em>template_model.py</em> )    </li>
 </ul>
+<p>*Note: these installations should already be available when working from within the <a href="../#connecting-to-your-teams-sagemaker-studio">SageMaker environment</a>.</p>
 <h3 id="quick-start">Quick Start</h3>
 <ol>
 <li>Clone client-shell repository from CodeCommit <br />
 <code>git clone https://git-codecommit.us-east-1.amazonaws.com/v1/repos/client-shell</code>  </li>
 <li>Configure model according to Client Shell (See <a href="#configuring-your-model">Configuring your Model</a>)</li>
 <li>Download and start RabbitMQ Server (See <a href="#starting-the-rabbitmq-server">Starting the RabbitMQ server</a>)</li>
-<li>Run the client using one of two options: </li>
-<li>Run as Docker container (See <a href="#running-the-client-with-docker">Running the Client with Docker</a>)</li>
-<li>Run locally within AWS Workspace (See <a href="#running-the-client-locally">Running the Client locally</a>)</li>
+<li>Run the client using one of two options:   <ul>
+<li>Run as Docker container (See <a href="#running-the-client-with-docker">Running the Client with Docker</a>)  </li>
+<li>Run locally within AWS WorkSpace (See <a href="#running-the-client-locally">Running the Client locally</a>)   </li>
+</ul>
+</li>
 <li>Test connection between client and server using messaging stub (See <a href="#passing-messages-to-the-client">Passing Messages to the Client</a>).</li>
 <li>Evaluate client using <code>dtc-evaluator</code> and run metrics on output (See <a href="#evaluating-your-submission-in-sagemaker">Evaluating Your Model in SageMaker</a>).</li>
 </ol>
@@ -816,9 +821,9 @@
 <p>This command builds the Docker based on the Dockerfile provided. By default, the client-shell Dockerfile builds itself off of  <code>dtc-base-image:latest</code> which uses GPU. See the below <strong>Base Images</strong> section, to substitute for a cpu-only base image.
 Both images include the <code>dtc_messaging</code> python package used to interface with the official evaluation server, and <code>awscli</code> to access available AWS resources provisioned to your team.</p>
 <h4 id="base-images">Base Images</h4>
-<p>There are two base images available for your use in the AWS ECR:
-- dtc-base-image:latest 
-- dtc-base-image-cpu:latest</p>
+<p>There are two base images available for your use in the AWS ECR:<br />
+- dtc-base-image:latest <br />
+- dtc-base-image-cpu:latest  </p>
 <p><code>dtc-base-image:latest</code> is configured for teams whose models require GPU and is built off of <code>nvidia/cuda:12.3.2-cudnn9-devel-ubuntu22.04</code>, while <code>dtc-base-image-cpu:latest</code> holds a lighter-weight framework for those models that only run on CPU, and it is built off of <code>ubuntu:22.04</code>.</p>
 <p>You should always use images tagged <code>latest</code>, however a full history of dtc-base-image versions is available on the ECR. As of date, the following base images exists:</p>
 <table>
@@ -854,8 +859,9 @@ The <code>main</code> branch contains dtc-base-image source code and the <code>c
 <p><code>docker run --network sagemaker -it --rm dtc-&lt;TEAM_NAME&gt;:&lt;TAG&gt;</code></p>
 <p>This command runs your application in a Docker container, connecting it to an existing RabbitMQ server. The container will be removed automatically after the application exits.</p>
 <h2 id="running-the-client-locally">Running the Client locally</h2>
-<p>To run the Client outside docker, you must first install the <code>dtc_messaging</code> package and dependencies in your local enviroment. Clone the <a href="https://git-codecommit.us-east-1.amazonaws.com/v1/repos/dtc-base-image">dtc-base-image repo</a> and run the following within the cloned repo: <code>python3.10 -m pip install .</code>. </p>
-<p>The following command will run the client locally with an existing RabbitMQ server:
+<p>To run the Client outside docker, you must first install the <code>dtc_messaging</code> package and dependencies in your local environment. Clone the <a href="https://git-codecommit.us-east-1.amazonaws.com/v1/repos/dtc-base-image">dtc-base-image repo</a> and run the following within the cloned repo: <br />
+<code>python -m pip install .</code> </p>
+<p>The following command will run the client locally with an existing RabbitMQ server:<br />
 <code>python run_client.py --host localhost --queue rpc_queue</code></p>
 <h2 id="passing-messages-to-the-client">Passing messages to the Client</h2>
 <p>The <code>send_message.py</code> script in the <code>stubs/</code> directory can be used to test receipt of sample messages of each MessageType with a running client container. You may run the command:</p>
@@ -876,18 +882,19 @@ BODY: b&#39;{&quot;response&quot;: {&quot;response&quot;: &quot;connected&quot;}
 <p>Run the following command to push this image to your newly created AWS repository:</p>
 <p><code>docker push 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-&lt;TEAM_NAME&gt;:&lt;TAG&gt;</code></p>
 <h2 id="configuring-docker">Configuring Docker</h2>
-<p>All SageMaker app types (JupyterLab, CodeEditor, Studio Classic) support Docker API access via a proxy docker engine. To access docker in your SageMaker instance, <strong>restart</strong> or <strong>create</strong> an instance using the "install-docker-cobalt-{app-type}-v2" lifecycle policy.</p>
+<p>To check if Docker is installed correctly, run <code>docker version</code> on a system terminal to output API and engine details.  </p>
+<p>If Docker is not installed properly, you will need to modify your SageMaker app's lifecycle policy.
+All SageMaker app types (JupyterLab, CodeEditor, Studio Classic) support Docker API access via a proxy docker engine. To access docker in your SageMaker instance, <strong>restart</strong> or <strong>create</strong> an instance using the "install-docker-cobalt-{app-type}" lifecycle policy.</p>
 <blockquote>
 <p>Note: An existing Code Editor or JupyterLab instance will not have Docker installed until you fully stop the instance and re-run with the lifecycle policy. Restarting the instance will not delete any data in the <code>/home/sagemaker-user/</code> directory, but will delete data in other directories. </p>
 </blockquote>
-<p>To check Docker installed correctly, run <code>docker version</code> on a system terminal to output API and engine details.</p>
 <h2 id="configuring-docker-images-to-access-s3-buckets-using-aws-credentials">Configuring Docker Images to Access S3 Buckets Using AWS Credentials</h2>
-<p>By default, your credentials will not be passed from SageMaker to your Docker images. As a result, your Docker images is restricted to access your provisioned AWS services. If your submission requires accessing data from your team’s S3 bucket, you may transfer your SageMaker credentials to your Docker image by passing your AWS credentials (i.e., <code>USER_AWS_ACCESS_KEY</code>, <code>USER_AWS_SECRET_ACCESS_KEY</code>) to the Docker image. These access keys should have been emailed to you for your SageMaker account in an email that looks similar to <a href="https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/DTC%20Participant%20AWS%20User%20Guide.md#connecting-to-your-teams-sagemaker-studio">this</a>. Follow these steps:</p>
+<p>By default, your credentials will not be passed from SageMaker to your Docker images. As a result, your Docker images is restricted to access your provisioned AWS services. If your submission requires accessing data from your team’s S3 bucket, you may transfer your SageMaker credentials to your Docker image by passing your AWS credentials (i.e., <code>AWS_ACCESS_KEY</code>, <code>AWS_SECRET_ACCESS_KEY</code>) to the Docker image. These access keys should have been emailed to you for your SageMaker account in an email that looks similar to <a href="../#connecting-to-your-teams-sagemaker-studio">this</a>. Follow these steps:</p>
 <ol>
-<li>In your SageMaker terminal, set the environmental variables for <code>KEY</code> and <code>SECRET KEY</code> with your <code>USER_AWS_ACCESS_KEY</code> and <code>USER_AWS_SECRET_ACCESS_KEY</code>, respectively.</li>
+<li>In your SageMaker terminal, set the environmental variables for <code>KEY</code> and <code>SECRET KEY</code> with your <code>AWS_ACCESS_KEY</code> and <code>AWS_SECRET_ACCESS_KEY</code>, respectively.</li>
 </ol>
-<p><div class="highlight"><pre><span></span><code>export KEY=&lt;YOUR_AWS_ACCESS_KEY&gt;
-export SECRET_KEY=&lt;YOUR_AWS_SECRET_KEY&gt;
+<p><div class="highlight"><pre><span></span><code>export KEY=&lt;AWS_ACCESS_KEY&gt;
+export SECRET_KEY=&lt;AWS_SECRET_KEY&gt;
 </code></pre></div>
     To ensure persistence of these variables, it is recommended you add these two lines to your <code>~/.bashrc</code> file.</p>
 <ol>
@@ -903,24 +910,30 @@ export SECRET_KEY=&lt;YOUR_AWS_SECRET_KEY&gt;
 <span class="k">ENV</span><span class="w"> </span><span class="nv">AWS_ACCESS_KEY_ID</span><span class="o">=</span><span class="nv">$KEY</span>
 <span class="k">ENV</span><span class="w"> </span><span class="nv">AWS_SECRET_ACCESS_KEY</span><span class="o">=</span><span class="nv">$SECRET_KEY</span>
 </code></pre></div></p>
+<p>These specify your credentials, as build arguments, to be passed into the Dockerfile. These will be used to during Docker build phase to access your S3 bucket.     </p>
+</li>
+<li>
+<p>When you are ready to build your <code>Dockerfile</code>, run the following command:<br />
+<code>docker build --network sagemaker --build-arg KEY=$KEY --build-arg SECRET_KEY=$SECRET_KEY -t {image_name}:{image_tag} .</code>  </p>
 </li>
 </ol>
-<p>These specify your credentials, as build arguments, to be passed into the Dockerfile. These will be used to during Docker build phase to access your S3 bucket. When you are ready to build your <code>Dockerfile</code>, run the command:
-    <code>docker build --network sagemaker --build-arg KEY=$KEY --build-arg SECRET_KEY=$SECRET_KEY -t {image_name}:{image_tag} .</code>
-    Note: The CI/CD is expecting these build arguments, so your Dockerfile submission must provide them. Refer to the ICD and <a href="https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/Submission%20Process.md">these instructions</a> for more information.
-    <strong>Warning:</strong> For security reasons, do not push your credentials to CodeCommit.</p>
+<blockquote>
+<p>Note: The CI/CD is expecting these build arguments, so your Dockerfile submission must provide them. Refer to the ICD and <a href="../submission_process/">these instructions</a> for more information.</p>
+</blockquote>
+<p><strong>Warning:</strong> For security reasons, do not push your credentials to CodeCommit.</p>
 <h2 id="evaluating-your-submission-in-sagemaker">Evaluating Your Submission in SageMaker</h2>
-<p>In order to run the evaluator, you must first authenticate your session to the AWS ECR. To authenticate, run <code>aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com</code>
-Before running the evaluator, ensure that your client container is running (see <a href="#running-the-client-with-docker">Running the Client with Docker</a> or <a href="#running-the-client-locally">Running the Client locally</a>).</p>
+<p>In order to run the evaluator, you must first authenticate your session to the AWS ECR. To authenticate, run:<br />
+<code>aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com</code>  </p>
+<p>Before running the evaluator, ensure that your client container is running (see <a href="#running-the-client-with-docker">Running the Client with Docker</a> or <a href="#running-the-client-locally">Running the Client locally</a>).</p>
 <p>Additionaly, you need to set two environment variables <code>KEY</code> and <code>SECRET_KEY</code>. These can be set by running the following the SageMaker terminal:
 <div class="highlight"><pre><span></span><code>export KEY=&lt;your key&gt;
 export SECRET_KEY=&lt;your key&gt;
 </code></pre></div>
-Place these in your <code>~/.bashrc</code> to avoid having to set for every session. These are the keys used for your SageMaker login <a href="https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/DTC%20Participant%20AWS%20User%20Guide.md#connecting-to-your-teams-sagemaker-studio">here</a>.</p>
+Place these in your <code>~/.bashrc</code> to avoid having to set for every session. These are the keys used for your SageMaker login <a href="../#connecting-to-your-teams-sagemaker-studio">here</a>.</p>
 <p>The evaluator can then be run using a convenience script in the client-shell repository: <code>eval/run_server.sh</code></p>
 <h3 id="run_serversh">run_server.sh</h3>
 <p>The <code>run_server.sh</code> script located at <code>eval/run_server.sh</code> will pull the latest <code>dtc-evaluator</code> from AWS ECR and run it.
-<div class="highlight"><pre><span></span><code>bash ./run_server.sh --output-dir [OUTPUT_DIR] --inventory-file [INVENTORY_FILE] --dataset-dir [DATASET_DIR] [--include-basic-ehr] [--include-expanded-ehr]
+<div class="highlight"><pre><span></span><code>bash ./run_server.sh --name [EVAL_RUN_NAME] --output-dir [OUTPUT_DIR] --inventory-file [INVENTORY_FILE] --dataset-dir [DATASET_DIR] [--include-basic-ehr] [--include-expanded-ehr]
 </code></pre></div></p>
 <p>The following arguments are used to specify the data and evaluation configuration:</p>
 <ul>
@@ -969,30 +982,30 @@ This command will store evaluation outputs in the <code>./outputs</code> directo
 <h2 id="release-notes">Release Notes</h2>
 <h3 id="v22">v2.2</h3>
 <ul>
-<li>Added new weights from rules document</li>
-<li>Excludes segments &gt; 60 min after hospital admission from metrics calculations</li>
-<li>Added average of sensitivity/specificity benchmark</li>
-<li>Added detailed metrics and threshold metrics CSVs</li>
-<li>Added new example inventory file</li>
-<li>NOTE: backwards compatible with old inventory and response files</li>
+<li>Added new weights from rules document.</li>
+<li>Excludes segments &gt; 60 min after hospital admission from metrics calculations.</li>
+<li>Added average of sensitivity/specificity benchmark.</li>
+<li>Added detailed metrics and threshold metrics CSVs.</li>
+<li>Added new example inventory file.</li>
+<li>NOTE: backwards compatible with old inventory and response files.</li>
 </ul>
 <h3 id="v21">v2.1</h3>
 <ul>
-<li>updated metrics weights to balance datasets equally</li>
-<li>updated metrics with 5-minute prediction lead time</li>
-<li>added segment_config.csv with information about what EHR fields are provided during evaluation</li>
+<li>Updated metrics weights to balance datasets equally.</li>
+<li>Updated metrics with 5-minute prediction lead time.</li>
+<li>Added segment_config.csv with information about what EHR fields are provided during evaluation.</li>
 </ul>
 <h3 id="v20">v2.0</h3>
 <ul>
-<li>updated metrics scripts for phase 2</li>
-<li>addition of new CLI args to run_server.sh (--include-basic-ehr, --include-expanded-ehr) with minor refactoring</li>
-<li>moved eval/ and stubs/ to top-level directory</li>
-<li>added example output from evaluator for phase 2</li>
-<li>updated Dockerfile entrypoint so it includes run_client.py for easier override of args</li>
+<li>Updated metrics scripts for phase 2.</li>
+<li>Addition of new CLI args to run_server.sh (--include-basic-ehr, --include-expanded-ehr) with minor refactoring.</li>
+<li>Moved eval/ and stubs/ to top-level directory.</li>
+<li>Added example output from evaluator for phase 2.</li>
+<li>Updated Dockerfile entrypoint so it includes run_client.py for easier override of args.</li>
 </ul>
 <h3 id="v13">v1.3</h3>
 <ul>
-<li>Added ENV passable variables to evaluator and client-shell for AWS keys</li>
+<li>Added ENV passable variables to evaluator and client-shell for AWS keys.</li>
 </ul>
 <h3 id="v12">v1.2</h3>
 <ul>
@@ -1027,8 +1040,6 @@ This command will store evaluation outputs in the <code>./outputs</code> directo
 <li>Message Handlers: Includes an abstract base class and specific implementations for handling various message types, ensuring appropriate communication with the evaluator.</li>
 <li>Factory Pattern for Message Handlers: Simplifies the creation of message handlers based on the message type, supporting scalable and modular development.</li>
 </ul>
-<hr />
-<p>(c) 2025 The Johns Hopkins University Applied Physics Laboratory LLC</p>
 
 
 
@@ -1102,6 +1113,10 @@ This command will store evaluation outputs in the <code>./outputs</code> directo
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 The Johns Hopkins University Applied Physics Laboratory LLC
+    </div>
   
   
     Made with

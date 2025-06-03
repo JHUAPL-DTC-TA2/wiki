@@ -50,6 +50,8 @@
     
       <link rel="stylesheet" href="../assets/_mkdocstrings.css">
     
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -536,8 +538,8 @@ In some cases, browser cache can affect the reset password screen. If you encoun
 </li>
 <li>
 <p><strong>"Unable to connect to Network"</strong><br />
-Connection issues to workspaces are typically a result of an external firewall or network restriction blocking the WorkSpaces port. <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/workspaces-port-requirements.html">This AWS document</a> describes the ports that need to be available for the WorkSpaces to properly stream to the client.<br />
-If the issues still persists, follow the logging steps described <a href="https://docs.aws.amazon.com/whitepapers/latest/best-practices-deploying-amazon-workspaces/collecting-a-workspaces-support-log-bundle-for-debugging.html">here</a> for low-level system logs. Send these logs to the APL team and we will help debug and troubleshoot. </p>
+Connection issues to WorkSpaces are typically a result of an external firewall or network restriction blocking the WorkSpaces port. <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/workspaces-port-requirements.html">This AWS document</a> describes the ports that need to be available for the WorkSpaces to properly stream to the client.<br />
+If the issues still persists, follow the logging steps described <a href="https://docs.aws.amazon.com/whitepapers/latest/best-practices-deploying-amazon-workspaces/collecting-a-workspaces-support-log-bundle-for-debugging.html">here</a> to collect low-level system logs. Send these logs to the APL team and we will help debug and troubleshoot. </p>
 </li>
 <li>
 <p><strong>Sudo Access and Installing Applications</strong><br />
@@ -549,7 +551,7 @@ Participants are unable to perform "sudo" commands on their WorkSpace, making it
 <li>
 <p><strong>Managing Environment</strong><br />
 Refer to this <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/studio-lab-use-manage.html">link</a> for best-practices and tutorials on how to manage conda environments within SageMaker.<br />
-When executing code in a notebook or script, SageMaker will prompt you to start an "instance". We recommend you pick an instance that matches the requirements for the code to run successfully. (i.e. pick a high RAM instance if your code needs a lot of memory, or a GPU instance if your code needs CUDA.) Refer to "SageMaker Instances.md" for a list of instance types and their specifications.<br />
+When executing code in a notebook or script, SageMaker will prompt you to start an "instance". We recommend you pick an instance that matches the requirements for the code to run successfully. (i.e. pick a high RAM instance if your code needs a lot of memory, or a GPU instance if your code needs CUDA.) Refer to <a href="../sagemaker_instances/">SageMaker Instances</a> for a list of instance types and their specifications.<br />
 Make sure to shutdown instances when you are done using them via the instance management panel in the SageMaker UI. </p>
 </li>
 <li>
@@ -631,6 +633,10 @@ If the pre-built images are not working for your particular use-case, e-mail us 
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 The Johns Hopkins University Applied Physics Laboratory LLC
+    </div>
   
   
     Made with

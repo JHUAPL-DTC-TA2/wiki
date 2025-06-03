@@ -48,6 +48,8 @@
     
       <link rel="stylesheet" href="assets/_mkdocstrings.css">
     
+      <link rel="stylesheet" href="stylesheets/extra.css">
+    
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -605,7 +607,7 @@
 
 
 <h1 id="dtc-participant-aws-user-guide">DTC Participant AWS User Guide</h1>
-<p>This user guide provides step-by-step instructions to configure your AWS Workspace and AWS SageMaker environment as well as troubleshooting notes for common issues. Contact the JHU APL team if you have any questions at APL-DTC-Help@jhuapl.edu.</p>
+<p>This user guide provides step-by-step instructions to configure your AWS WorkSpace and AWS SageMaker environment as well as troubleshooting notes for common issues. Contact the JHU APL team if you have any questions at APL-DTC-Help@jhuapl.edu.</p>
 <h2 id="table-of-contents">Table of Contents</h2>
 <ul>
 <li>Tutorials<ul>
@@ -619,7 +621,7 @@
 <h2 id="tutorials">Tutorials</h2>
 <h3 id="configuring-your-workspace">Configuring your WorkSpace</h3>
 <p>AWS WorkSpace is a Desktop-As-A-Service platform that streams a virtualized desktop environment to your local machine. For this challenge, we use WorkSpaces to provide participants a pre-configured, secure environment to access DTC data and computing resources to develop their models. </p>
-<p>Currently, all participants will use the same WorkSpace bundle: Ubuntu 20.04 Power Bundle (4 vCPU, 16 GiB RAM) with the following pre-installed libraries and programs: FireFox, Python 3.9, VSCode, and MySQL WorkBench. We may change the default bundle or provide alternative bundles in the future. </p>
+<p>Currently, all participants will use the same WorkSpace bundle: Ubuntu 22.04 Power Bundle (4 vCPU, 16 GiB RAM) with the following pre-installed libraries and programs: FireFox, Python 3.9, VSCode, and MySQL WorkBench. We may change the default bundle or provide alternative bundles in the future. </p>
 <p>Once you are permitted to participate in the TA2 challenge, you should receive two emails contain information about accessing WorkSpaces and SageMaker domain. The WorkSpaces email will look similar to the one show below and contains the information you need to configure your WorkSpace.</p>
 <blockquote>
 <p>Dear Amazon WorkSpaces User,</p>
@@ -640,33 +642,37 @@
 <p>Sincerely,</p>
 <p>Amazon WorkSpaces </p>
 </blockquote>
-<p>Follow the steps below to finish setting up your WorkSpace.
-1. Click the link for your user profile and create a password for your account. Account passwords can be reset by an administrator or through the client.</p>
-<p><img src="images/workspace-1.png"></p>
+<p>Follow the steps below to finish setting up your WorkSpace.    </p>
 <ol>
+<li>
+<p>Click the link for your user profile and create a password for your account. Account passwords can be reset by an administrator or through the client.<br />
+    <p align="center"><img src="images/workspace-1.png" alt="workspace-1" width="400"/></p></p>
+</li>
 <li>
 <p>If you haven't already, download and install the WorkSpaces client at https://clients.amazonworkspaces.com/. The WorkSpaces client is compatible with most operating systems.</p>
 </li>
 <li>
-<p>Open the WorkSpace client and input your registration code in the in the input box.</p>
+<p>Open the WorkSpace client and input your registration code in the in the input box.
+    <p align="center"><img src="images/workspace-2.png" alt="workspace-2" width="500"/></p></p>
+</li>
+<li>
+<p>Log-in using the username from the WorkSpaces email and the password you created in Step 1.<br />
+    <p align="center"><img src="images/workspace-3.png" alt="workspace-3" width="500"/></p></p>
+</li>
+<li>
+<p>Once you successfully log-in, the client will expand to fill your screen and load your WorkSpace. On its first load, this may take a couple minutes to fully initialize. If you have a multi-monitor or high-resolution screen, the WorkSpace desktop may seem zoomed-out or cropped. Closing the client and re-logging in sometimes helps with this issue. If the issue persists, disable High-DPI mode in Settings -&gt; Display Settings.
+    <p align="center"><img src="images/workspace-4.png" alt="workspace-4" width="900"/></p></p>
 </li>
 </ol>
-<p><img src="images/workspace-2.png"></p>
-<ol>
-<li>Log-in using the username from the WorkSpaces email and the password you created in Step 1. </li>
-</ol>
-<p><img src="images/workspace-3.png"></p>
-<ol>
-<li>Once you successfully log-in, the client will expand to fill your screen and load your WorkSpace. On its first load, this may take a couple minutes to fully initialize. If you have a multi-monitor or high-resolution screen, the WorkSpace desktop may seem zoomed-out or cropped. Closing the client and re-logging in sometimes helps with this issue. If the issue persists, disable High-DPI mode in Settings -&gt; Display Settings. </li>
-</ol>
-<p><img src="images/workspace-4.png"></p>
-<p>That's it! A couple of additional points:
-- The default WorkSpace supports "Paste-Only" clipboard redirect (using Ctrl+Shift+V in your workspace). This means you can copy and paste things from your local workstation to the WorkSpace, but not the other way around.
-- Your WorkSpace user will not have access as local administrator by default, but the user account is able to install user level libraries and packages. 
-- Pre-installed applications such as FireFox, VSCode, and MySQL WorkBench can be found in the Applications library, which can be opened by clicking "Show Applications".
-- WorkSpaces will shut down after an hour of inactivity.</p>
+<p>That's it! A couple of additional points:    </p>
+<ul>
+<li>The default WorkSpace supports "Paste-Only" clipboard redirect (using Ctrl+Shift+V in your WorkSpace). This means you can copy and paste things from your local workstation to the WorkSpace, but not the other way around.  </li>
+<li>Your WorkSpace user will not have access as local administrator by default, but the user account is able to install user level libraries and packages.   </li>
+<li>Pre-installed applications such as FireFox, VSCode, and MySQL WorkBench can be found in the Applications library, which can be opened by clicking "Show Applications".  </li>
+<li>WorkSpaces will shut down after an hour of inactivity.  </li>
+</ul>
 <h3 id="connecting-to-your-teams-sagemaker-studio">Connecting to your team's SageMaker Studio</h3>
-<p>SageMaker Studio is a web-based IDE, similar to JupyterLab, that enables you run code on AWS instances. Each team is provided a Sagemaker domain, and individual users are provided user profiles. Each user profile has an <em>Elastic File Store</em> within their profile to store files. When creating a kernel or running arbitrary code, SageMaker studio will prompt you to create an instance from an image. Instances define the hardware specifications and images define the software specifications. To access SageMaker Studio, we provided you a set-up script that will create a log-in application within your workspace (i.e., <code>open_presigned_domain_url.sh</code>). The instructions below allows you to configure your workspace to generate this log-in application.</p>
+<p>SageMaker Studio is a web-based IDE, similar to JupyterLab, that enables you run code on AWS instances. Each team is provided a SageMaker domain, and individual users are provided user profiles. Each user profile has an <em>Elastic File Store</em> within their profile to store files. When creating a kernel or running arbitrary code, SageMaker studio will prompt you to create an instance from an image. Instances define the hardware specifications and images define the software specifications. To access SageMaker Studio, we provided you a set-up script that will create a log-in application within your WorkSpace (i.e., <code>open_presigned_domain_url.sh</code>). The instructions below allows you to configure your WorkSpace to generate this log-in application.</p>
 <p>You should receive two emails containing information about the WorkSpace and SageMaker domain. The SageMaker domain email will look similar to the one show below and contains the information you need to connect to SageMaker. <strong>You will need to first set up your WorkSpace before proceeding to connect to SageMaker.</strong></p>
 <blockquote>
 <p>Dear User,</p>
@@ -689,52 +695,58 @@
 <li>
 <p>Each WorkSpace comes pre-loaded with a set-up script named <code>dtc-setup.sh</code>. This script creates a launch script, <code>open_presigned_domain_url.sh</code>, that when ran will generate an authenticated URL and open it on the default browser. To use the script, open a terminal and run the <code>dtc-setup.sh</code> and replace the arguments with your own values for domain ID and user profile name from the set-up email:</p>
 <p><code>dtc-setup.sh &lt;TEAM_DOMAIN_ID&gt; &lt;USER_PROFILE_NAME&gt;</code></p>
+<p><p align="center"><img src="images/sagemaker-1.png" alt="sagemaker-1" width="700"/></p></p>
+<p>You'll know the script ran successfully when there is a new file on your desktop named <code>open_presigned_domain_url.sh</code>. </p>
+</li>
+<li>
+<p>Launch the script directly from the Desktop by right-clicking it and clicking "Run as Program". Alternatively, you can run it from the terminal.</p>
 </li>
 </ol>
-<p><img src="images/sagemaker-1.png"></p>
-<p>You'll know the script ran successfully when there is a new file on your desktop named <code>open_presigned_domain_url.sh</code>. </p>
-<ol>
-<li>Launch the script directly from the Desktop by right-clicking it and clicking "Run as Program". Alternatively, you can run it from the terminal.</li>
-</ol>
-<p><img src="images/sagemaker-2.png"></p>
+<p align="center"><img src="images/sagemaker-2.png" alt="sagemaker-2" width="300"/></p>
+
 <p>Running the launch script should open a new tab or window on your browser and load SageMaker Studio default page. </p>
-<p><img src="images/sagemaker-3.png"></p>
-<p>A few important things to consider when using SageMaker instances:
-- DARPA provided each team a budget for Phase I to maintain your team’s infrastructure, perform analysis, and develop models. Please use your resources judiciously and efficiently!
-- SageMaker instances will continually accrue expenses so long as they are active. We strongly advise that you shut down any unused or idle instances to avoid accruing unwanted costs. The table below lists the available instances and their associated rates. These rates are subject to change.
-- APL will be sending weekly cost reports via email to inform you of the status of your weekly/total cost accrual and resource usage statistics. We will deliver the first cost report next week.</p>
+<p align="center"><img src="images/sagemaker-3.png" alt="sagemaker-3" width="900"/></p>
+
+<p>A few important things to consider when using SageMaker instances:      </p>
+<ul>
+<li>DARPA provided each team a budget to maintain the team’s infrastructure, perform analysis, and develop models. Please use your resources judiciously and efficiently!   </li>
+<li>SageMaker instances will continually accrue expenses so long as they are active. We strongly advise that you shut down any unused or idle instances to avoid accruing unwanted costs. See <a href="sagemaker_instances/">SageMaker Instances</a> for available instances and their associated rates. These rates are subject to change.   </li>
+<li>APL will be sending weekly cost reports via email to inform you of the status of your weekly/total cost accrual and resource usage statistics.  </li>
+</ul>
 <h3 id="quick-start-sagemaker-studio">Quick Start SageMaker Studio</h3>
-<p>Using SageMaker Studio tool, you will be able to access GPU resources to train and evaluate your models. We recommend that you go through the <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/studio-ui.html">AWS official documentation</a> to familiarize yourself with the tools available to you.</p>
+<p>Using SageMaker Studio tool, you will be able to access GPU resources to train and evaluate your models. We recommend that you go through the <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/studio-updated.html">AWS official documentation</a> to familiarize yourself with the tools available to you.</p>
 <h4 id="quick-start">Quick Start</h4>
 <ol>
-<li>Once you have SageMaker Studio loaded on your browser, select "Open Launcher" button.</li>
+<li>
+<p>Once you have SageMaker Studio loaded on your browser, select whether you want to create a JupyterLab space or a Code Editor space. Both types of spaces will provide access to a Python environment and a terminal.  </p>
+<p><p align="center"><img src="images/quick-start-1.png" alt="quick-start-1" width="800"/></p></p>
+</li>
+<li>
+<p>Configure your environment by selecting your SageMaker instance type and storage options. </p>
+<p><p align="center"><img src="images/quick-start-2.png" alt="quick-start-2" width="900"/></p></p>
+<p>Select your <a href="sagemaker_instances/">SageMaker instance</a>:<br />
+<p align="center"><img src="images/quick-start-3.png" alt="quick-start-3" width="600"/></p></p>
+</li>
+<li>
+<p>Once satisfied with the configured options (these can be updated from this same page in the future), select "Run Space" to start environment.</p>
+<p>The environment will take a few minutes to start up. Click the "JupyterLab" (or Code Editor if that is the space type you chose) icon from the left navigation bar, your new space should be in the given list. Wait until your space status has changed from "Starting" to "Running" before opening your space.
+<p align="center"><img src="images/quick-start-4.png" alt="quick-start-4" width="1000"/></p>  </p>
+</li>
+<li>
+<p>Once you are able to open the environment the launch page will load where you can choose what Python environment to open.
+    <p align="center"><img src="images/quick-start-5.png" alt="quick-start-5" width="800"/></p></p>
+<p>Selecting any of the Notebook types will create a "Untitled.ipynb" file and begin instantiating the kernel. This instantiation process may take a while as SageMaker is provisioning your environment with the necessary resources. You may encounter this notification:
+<p align="center"><img src="images/quick-start-6.png" alt="quick-start-6" width="800"/></p></p>
+</li>
+<li>
+<p>Once the instantiation process is complete and you see this screen below, you may begin developing!</p>
+<p><p align="center"><img src="images/quick-start-7.png" alt="quick-start-7" width="800"/></p></p>
+</li>
 </ol>
-<p><img src="images/quick-start-1.png"></p>
-<ol>
-<li>Configure your python environment by selecting your Python image and SageMaker instance. </li>
-</ol>
-<p><img src="images/quick-start-2.png"></p>
-<p>Select your Python image:
-<img src="images/quick-start-3.png"></p>
-<p>Select your <a href="https://github.com/JHUAPL-DTC-TA2/wiki/blob/main/SageMaker%20Instances.md">SageMaker instance</a>:
-<img src="images/quick-start-4.png"></p>
-<p>Once selected click the "Select" button.</p>
-<ol>
-<li>Instantiate a notebook
-<img src="images/quick-start-5.png"></li>
-</ol>
-<p>This will create a "Untitled.ipynb" file and begin instantiating the kernel with the selected Python image and SageMaker instance. This instantiation process may take a while as SageMaker is provisioning your environment with the necessary resources. You will encounter this notification:</p>
-<p><img src="images/quick-start-6.png"></p>
-<ol>
-<li>Once the instantiation process is complete and you see this screen below, you may begin developing!</li>
-</ol>
-<p><img src="images/quick-start-7.png"></p>
-<ol>
-<li>To shutdown a SageMaker instance, click on the "Running Instances" Icon (left side of the dashboard). </li>
-</ol>
-<p><img src="images/quick-start-8.png"></p>
-<p>Click on the "Power" button to turn off a specific instance:</p>
-<p><img src="images/quick-start-9.png" alt="drawing" width="200"></p>
+<p>To shutdown a SageMaker instance, click on the "Running Instances" icon (left side of the dashboard). <br />
+It is recommended to turn off spaces that are not in use to prevent accruing unnecessary costs.</p>
+<p align="center"><img src="images/quick-start-8.png" alt="quick-start-8" width="700"/></p>
+
 <h3 id="transferring-data-to-and-from-s3-buckets">Transferring data to and from S3 buckets</h3>
 <p>Each user has access to 3 different storage types:</p>
 <ol>
@@ -745,33 +757,40 @@
 <p>You can access your private storage within SageMaker Studio. To transfer files from the S3 buckets (i.e., Team Scratch and Training Dataset Bucket) you can either do so in your (1) terminal or (2) notebooks:</p>
 <h4 id="transferring-files-using-terminal">Transferring files using terminal:</h4>
 <ol>
-<li>Open SageMaker Studio's launcher and select "System Terminal":
-<img src="images/storage-1.png"></li>
-</ol>
-<p>In the terminal, you may use the <a href="https://docs.aws.amazon.com/cli/latest/reference/s3/">AWS CLI S3</a> to run commands (e.g., <code>cp</code>, <code>ls</code>, <code>rm</code>, etc.).</p>
-<ol>
-<li>To copy (<code>cp</code>) files from the scratch bucket to the into your (EFS) from you can use the command <code>aws s3 cp s3://dtc-scratch-{team_name}/path/to/file .</code>. To copy files into the scratch bucket from your EFS storage, you may use <code>aws s3 cp &lt;filename&gt; s3://dtc-scratch-{team_name}/path/</code>.</li>
+<li>
+<p>From within a JupyterLab environment, open a terminal. (This can also be done in Code Editor.)  </p>
+<p><p align="center"><img src="images/quick-start-5-terminal.png" alt="quick-start-5-terminal" width="600"/></p></p>
+<p>In the terminal, you may use the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/s3/index.html">AWS CLI S3</a> to run commands (e.g., <code>cp</code>, <code>ls</code>, <code>rm</code>, etc.).</p>
+</li>
+<li>
+<p>To copy (<code>cp</code>) files from the scratch bucket to the into your (EFS) from you can use the command <code>aws s3 cp s3://dtc-scratch-{team_name}/path/to/file .</code>. To copy files into the scratch bucket from your EFS storage, you may use <code>aws s3 cp &lt;filename&gt; s3://dtc-scratch-{team_name}/path/</code>.</p>
+</li>
 </ol>
 <h4 id="transferring-files-using-notebooks">Transferring files using notebooks:</h4>
 <p>You man transfer files between storage containers using an array of python packages (e.g., <code>S3Fs</code>, <code>boto3</code>, etc.)</p>
 <ol>
-<li>Create a notebook. In a cell, run:</li>
+<li>Create a notebook.     </li>
+<li>Update "team_name" to be your team's tag.      </li>
+<li>Create a test.txt file in the same directory as your notebook.  </li>
+<li>In a cell, run:</li>
 </ol>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">s3fs</span>
-<span class="n">fs</span> <span class="o">=</span> <span class="n">s3fs</span><span class="o">.</span><span class="n">S3FileSystem</span><span class="p">()</span>
+<span class="n">fs</span> <span class="o">=</span> <span class="n">s3fs</span><span class="o">.</span><span class="n">S3FileSystem</span><span class="p">()</span>  
 
-<span class="c1"># To List 5 files in your team scratch bucket</span>
-<span class="n">fs</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="s1">&#39;s3://dtc-scratch-</span><span class="si">{team_name}</span><span class="s1">/&#39;</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]</span>
-
-<span class="c1"># Open files directly</span>
-<span class="k">with</span> <span class="n">fs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;s3://dtc-scratch-</span><span class="si">{team_name}</span><span class="s1">/test.txt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
-
-<span class="c1"># Download files to EFS</span>
-<span class="n">fs</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;s3://dtc-scratch-</span><span class="si">{team_name}</span><span class="s1">/filename&#39;</span><span class="p">,</span> <span class="s2">&quot;test.txt&quot;</span><span class="p">)</span>
+<span class="n">team_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
 <span class="c1"># Upload files to S3 bucket</span>
-<span class="n">fs</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="s2">&quot;test.txt&quot;</span><span class="p">,</span> <span class="s1">&#39;s3://dtc-scratch-</span><span class="si">{team_name}</span><span class="s1">/test.txt&#39;</span><span class="p">)</span>
+<span class="n">fs</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="s2">&quot;test.txt&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;s3://dtc-scratch-</span><span class="si">{</span><span class="n">team_name</span><span class="si">}</span><span class="s1">/test.txt&#39;</span><span class="p">)</span>
+
+<span class="c1"># Download files to EFS</span>
+<span class="n">fs</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;s3://dtc-scratch-</span><span class="si">{</span><span class="n">team_name</span><span class="si">}</span><span class="s1">/test.txt&#39;</span><span class="p">,</span> <span class="s2">&quot;test.txt&quot;</span><span class="p">)</span>
+
+<span class="c1"># To List 5 files in your team scratch bucket</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fs</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;s3://dtc-scratch-</span><span class="si">{</span><span class="n">team_name</span><span class="si">}</span><span class="s1">/&#39;</span><span class="p">)[:</span><span class="mi">5</span><span class="p">])</span>
+
+<span class="c1"># Open files directly</span>
+<span class="k">with</span> <span class="n">fs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;s3://dtc-scratch-</span><span class="si">{</span><span class="n">team_name</span><span class="si">}</span><span class="s1">/test.txt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
 </code></pre></div>
 
 
@@ -830,6 +849,10 @@
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 The Johns Hopkins University Applied Physics Laboratory LLC
+    </div>
   
   
     Made with

@@ -50,6 +50,8 @@
     
       <link rel="stylesheet" href="../assets/_mkdocstrings.css">
     
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -642,11 +644,25 @@
 <h1 id="accessing-codecommit-credentials-and-configuring-git-for-your-team">Accessing CodeCommit Credentials and Configuring Git for Your Team</h1>
 <p>This guide outlines the steps for team members to obtain AWS CodeCommit credentials and set up Git in your SageMaker Studio for interacting with your team's CodeCommit repository. If you require further assistance or experience any difficulties during this process, do not hesitate to contact us at APL-DTC-Help@jhuapl.edu for support.</p>
 <h2 id="obtaining-git-codecommit-credentials">Obtaining Git CodeCommit Credentials</h2>
-<p>The AWS Secrets Manager securely stores your team's CodeCommit credentials. To access your credentials, you can use the AWS Command Line Interface (CLI) from your SageMaker (or Workspace) terminal. It's important to note that access is restricted to your own team's credentials, ensuring each team member can only retrieve their respective credentials. However, this setup also ensures that every team member has the capability to securely access their team's CodeCommit credentials.</p>
+<p>The AWS Secrets Manager securely stores your team's CodeCommit credentials. To access your credentials, you can use the AWS Command Line Interface (CLI) from your SageMaker (or WorkSpace) terminal. It's important to note that access is restricted to your own team's credentials, ensuring each team member can only retrieve their respective credentials. However, this setup also ensures that every team member has the capability to securely access their team's CodeCommit credentials.</p>
 <p>To retrieve your CodeCommit credentials, replace {team_tag} with your actual team name and execute the following command:</p>
 <div class="highlight"><pre><span></span><code>aws<span class="w"> </span>secretsmanager<span class="w"> </span>get-secret-value<span class="w"> </span>--secret-id<span class="w"> </span><span class="o">{</span>team_tag<span class="o">}</span>/codecommit
 </code></pre></div>
-<p>Executing this command will produce a JSON object containing your credentials. To locate your username and password, search for the <code>SecretString</code> field within the JSON output.</p>
+<p>Executing this command will produce a JSON object containing your credentials. It should return an output with the following format:<br />
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;ARN&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:secretsmanager:us-east-2:123456789012:secret:teamname/codecommit-a1b2c3&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;teamname/codecommit&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;VersionId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a1b2c3d4-5678-90ab-cdef-EXAMPLE11111&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;SecretString&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{\&quot;GitUsername\&quot;:\&quot;dtc-teamname-admin-at-5589909584939\&quot;,\&quot;password\&quot;:\&quot;EXAMPLE-PASSWORD\&quot;}&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;VersionStages&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;AWSCURRENT&quot;</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;CreatedDate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-03-08T17:40:33.06400+00:00&quot;</span>
+<span class="p">}</span><span class="w">  </span>
+</code></pre></div></p>
+<p>To locate your username and password, search for the <code>SecretString</code> field within the JSON output.<br />
+<strong>Note</strong>: The GitUsername and password are surrounded by escaped quotes (e.g. <code>\"</code>). 
+Be sure to only copy the characters inside the escaped quotations. Including the escape characters will cause a 403 error.</p>
 <p>Should you encounter the error message No such file or directory: 'less', this issue can be resolved by installing the less package. Run the following command to install less:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>less
 </code></pre></div>
@@ -775,6 +791,10 @@ I would NOT be able to create a repository with name <code>apl-foxtrot</code> or
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 The Johns Hopkins University Applied Physics Laboratory LLC
+    </div>
   
   
     Made with
