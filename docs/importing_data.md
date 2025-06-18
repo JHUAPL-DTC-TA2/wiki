@@ -5,7 +5,8 @@ This guide will go over how to use the S3 bucket "dtc-import" for transferring d
 ## Prerequisites
 
 - AWS CLI installed on your machine. [Download AWS CLI](https://aws.amazon.com/cli/)
-- IAM Credentials for your team.
+- IAM Credentials for your team.    
+  - You should have the IAM credentials, or shared team credentials, in the set-up email sent to you when you first created your workspace and sagemaker. Use `aws configure` to configure these credentials.
 - Knowledge of your specific team's prefix within the `dtc-import` bucket.
 
 ## Finding Your Team's Prefix
