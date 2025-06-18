@@ -1,9 +1,14 @@
 
 name: Publish docs via GitHub Pages
+
 on:
   push:
     branches:
-      - "*"
+      - update-documentation-instructions
+#  pull_request:
+#    branches:
+#      - dev
+  workflow_dispatch:  # allows workflow to be triggered manually
 
 jobs:
   build:
