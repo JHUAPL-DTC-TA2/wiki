@@ -1,0 +1,8 @@
+
+.md-grid {
+    max-width: 1550px;
+}
+
+.md-main__inner.md-grid {
+    max-width: initial;
+}

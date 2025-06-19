@@ -1,0 +1,912 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://JHUAPL-DTC-TA2.github.io/wiki/">
+      
+      
+      
+        <link rel="next" href="common_issues/">
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>DTC-Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:300,300i,400,400i,700,700i%7CInconsolata:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Bitter";--md-code-font:"Inconsolata"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="stylesheets/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#dtc-participant-aws-user-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="DTC-Wiki" class="md-header__button md-logo" aria-label="DTC-Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DTC-Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              User Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/JHUAPL-DTC-TA2/wiki" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JHUAPL-DTC-TA2/wiki
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="DTC-Wiki" class="md-nav__button md-logo" aria-label="DTC-Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    DTC-Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/JHUAPL-DTC-TA2/wiki" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JHUAPL-DTC-TA2/wiki
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tutorials" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tutorials
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tutorials">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuring-your-workspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuring your WorkSpace
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connecting-to-your-teams-sagemaker-studio" class="md-nav__link">
+    <span class="md-ellipsis">
+      Connecting to your team's SageMaker Studio
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quick-start-sagemaker-studio" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Start SageMaker Studio
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Start SageMaker Studio">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Start
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transferring-data-to-and-from-s3-buckets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transferring data to and from S3 buckets
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transferring data to and from S3 buckets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transferring-files-using-terminal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transferring files using terminal:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transferring-files-using-notebooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transferring files using notebooks:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="common_issues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Common Issues
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configure_codecommit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CodeCommit Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="running_client_shell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Client-Shell Client
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="workspace-selfservice/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workspace Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="importing_data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Importing Data to AWS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="creating_custom_images/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Custom Images
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="sagemaker_instances/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Available Instances
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="metrics_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="submission_process/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Submission Process
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cobalt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started with BluelightAI Cobalt
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="dtc-participant-aws-user-guide">DTC Participant AWS User Guide</h1>
+<p>This user guide provides step-by-step instructions to configure your AWS WorkSpace and AWS SageMaker environment as well as troubleshooting notes for common issues. Contact the JHU APL team if you have any questions at APL-DTC-Help@jhuapl.edu.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li>Tutorials<ul>
+<li>Configuring your WorkSpace</li>
+<li>Connecting to your team's SageMaker Studio</li>
+<li>Quick Start SageMaker Studio</li>
+<li>Transfer data to and from S3 buckets</li>
+</ul>
+</li>
+</ul>
+<h2 id="tutorials">Tutorials</h2>
+<h3 id="configuring-your-workspace">Configuring your WorkSpace</h3>
+<p>AWS WorkSpace is a Desktop-As-A-Service platform that streams a virtualized desktop environment to your local machine. For this challenge, we use WorkSpaces to provide participants a pre-configured, secure environment to access DTC data and computing resources to develop their models. </p>
+<p>Currently, all participants will use the same WorkSpace bundle: Ubuntu 22.04 Power Bundle (4 vCPU, 16 GiB RAM) with the following pre-installed libraries and programs: FireFox, Python 3.9, VSCode, and MySQL WorkBench. We may change the default bundle or provide alternative bundles in the future. </p>
+<p>Once you are permitted to participate in the TA2 challenge, you should receive two emails contain information about accessing WorkSpaces and SageMaker domain. The WorkSpaces email will look similar to the one show below and contains the information you need to configure your WorkSpace.</p>
+<blockquote>
+<p>Dear Amazon WorkSpaces User,</p>
+<p>Your administrator has created an Amazon WorkSpace for you. Follow the steps below to quickly get started with your WorkSpace:</p>
+<ol>
+<li>
+<p>Complete your user profile and download a WorkSpaces client using the following link: <URL></p>
+</li>
+<li>
+<p>Launch the client and enter the following registration code: <REGISTRATION_CODE></p>
+</li>
+<li>
+<p>Login with your newly created password. Your username is <USERNAME></p>
+</li>
+</ol>
+<p>You may download clients for additional devices at https://clients.amazonworkspaces.com/</p>
+<p>If you have any issues connecting to your WorkSpace, please contact your administrator.</p>
+<p>Sincerely,</p>
+<p>Amazon WorkSpaces </p>
+</blockquote>
+<p>Follow the steps below to finish setting up your WorkSpace.    </p>
+<ol>
+<li>
+<p>Click the link for your user profile and create a password for your account. Account passwords can be reset by an administrator or through the client.<br />
+    <p align="center"><img src="images/workspace-1.png" alt="workspace-1" width="400"/></p></p>
+</li>
+<li>
+<p>If you haven't already, download and install the WorkSpaces client at https://clients.amazonworkspaces.com/. The WorkSpaces client is compatible with most operating systems.</p>
+</li>
+<li>
+<p>Open the WorkSpace client and input your registration code in the in the input box.
+    <p align="center"><img src="images/workspace-2.png" alt="workspace-2" width="500"/></p></p>
+</li>
+<li>
+<p>Log-in using the username from the WorkSpaces email and the password you created in Step 1.<br />
+    <p align="center"><img src="images/workspace-3.png" alt="workspace-3" width="500"/></p></p>
+</li>
+<li>
+<p>Once you successfully log-in, the client will expand to fill your screen and load your WorkSpace. On its first load, this may take a couple minutes to fully initialize. If you have a multi-monitor or high-resolution screen, the WorkSpace desktop may seem zoomed-out or cropped. Closing the client and re-logging in sometimes helps with this issue. If the issue persists, disable High-DPI mode in Settings -&gt; Display Settings.
+    <p align="center"><img src="images/workspace-4.png" alt="workspace-4" width="900"/></p></p>
+</li>
+</ol>
+<p>That's it! A couple of additional points:    </p>
+<ul>
+<li>The default WorkSpace supports "Paste-Only" clipboard redirect (using Ctrl+Shift+V in your WorkSpace). This means you can copy and paste things from your local workstation to the WorkSpace, but not the other way around.  </li>
+<li>Your WorkSpace user will not have access as local administrator by default, but the user account is able to install user level libraries and packages.   </li>
+<li>Pre-installed applications such as FireFox, VSCode, and MySQL WorkBench can be found in the Applications library, which can be opened by clicking "Show Applications".  </li>
+<li>WorkSpaces will shut down after an hour of inactivity.  </li>
+</ul>
+<h3 id="connecting-to-your-teams-sagemaker-studio">Connecting to your team's SageMaker Studio</h3>
+<p>SageMaker Studio is a web-based IDE, similar to JupyterLab, that enables you run code on AWS instances. Each team is provided a SageMaker domain, and individual users are provided user profiles. Each user profile has an <em>Elastic File Store</em> within their profile to store files. When creating a kernel or running arbitrary code, SageMaker studio will prompt you to create an instance from an image. Instances define the hardware specifications and images define the software specifications. To access SageMaker Studio, we provided you a set-up script that will create a log-in application within your WorkSpace (i.e., <code>open_presigned_domain_url.sh</code>). The instructions below allows you to configure your WorkSpace to generate this log-in application.</p>
+<p>You should receive two emails containing information about the WorkSpace and SageMaker domain. The SageMaker domain email will look similar to the one show below and contains the information you need to connect to SageMaker. <strong>You will need to first set up your WorkSpace before proceeding to connect to SageMaker.</strong></p>
+<blockquote>
+<p>Dear User,</p>
+<p>Below is your SageMaker Studio log-in details. Please contact APL-DTC-Help@jhuapl.edu if you have any questions.</p>
+<p>AWS Access Key: <strong><USER_AWS_ACCESS_KEY></strong></p>
+<p>AWS Secret Key: <strong><USER_AWS_SECRET_KEY></strong></p>
+<p>Studio Domain ID: <strong><TEAM_DOMAIN_ID></strong></p>
+<p>User Profile: <strong><USER_PROFILE_NAME></strong></p>
+</blockquote>
+<p>Follow the steps below to configure your WorkSpaces to connect to your SageMaker Studio. You will only need to configure your SageMaker Studio once. After initial configuration, you can use the generated launch script to reconnect to your SageMaker studio. </p>
+<ol>
+<li>
+<p>Connect to your Ubuntu WorkSpace using the AWS WorkSpace client.</p>
+</li>
+<li>
+<p>Open a terminal window and run the following command to configure your AWS credentials. These credentials are shared by your team and allow you to create pre-signed URLs to your team's SageMaker domain.</p>
+<p><code>aws configure</code></p>
+<p>The CLI will then prompt you to input your AWS Access key (i.e., <code>&lt;USER_AWS_ACCESS_KEY&gt;</code>) and secret key (i.e., <code>&lt;USER_AWS_SECRET_KEY&gt;</code>), which can be copied directly from the set-up email. Set the default region to <code>us-east-1</code> and leave the default output format empty. </p>
+</li>
+<li>
+<p>Each WorkSpace comes pre-loaded with a set-up script named <code>dtc-setup.sh</code>. This script creates a launch script, <code>open_presigned_domain_url.sh</code>, that when ran will generate an authenticated URL and open it on the default browser. To use the script, open a terminal and run the <code>dtc-setup.sh</code> and replace the arguments with your own values for domain ID and user profile name from the set-up email:</p>
+<p><code>dtc-setup.sh &lt;TEAM_DOMAIN_ID&gt; &lt;USER_PROFILE_NAME&gt;</code></p>
+<p><p align="center"><img src="images/sagemaker-1.png" alt="sagemaker-1" width="700"/></p></p>
+<p>You'll know the script ran successfully when there is a new file on your desktop named <code>open_presigned_domain_url.sh</code>. </p>
+</li>
+<li>
+<p>Launch the script directly from the Desktop by right-clicking it and clicking "Run as Program". Alternatively, you can run it from the terminal.</p>
+</li>
+</ol>
+<p align="center"><img src="images/sagemaker-2.png" alt="sagemaker-2" width="300"/></p>
+
+<p>Running the launch script should open a new tab or window on your browser and load SageMaker Studio default page. </p>
+<p align="center"><img src="images/sagemaker-3.png" alt="sagemaker-3" width="900"/></p>
+
+<p>A few important things to consider when using SageMaker instances:      </p>
+<ul>
+<li>DARPA provided each team a budget to maintain the team’s infrastructure, perform analysis, and develop models. Please use your resources judiciously and efficiently!   </li>
+<li>SageMaker instances will continually accrue expenses so long as they are active. We strongly advise that you shut down any unused or idle instances to avoid accruing unwanted costs. See <a href="sagemaker_instances/">SageMaker Instances</a> for available instances and their associated rates. These rates are subject to change.   </li>
+<li>APL will be sending weekly cost reports via email to inform you of the status of your weekly/total cost accrual and resource usage statistics.  </li>
+</ul>
+<h3 id="quick-start-sagemaker-studio">Quick Start SageMaker Studio</h3>
+<p>Using SageMaker Studio tool, you will be able to access GPU resources to train and evaluate your models. We recommend that you go through the <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/studio-updated.html">AWS official documentation</a> to familiarize yourself with the tools available to you.</p>
+<h4 id="quick-start">Quick Start</h4>
+<ol>
+<li>
+<p>Once you have SageMaker Studio loaded on your browser, select whether you want to create a JupyterLab space or a Code Editor space. Both types of spaces will provide access to a Python environment and a terminal.  </p>
+<p><p align="center"><img src="images/quick-start-1.png" alt="quick-start-1" width="800"/></p></p>
+</li>
+<li>
+<p>Configure your environment by selecting your SageMaker instance type and storage options. </p>
+<p><p align="center"><img src="images/quick-start-2.png" alt="quick-start-2" width="900"/></p></p>
+<p>Select your <a href="sagemaker_instances/">SageMaker instance</a>:<br />
+<p align="center"><img src="images/quick-start-3.png" alt="quick-start-3" width="600"/></p></p>
+</li>
+<li>
+<p>Once satisfied with the configured options (these can be updated from this same page in the future), select "Run Space" to start environment.</p>
+<p>The environment will take a few minutes to start up. Click the "JupyterLab" (or Code Editor if that is the space type you chose) icon from the left navigation bar, your new space should be in the given list. Wait until your space status has changed from "Starting" to "Running" before opening your space.
+<p align="center"><img src="images/quick-start-4.png" alt="quick-start-4" width="1000"/></p>  </p>
+</li>
+<li>
+<p>Once you are able to open the environment the launch page will load where you can choose what Python environment to open.
+    <p align="center"><img src="images/quick-start-5.png" alt="quick-start-5" width="800"/></p></p>
+<p>Selecting any of the Notebook types will create a "Untitled.ipynb" file and begin instantiating the kernel. This instantiation process may take a while as SageMaker is provisioning your environment with the necessary resources. You may encounter this notification:
+<p align="center"><img src="images/quick-start-6.png" alt="quick-start-6" width="800"/></p></p>
+</li>
+<li>
+<p>Once the instantiation process is complete and you see this screen below, you may begin developing!</p>
+<p><p align="center"><img src="images/quick-start-7.png" alt="quick-start-7" width="800"/></p></p>
+</li>
+</ol>
+<p>To shutdown a SageMaker instance, click on the "Running Instances" icon (left side of the dashboard). <br />
+It is recommended to turn off spaces that are not in use to prevent accruing unnecessary costs.</p>
+<p align="center"><img src="images/quick-start-8.png" alt="quick-start-8" width="700"/></p>
+
+<h3 id="transferring-data-to-and-from-s3-buckets">Transferring data to and from S3 buckets</h3>
+<p>Each user has access to 3 different storage types:</p>
+<ol>
+<li>SageMaker Studio Elastic File System (EFS) for user private storage.</li>
+<li>Team Scratch Bucket (S3 bucket) (<code>dtc-scratch-{team_name}</code>) for sharing with teams.</li>
+<li>Read-only Training Dataset Bucket (S3 bucket) (<code>dtc-training-data</code>) for storing the official training dataset.</li>
+</ol>
+<p>You can access your private storage within SageMaker Studio. To transfer files from the S3 buckets (i.e., Team Scratch and Training Dataset Bucket) you can either do so in your (1) terminal or (2) notebooks:</p>
+<h4 id="transferring-files-using-terminal">Transferring files using terminal:</h4>
+<ol>
+<li>
+<p>From within a JupyterLab environment, open a terminal. (This can also be done in Code Editor.)  </p>
+<p><p align="center"><img src="images/quick-start-5-terminal.png" alt="quick-start-5-terminal" width="600"/></p></p>
+<p>In the terminal, you may use the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/s3/index.html">AWS CLI S3</a> to run commands (e.g., <code>cp</code>, <code>ls</code>, <code>rm</code>, etc.).</p>
+</li>
+<li>
+<p>To copy (<code>cp</code>) files from the scratch bucket to the into your (EFS) from you can use the command <code>aws s3 cp s3://dtc-scratch-{team_name}/path/to/file .</code>. To copy files into the scratch bucket from your EFS storage, you may use <code>aws s3 cp &lt;filename&gt; s3://dtc-scratch-{team_name}/path/</code>.</p>
+</li>
+</ol>
+<h4 id="transferring-files-using-notebooks">Transferring files using notebooks:</h4>
+<p>You man transfer files between storage containers using an array of python packages (e.g., <code>S3Fs</code>, <code>boto3</code>, etc.)</p>
+<ol>
+<li>Create a notebook.     </li>
+<li>Update "team_name" to be your team's tag.      </li>
+<li>Create a test.txt file in the same directory as your notebook.  </li>
+<li>In a cell, run:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">s3fs</span>
+<span class="n">fs</span> <span class="o">=</span> <span class="n">s3fs</span><span class="o">.</span><span class="n">S3FileSystem</span><span class="p">()</span>  
+
+<span class="n">team_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+<span class="c1"># Upload files to S3 bucket</span>
+<span class="n">fs</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="s2">&quot;test.txt&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;s3://dtc-scratch-</span><span class="si">{</span><span class="n">team_name</span><span class="si">}</span><span class="s1">/test.txt&#39;</span><span class="p">)</span>
+
+<span class="c1"># Download files to EFS</span>
+<span class="n">fs</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;s3://dtc-scratch-</span><span class="si">{</span><span class="n">team_name</span><span class="si">}</span><span class="s1">/test.txt&#39;</span><span class="p">,</span> <span class="s2">&quot;test.txt&quot;</span><span class="p">)</span>
+
+<span class="c1"># To List 5 files in your team scratch bucket</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fs</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;s3://dtc-scratch-</span><span class="si">{</span><span class="n">team_name</span><span class="si">}</span><span class="s1">/&#39;</span><span class="p">)[:</span><span class="mi">5</span><span class="p">])</span>
+
+<span class="c1"># Open files directly</span>
+<span class="k">with</span> <span class="n">fs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;s3://dtc-scratch-</span><span class="si">{</span><span class="n">team_name</span><span class="si">}</span><span class="s1">/test.txt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+        
+          
+          <a href="common_issues/" class="md-footer__link md-footer__link--next" aria-label="Next: Common Issues">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Common Issues
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 The Johns Hopkins University Applied Physics Laboratory LLC
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": ".", "features": ["navigation.indexes", "navigation.instant", "navigation.footer", "navigation.prune", "navigation.sections", "toc.follow", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.code.copy"], "search": "assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

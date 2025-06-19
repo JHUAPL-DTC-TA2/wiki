@@ -1,0 +1,1176 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://JHUAPL-DTC-TA2.github.io/wiki/running_client_shell/">
+      
+      
+        <link rel="prev" href="../configure_codecommit/">
+      
+      
+        <link rel="next" href="../workspace-selfservice/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Client-Shell Client - DTC-Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:300,300i,400,400i,700,700i%7CInconsolata:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Bitter";--md-code-font:"Inconsolata"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#client-container-shell" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="DTC-Wiki" class="md-header__button md-logo" aria-label="DTC-Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DTC-Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Client-Shell Client
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/JHUAPL-DTC-TA2/wiki" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JHUAPL-DTC-TA2/wiki
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="DTC-Wiki" class="md-nav__button md-logo" aria-label="DTC-Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    DTC-Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/JHUAPL-DTC-TA2/wiki" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JHUAPL-DTC-TA2/wiki
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../common_issues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Common Issues
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configure_codecommit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CodeCommit Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Client-Shell Client
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Client-Shell Client
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#minimum-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Minimum Requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Start
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-your-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuring your Model
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#starting-the-rabbitmq-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      Starting the RabbitMQ server
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-the-client-with-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running the Client with Docker
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running the Client with Docker">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#building-with-docker-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building with Docker Image
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Building with Docker Image">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#base-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Base Images
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-the-docker-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running the Docker Container
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-the-client-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running the Client locally
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#passing-messages-to-the-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      Passing messages to the Client
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uploading-docker-image-to-aws-ecr-elastic-container-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uploading docker image to AWS ECR (Elastic Container Registry)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuring Docker
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-docker-images-to-access-s3-buckets-using-aws-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuring Docker Images to Access S3 Buckets Using AWS Credentials
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluating-your-submission-in-sagemaker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Evaluating Your Submission in SageMaker
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluating Your Submission in SageMaker">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run_serversh" class="md-nav__link">
+    <span class="md-ellipsis">
+      run_server.sh
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run_metricssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      run_metrics.sh
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluation-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Evaluation resources
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Release Notes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Release Notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v22" class="md-nav__link">
+    <span class="md-ellipsis">
+      v2.2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v21" class="md-nav__link">
+    <span class="md-ellipsis">
+      v2.1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v20" class="md-nav__link">
+    <span class="md-ellipsis">
+      v2.0
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v13" class="md-nav__link">
+    <span class="md-ellipsis">
+      v1.3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v12" class="md-nav__link">
+    <span class="md-ellipsis">
+      v1.2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v11" class="md-nav__link">
+    <span class="md-ellipsis">
+      v1.1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v10" class="md-nav__link">
+    <span class="md-ellipsis">
+      v1.0
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workspace-selfservice/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workspace Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../importing_data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Importing Data to AWS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../creating_custom_images/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Custom Images
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sagemaker_instances/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Available Instances
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metrics_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../submission_process/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Submission Process
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cobalt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started with BluelightAI Cobalt
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="client-container-shell">Client Container Shell</h1>
+<h2 id="overview">Overview</h2>
+<p>This is the README for the <a href="https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/client-shell/browse?region=us-east-1">Client Container Shell</a> and supporting materials for teams participating in the DARPA Triage Challenge Data Competition. The Client Container Shell can be used to prepare submissions for the workshop and challenge events in accordance with the Data Competition ICD (available at https://triagechallenge.darpa.mil).</p>
+<h3 id="minimum-requirements">Minimum Requirements</h3>
+<ul>
+<li>Python 3.10 or newer*</li>
+<li>Docker* (See <a href="#configuring-docker">Configuring Docker</a>)</li>
+<li>Model that implements methods in provided <code>DTC_BaseModel</code> base class: <code>predict()</code>, <code>acknowledge()</code>, <code>cleanup()</code>, and <code>timed_out()</code> (See example in <em>template_model.py</em> )    </li>
+</ul>
+<p>*Note: these installations should already be available when working from within the <a href="../#connecting-to-your-teams-sagemaker-studio">SageMaker environment</a>.</p>
+<h3 id="quick-start">Quick Start</h3>
+<ol>
+<li>Clone client-shell repository from CodeCommit <br />
+<code>git clone https://git-codecommit.us-east-1.amazonaws.com/v1/repos/client-shell</code>  </li>
+<li>Configure model according to Client Shell (See <a href="#configuring-your-model">Configuring your Model</a>)</li>
+<li>Download and start RabbitMQ Server (See <a href="#starting-the-rabbitmq-server">Starting the RabbitMQ server</a>)</li>
+<li>Run the client using one of two options:   <ul>
+<li>Run as Docker container (See <a href="#running-the-client-with-docker">Running the Client with Docker</a>)  </li>
+<li>Run locally within AWS WorkSpace (See <a href="#running-the-client-locally">Running the Client locally</a>)   </li>
+</ul>
+</li>
+<li>Test connection between client and server using messaging stub (See <a href="#passing-messages-to-the-client">Passing Messages to the Client</a>).</li>
+<li>Evaluate client using <code>dtc-evaluator</code> and run metrics on output (See <a href="#evaluating-your-submission-in-sagemaker">Evaluating Your Model in SageMaker</a>).</li>
+</ol>
+<h2 id="configuring-your-model">Configuring your Model</h2>
+<p>Your model must inherit from <code>dtc_messaging.model.DTC_BaseModel</code> in order to interface with the evaluator. The model class must override five methods: <code>predict()</code>, <code>acknowledge()</code>, <code>cleanup()</code>, <code>timed_out()</code>, <code>error()</code>.  Each method above is a callback in response to receipt of one of the message types (MessageType) listed below:</p>
+<ul>
+<li><code>PREDICT_MESSAGE</code>: Provides new patient data and requests LSI prediction by calling <code>predict()</code> in the model.</li>
+<li><code>ACKNOWLEDGE_MESSAGE</code>: Acknowledges receipt of prediction by calling <code>acknowledge()</code> in the model.</li>
+<li><code>CLEANUP_MESSAGE</code>: Indicates when the processing for the current patient case is complete by calling <code>cleanup()</code> in the model.</li>
+<li><code>TIMED_OUT_MESSAGE</code>: Indicates the model has timed out during the current prediction request by calling <code>timed_out()</code> in the model.</li>
+<li><code>ERROR_MESSAGE</code>: Contains error message from the evaluation server.</li>
+</ul>
+<p>In addition, there is a <code>CONNECTION_MESSAGE</code> that establishes initial connection between server and model, which is handled by the model base class. As a simple example implementation of the methods listed above, please see the provided <em>template_model.py</em>.</p>
+<h2 id="starting-the-rabbitmq-server">Starting the RabbitMQ server</h2>
+<p>To start a RabbitMQ server with the management plugin enabled, run the following commands in your terminal:</p>
+<p><code>aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com</code></p>
+<p><code>docker run -d --network sagemaker --rm  552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-rabbitmq:latest</code></p>
+<p>RabbitMQ will automatically reserve and map ports <code>15672</code> and <code>5672</code> on the host to ports <code>15672</code> and <code>5672</code> in the server container, respectively. These ports are used by the RabbitMQ server.</p>
+<h2 id="running-the-client-with-docker">Running the Client with Docker</h2>
+<h3 id="building-with-docker-image">Building with Docker Image</h3>
+<p>To containerize your model, start by authenticating to be able to pull the <code>dtc-base-image</code></p>
+<p><code>aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com</code></p>
+<p>Build your docker image with the following command:</p>
+<p><code>docker build --network sagemaker -t dtc-&lt;TEAM_NAME&gt;:&lt;TAG&gt; .</code></p>
+<p>This command builds the Docker based on the Dockerfile provided. By default, the client-shell Dockerfile builds itself off of  <code>dtc-base-image:latest</code> which uses GPU. See the below <strong>Base Images</strong> section, to substitute for a cpu-only base image.
+Both images include the <code>dtc_messaging</code> python package used to interface with the official evaluation server, and <code>awscli</code> to access available AWS resources provisioned to your team.</p>
+<h4 id="base-images">Base Images</h4>
+<p>There are two base images available for your use in the AWS ECR:<br />
+- dtc-base-image:latest <br />
+- dtc-base-image-cpu:latest  </p>
+<p><code>dtc-base-image:latest</code> is configured for teams whose models require GPU and is built off of <code>nvidia/cuda:12.3.2-cudnn9-devel-ubuntu22.04</code>, while <code>dtc-base-image-cpu:latest</code> holds a lighter-weight framework for those models that only run on CPU, and it is built off of <code>ubuntu:22.04</code>.</p>
+<p>You should always use images tagged <code>latest</code>, however a full history of dtc-base-image versions is available on the ECR. As of date, the following base images exists:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Image Name</th>
+<th style="text-align: center;">Tags</th>
+<th style="text-align: center;">Release</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">dtc-base-image</td>
+<td style="text-align: center;">latest, v1-1</td>
+<td style="text-align: center;">May 2024</td>
+</tr>
+<tr>
+<td style="text-align: left;">dtc-base-image-cpu</td>
+<td style="text-align: center;">latest, v1-0</td>
+<td style="text-align: center;">June 2024</td>
+</tr>
+<tr>
+<td style="text-align: left;">dtc-base-image</td>
+<td style="text-align: center;">v1-0</td>
+<td style="text-align: center;">March 2024</td>
+</tr>
+</tbody>
+</table>
+<p>Further, the <a href="https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/dtc-base-image/browse?region=us-east-1">dtc-base-image repository</a> holds the code used to generate these images.
+The <code>main</code> branch contains dtc-base-image source code and the <code>cpu-only</code> branch  contains dtc-base-image-cpu source code.</p>
+<h3 id="running-the-docker-container">Running the Docker Container</h3>
+<p>After building the image, run the application in a Docker container with the necessary environment variables:</p>
+<p><code>docker run --network sagemaker -it --rm dtc-&lt;TEAM_NAME&gt;:&lt;TAG&gt;</code></p>
+<p>This command runs your application in a Docker container, connecting it to an existing RabbitMQ server. The container will be removed automatically after the application exits.</p>
+<h2 id="running-the-client-locally">Running the Client locally</h2>
+<p>To run the Client outside docker, you must first install the <code>dtc_messaging</code> package and dependencies in your local environment. Clone the <a href="https://git-codecommit.us-east-1.amazonaws.com/v1/repos/dtc-base-image">dtc-base-image repo</a> and run the following within the cloned repo: <br />
+<code>python -m pip install .</code> </p>
+<p>The following command will run the client locally with an existing RabbitMQ server:<br />
+<code>python run_client.py --host localhost --queue rpc_queue</code></p>
+<h2 id="passing-messages-to-the-client">Passing messages to the Client</h2>
+<p>The <code>send_message.py</code> script in the <code>stubs/</code> directory can be used to test receipt of sample messages of each MessageType with a running client container. You may run the command:</p>
+<p><code>python send_message.py --queue rpc_queue -m {CONNECTION_MESSAGE|PREDICT_MESSAGE|ACKNOWLEDGE_MESSAGE|ERROR_MESSAGE|TIMED_OUT_MESSAGE|CLEANUP_MESSAGE}</code></p>
+<p>to pass a sample message to the client, where a single message type is selected. This should print out the client response message's channel, method, properties, and body data. For example, using the provided <code>ExampleModel</code> class in <code>template_model.py</code> as the model, running <code>python send_message.py -m CONNECTION_MESSAGE</code> would print this response:</p>
+<div class="highlight"><pre><span></span><code>RESPONSE:
+CHANNEL: &lt;BlockingChannel impl=&lt;Channel number=1 OPEN conn=&lt;SelectConnection OPEN transport=&lt;pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x109060690&gt; params=&lt;ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False&gt;&gt;&gt;&gt;
+METHOD: &lt;Basic.Deliver([&#39;consumer_tag=ctag1.8851c9e07ab74dfa9a4d64efc4e4df26&#39;, &#39;delivery_tag=1&#39;, &#39;exchange=&#39;, &#39;redelivered=False&#39;, &#39;routing_key=amq.gen-PyPl17EcuEBP5s3LDzgwKA&#39;])&gt;
+PROPERTIES: &lt;BasicProperties([&#39;correlation_id=9c13597d-7aa1-45f6-9e1e-a6734c826328&#39;, &#39;type=CONNECTION_MESSAGE&#39;])&gt;
+BODY: b&#39;{&quot;response&quot;: {&quot;response&quot;: &quot;connected&quot;}}&#39;
+</code></pre></div>
+<h2 id="uploading-docker-image-to-aws-ecr-elastic-container-registry">Uploading docker image to AWS ECR (Elastic Container Registry)</h2>
+<p>Use the following steps to authenticate and push an image to your team ECR. Note that for submission, this is done automatically within the CodeBuild CI/CD build process for successful builds.</p>
+<p>Start by retrieving an authentication token and authenticate your Docker client to your registry.</p>
+<p><code>aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com</code></p>
+<p>Tag your image so you can push the image to this repository:</p>
+<p><code>docker tag dtc-&lt;TEAM_NAME&gt;:&lt;TAG&gt; 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-&lt;TEAM_NAME&gt;:&lt;TAG&gt;</code></p>
+<p>Run the following command to push this image to your newly created AWS repository:</p>
+<p><code>docker push 552707247569.dkr.ecr.us-east-1.amazonaws.com/dtc-&lt;TEAM_NAME&gt;:&lt;TAG&gt;</code></p>
+<h2 id="configuring-docker">Configuring Docker</h2>
+<p>To check if Docker is installed correctly, run <code>docker version</code> on a system terminal to output API and engine details.  </p>
+<p>If Docker is not installed properly, you will need to modify your SageMaker app's lifecycle policy.
+All SageMaker app types (JupyterLab, CodeEditor, Studio Classic) support Docker API access via a proxy docker engine. To access docker in your SageMaker instance, <strong>restart</strong> or <strong>create</strong> an instance using the "install-docker-cobalt-{app-type}" lifecycle policy.</p>
+<blockquote>
+<p>Note: An existing Code Editor or JupyterLab instance will not have Docker installed until you fully stop the instance and re-run with the lifecycle policy. Restarting the instance will not delete any data in the <code>/home/sagemaker-user/</code> directory, but will delete data in other directories. </p>
+</blockquote>
+<h2 id="configuring-docker-images-to-access-s3-buckets-using-aws-credentials">Configuring Docker Images to Access S3 Buckets Using AWS Credentials</h2>
+<p>By default, your credentials will not be passed from SageMaker to your Docker images. As a result, your Docker images is restricted to access your provisioned AWS services. If your submission requires accessing data from your team’s S3 bucket, you may transfer your SageMaker credentials to your Docker image by passing your AWS credentials (i.e., <code>AWS_ACCESS_KEY</code>, <code>AWS_SECRET_ACCESS_KEY</code>) to the Docker image. These access keys should have been emailed to you for your SageMaker account in an email that looks similar to <a href="../#connecting-to-your-teams-sagemaker-studio">this</a>. Follow these steps:</p>
+<ol>
+<li>In your SageMaker terminal, set the environmental variables for <code>KEY</code> and <code>SECRET KEY</code> with your <code>AWS_ACCESS_KEY</code> and <code>AWS_SECRET_ACCESS_KEY</code>, respectively.</li>
+</ol>
+<p><div class="highlight"><pre><span></span><code>export KEY=&lt;AWS_ACCESS_KEY&gt;
+export SECRET_KEY=&lt;AWS_SECRET_KEY&gt;
+</code></pre></div>
+    To ensure persistence of these variables, it is recommended you add these two lines to your <code>~/.bashrc</code> file.</p>
+<ol>
+<li>
+<p>Modify your <code>Dockerfile</code> to transfer the target file: Add the following command to your Dockerfile to transfer the target file from S3 to your desired directory within the Docker container. Replace <code>&lt;TEAM_NAME&gt;</code>, <code>&lt;TARGET_FILE&gt;</code>, and <code>&lt;TARGET_DIRECTORY&gt;</code> with your team name, the file you want to transfer, and the target directory inside the Docker container, respectively:
+    <div class="highlight"><pre><span></span><code><span class="k">RUN</span><span class="w"> </span>aws<span class="w"> </span>s3<span class="w"> </span>cp<span class="w"> </span>s3://dtc-scratch-&lt;TEAM_NAME&gt;/&lt;TARGET_FILE&gt;<span class="w"> </span>/&lt;TARGET_DIRECTORY&gt;
+</code></pre></div></p>
+</li>
+<li>
+<p>In the <code>Dockerfile</code> script, you will find the following lines:
+    <div class="highlight"><pre><span></span><code><span class="k">ARG</span><span class="w"> </span>KEY
+<span class="k">ARG</span><span class="w"> </span>SECRET_KEY
+<span class="k">ENV</span><span class="w"> </span><span class="nv">AWS_ACCESS_KEY_ID</span><span class="o">=</span><span class="nv">$KEY</span>
+<span class="k">ENV</span><span class="w"> </span><span class="nv">AWS_SECRET_ACCESS_KEY</span><span class="o">=</span><span class="nv">$SECRET_KEY</span>
+</code></pre></div></p>
+<p>These specify your credentials, as build arguments, to be passed into the Dockerfile. These will be used to during Docker build phase to access your S3 bucket.     </p>
+</li>
+<li>
+<p>When you are ready to build your <code>Dockerfile</code>, run the following command:<br />
+<code>docker build --network sagemaker --build-arg KEY=$KEY --build-arg SECRET_KEY=$SECRET_KEY -t {image_name}:{image_tag} .</code>  </p>
+</li>
+</ol>
+<blockquote>
+<p>Note: The CI/CD is expecting these build arguments, so your Dockerfile submission must provide them. Refer to the ICD and <a href="../submission_process/">these instructions</a> for more information.</p>
+</blockquote>
+<p><strong>Warning:</strong> For security reasons, do not push your credentials to CodeCommit.</p>
+<h2 id="evaluating-your-submission-in-sagemaker">Evaluating Your Submission in SageMaker</h2>
+<p>In order to run the evaluator, you must first authenticate your session to the AWS ECR. To authenticate, run:<br />
+<code>aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com</code>  </p>
+<p>Before running the evaluator, ensure that your client container is running (see <a href="#running-the-client-with-docker">Running the Client with Docker</a> or <a href="#running-the-client-locally">Running the Client locally</a>).</p>
+<p>Additionaly, you need to set two environment variables <code>KEY</code> and <code>SECRET_KEY</code>. These can be set by running the following the SageMaker terminal:
+<div class="highlight"><pre><span></span><code>export KEY=&lt;your key&gt;
+export SECRET_KEY=&lt;your key&gt;
+</code></pre></div>
+Place these in your <code>~/.bashrc</code> to avoid having to set for every session. These are the keys used for your SageMaker login <a href="../#connecting-to-your-teams-sagemaker-studio">here</a>.</p>
+<p>The evaluator can then be run using a convenience script in the client-shell repository: <code>eval/run_server.sh</code></p>
+<h3 id="run_serversh">run_server.sh</h3>
+<p>The <code>run_server.sh</code> script located at <code>eval/run_server.sh</code> will pull the latest <code>dtc-evaluator</code> from AWS ECR and run it.
+<div class="highlight"><pre><span></span><code>bash ./run_server.sh --name [EVAL_RUN_NAME] --output-dir [OUTPUT_DIR] --inventory-file [INVENTORY_FILE] --dataset-dir [DATASET_DIR] [--include-basic-ehr] [--include-expanded-ehr]
+</code></pre></div></p>
+<p>The following arguments are used to specify the data and evaluation configuration:</p>
+<ul>
+<li><code>--name</code> or <code>-n</code> specifies a name for the evaluation run. This appears in all output filenames (logs and response files) for easier tracking of separate runs.</li>
+<li><code>--output-dir</code> or <code>-o</code> specifies where model predictions and logs will be stored. This path can point to a location that is either local to SageMaker or your team's S3-scratch bucket.</li>
+<li><code>--inventory-file</code> or <code>-i</code> specifies the list of data segments to be used by the evaluator. This must be from a phase 2 dataset (<em>phase1_v2+</em> or <em>phase2_v1+</em>). The inventory file can exist in an S3 bucket or locally. An example inventory file can be found in <em>client_shell/eval</em>.</li>
+<li><code>--dataset-dir</code> or <code>-d</code> specifies the path to the segmented dataset. This can be a local path or an S3 path. Note that this dataset must correspond to the inventory file provided above.</li>
+<li><code>--include-basic-ehr</code> is an optional flag that includes basic EHR data in the run for each case.</li>
+<li><code>--include-expanded-ehr</code> is an optional flag that includes expanded EHR data (as well as basic EHR data) in the run for each case.</li>
+</ul>
+<p>Example: 
+<div class="highlight"><pre><span></span><code>./run_server.sh --name test --output-dir outputs --inventory-file inventory_phase1_v2-0_val_mini.csv --dataset-dir s3://dtc-training-data/phase1/phase1_v2-0_segmented/val --include-basic-ehr
+</code></pre></div>
+This command will store evaluation outputs in the <code>./outputs</code> directory, using the <code>./inventory_phase2_v1-1_val_mini.csv</code> as the inventory file and the <code>s3://dtc-training-data/phase1_v2-0_segmented/val</code> as the source dataset with basic EHR data included for each case. Example evaluation output and logs can be found in <code>eval/example_output/out</code> and <code>eval/example_output/logs</code>, respectively.</p>
+<h3 id="run_metricssh">run_metrics.sh</h3>
+<p>The <code>run_metrics.sh</code> script located at <code>eval/run_metrics.sh</code> will compute performance metrics on the evaluation output from <code>run_server.sh</code>.</p>
+<p>The script saves off three files within OUTPUT_DIR/metrics:</p>
+<ol>
+<li>A <strong>ground truth</strong> CSV file containg ground truth for all segments listed in the inventory file.</li>
+<li>A <strong>responses</strong> JSON file containing the model's responses to all segments from the evaluation.</li>
+<li>A <strong>metrics</strong> JSON containing the Mean Squared Correct (MSC) metrics for each case.</li>
+<li>A <strong>detailed metrics</strong> CSV containing the MSC metrics for each segment.</li>
+<li>A <strong>threshold metrics</strong> CSV containing binary classification metrics across thresholds for each LSI group. </li>
+</ol>
+<p>See this <a href="../metrics_guide/">Metrics Guide</a> for more details on the contents of these files. </p>
+<p>To compute metrics for an evaluation run, first install the requirements located in <code>eval/requirements.txt</code>:</p>
+<div class="highlight"><pre><span></span><code>pip install -r eval/requirements.txt --timeout 1000
+</code></pre></div>
+<p>After installing the requirements, run the metrics script from within the <code>eval/</code> directory:</p>
+<div class="highlight"><pre><span></span><code>bash ./run_metrics.sh --output-dir [OUTPUT_DIR] --inventory-file [INVENTORY_FILE] --dataset-dir [DATASET_DIR] [--allow-incomplete]
+</code></pre></div>
+<p>The <code>output-dir</code>, <code>inventory-file</code>, and <code>dataset-dir</code> should match the inputs used for <code>run_server.sh</code>.</p>
+<p>If you want to run metrics on an incomplete run, you may include the optional <code>allow-incomplete</code> flag. Otherwise, the script will check to ensure all segments in the inventory file were run and throw an error if responses are missing.</p>
+<p>The python scripts used to generate the ground truth, response, and metrics JSONs are located in <code>eval/src</code>, but these scripts should not be altered to ensure consistent metrics with the competition.</p>
+<h3 id="evaluation-resources">Evaluation resources</h3>
+<p>Example output of the metrics can be found in <code>eval/example_output/metrics</code>.</p>
+<p>The config file used to create the segmented datasets is provided in <code>eval/segment_config.csv</code>. This file lists each field in the EHR data and how it is included in the segmented data at evaluation time. The CSV file has the following columns:  </p>
+<ul>
+<li><em>source</em>: dataset source ("UMB" or "UPitt")  </li>
+<li><em>table</em>: table name  </li>
+<li><em>field</em>: field name   </li>
+<li><em>deliver-at</em>: whether and when the field is included in the segmented data. "start" indicates start of case, "timestamp" indicates at accompanying timestamp, "admission" indicates at admission time, and "exclude" indicates it is excluded from segmented data.  </li>
+<li><em>segment-file</em>: if the field is not excluded, the segmented data file in which it is included. This takes values: "basic-ehr", "expanded-ehr", and "lsi".  </li>
+<li><em>notes</em>: accompanying notes indicating reason for inclusion/exclusion, as well as indication of new fields in the phase 2 dataset.  </li>
+</ul>
+<h2 id="release-notes">Release Notes</h2>
+<h3 id="v22">v2.2</h3>
+<ul>
+<li>Added new weights from rules document.</li>
+<li>Excludes segments &gt; 60 min after hospital admission from metrics calculations.</li>
+<li>Added average of sensitivity/specificity benchmark.</li>
+<li>Added detailed metrics and threshold metrics CSVs.</li>
+<li>Added new example inventory file.</li>
+<li>NOTE: backwards compatible with old inventory and response files.</li>
+</ul>
+<h3 id="v21">v2.1</h3>
+<ul>
+<li>Updated metrics weights to balance datasets equally.</li>
+<li>Updated metrics with 5-minute prediction lead time.</li>
+<li>Added segment_config.csv with information about what EHR fields are provided during evaluation.</li>
+</ul>
+<h3 id="v20">v2.0</h3>
+<ul>
+<li>Updated metrics scripts for phase 2.</li>
+<li>Addition of new CLI args to run_server.sh (--include-basic-ehr, --include-expanded-ehr) with minor refactoring.</li>
+<li>Moved eval/ and stubs/ to top-level directory.</li>
+<li>Added example output from evaluator for phase 2.</li>
+<li>Updated Dockerfile entrypoint so it includes run_client.py for easier override of args.</li>
+</ul>
+<h3 id="v13">v1.3</h3>
+<ul>
+<li>Added ENV passable variables to evaluator and client-shell for AWS keys.</li>
+</ul>
+<h3 id="v12">v1.2</h3>
+<ul>
+<li>Added support for cpu-only base image and updated base-image tags to reflect versions.</li>
+<li>Added a tools directory in the client-shell with scripts to support running evaluation and metrics.</li>
+<li>Added instructions to the wiki for running the evaluator in SageMaker.</li>
+</ul>
+<h3 id="v11">v1.1</h3>
+<ul>
+<li>Moved dtc_messaging module to dtc-base-image repo.</li>
+<li>Fixed bug in message_handler CLEANUP_MESSAGE enum.</li>
+<li>Removed top-level “response” key from message dicts.</li>
+<li>Adds serialization of Numpy arrays as lists.</li>
+<li>Renamed Messenger.py to Client.py.</li>
+<li>Added purge of RabbitMQ queue during initialization of client.</li>
+<li>Uses new Docker base image, dtc-base-image:v1-1.</li>
+<li>Includes AWS CLI for copying files from S3 in Docker image.</li>
+<li>Creates logs directory, which will be mounted and saved off during evaluation.</li>
+<li>Installs latest version of dtc_messaging module.</li>
+<li>Added comments to Dockerfile with example setup of AWS credentials and S3 copy.</li>
+<li>Added .gitignore to prevent AWS credentials from being checked into repo.</li>
+<li>Updated send_message.py stub to match message formats used in evaluation.</li>
+<li>Updated template_model.py to access all possible fields expected in received messages.</li>
+<li>Updated README with instructions for copying from S3 during Docker build.</li>
+</ul>
+<h3 id="v10">v1.0</h3>
+<p>New Features:</p>
+<ul>
+<li>RabbitMQ Client: Establishes a connection to a RabbitMQ server, sets up a queue for RPC requests, and listens for incoming requests.</li>
+<li>Model Class: Abstract base for creating prediction models with methods for predictions, acknowledgments, end-of-case, and error scenarios. You will extend this class to implement your custom models for the evaluation. You merely need to implement four functions.</li>
+<li>MessageType Enum: Categorizes communication with predefined message types including connection, prediction, acknowledgment, and error handling signals.</li>
+<li>Message Handlers: Includes an abstract base class and specific implementations for handling various message types, ensuring appropriate communication with the evaluator.</li>
+<li>Factory Pattern for Message Handlers: Simplifies the creation of message handlers based on the message type, supporting scalable and modular development.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../configure_codecommit/" class="md-footer__link md-footer__link--prev" aria-label="Previous: CodeCommit Guide">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                CodeCommit Guide
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../workspace-selfservice/" class="md-footer__link md-footer__link--next" aria-label="Next: Workspace Management">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Workspace Management
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 The Johns Hopkins University Applied Physics Laboratory LLC
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.indexes", "navigation.instant", "navigation.footer", "navigation.prune", "navigation.sections", "toc.follow", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.code.copy"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>
