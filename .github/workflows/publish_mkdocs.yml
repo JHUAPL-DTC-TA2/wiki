@@ -5,9 +5,6 @@ on:
   push:
     branches:
       - update-documentation-instructions
-#  pull_request:
-#    branches:
-#      - dev
   workflow_dispatch:  # allows workflow to be triggered manually
 
 jobs:
@@ -22,8 +19,5 @@ jobs:
         uses: mhausenblas/mkdocs-deploy-gh-pages@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#          CUSTOM_DOMAIN: optionaldomain.com
           CONFIG_FILE: mkdocs.yml
-#          EXTRA_PACKAGES: build-base
-#           GITHUB_DOMAIN: github.myenterprise.com
           REQUIREMENTS: requirements.txt
