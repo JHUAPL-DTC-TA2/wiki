@@ -152,13 +152,18 @@ It is recommended to turn off spaces that are not in use to prevent accruing unn
 
 ### Transferring data to and from S3 buckets
 
-Each user has access to 3 different storage types:
+Each user has access to 3 main storage types:
 
-1. SageMaker Studio Elastic File System (EFS) for user private storage.
+1. SageMaker Studio Attached Elastic Block Store (EBS) Volume for user private storage.
 2. Team Scratch Bucket (S3 bucket) (`dtc-scratch-{team_name}`) for sharing with teams.
 3. Read-only Training Dataset Bucket (S3 bucket) (`dtc-training-data`) for storing the official training dataset.
 
-You can access your private storage within SageMaker Studio. To transfer files from the S3 buckets (i.e., Team Scratch and Training Dataset Bucket) you can either do so in your (1) terminal or (2) notebooks:
+Users also have access to a SageMaker Elastic File System (EFS) drive (`user-default-efs`) for sharing with anyone in the same domain (e.g. team).
+We recommend utilizing S3 to maintain one location for storing data amongst team members.
+
+You can access your private storage within SageMaker spaces. 
+To transfer files from the S3 buckets (i.e., Team Scratch and Training Dataset Bucket) 
+you can either do so in your (1) terminal or (2) notebooks.
 
 #### Transferring files using terminal:
 
@@ -168,7 +173,7 @@ You can access your private storage within SageMaker Studio. To transfer files f
 
     In the terminal, you may use the [AWS CLI S3](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/s3/index.html) to run commands (e.g., `cp`, `ls`, `rm`, etc.).
 
-2. To copy (`cp`) files from the scratch bucket to the into your (EFS) from you can use the command `aws s3 cp s3://dtc-scratch-{team_name}/path/to/file .`. To copy files into the scratch bucket from your EFS storage, you may use `aws s3 cp <filename> s3://dtc-scratch-{team_name}/path/`.
+2. To copy (`cp`) files from the scratch bucket into your SageMaker space you can use the command `aws s3 cp s3://dtc-scratch-{team_name}/path/to/file .`. To copy files into the scratch bucket from your SageMaker space storage, you may use `aws s3 cp <filename> s3://dtc-scratch-{team_name}/path/`.
 
 #### Transferring files using notebooks:
 
@@ -188,7 +193,7 @@ team_name = ""
 # Upload files to S3 bucket
 fs.upload("test.txt", f's3://dtc-scratch-{team_name}/test.txt')
 
-# Download files to EFS
+# Download files to SageMaker space
 fs.download(f's3://dtc-scratch-{team_name}/test.txt', "test.txt")
 
 # To List 5 files in your team scratch bucket
