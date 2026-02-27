@@ -169,9 +169,12 @@ By default, your credentials will not be passed from SageMaker to your Docker im
 **Warning:** For security reasons, do not push your credentials to CodeCommit.
    
 
-
-
 ## Evaluating Your Submission in SageMaker
+
+See the [Segmented Datasets](segmented_dataset.md) for more details on data used for evaluation. 
+
+> *PHASE 3: UNDER CONSTRUCTION*
+
 In order to run the evaluator, you must first authenticate your session to the AWS ECR. To authenticate, run:  
 `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`  
   
@@ -187,6 +190,7 @@ Place these in your `~/.bashrc` to avoid having to set for every session. These 
 The evaluator can then be run using a convenience script in the client-shell repository: `eval/run_server.sh`
 
 ### run_server.sh 
+
 The `run_server.sh` script located at `eval/run_server.sh` will pull the latest `dtc-evaluator` from AWS ECR and run it.
 ```
 bash ./run_server.sh --name [EVAL_RUN_NAME] --output-dir [OUTPUT_DIR] --inventory-file [INVENTORY_FILE] --dataset-dir [DATASET_DIR] [--include-basic-ehr] [--include-expanded-ehr]
@@ -242,6 +246,8 @@ The python scripts used to generate the ground truth, response, and metrics JSON
 
 ### Evaluation resources
 
+> *PHASE 3: UNDER CONSTRUCTION*
+
 Example output of the metrics can be found in `eval/example_output/metrics`.
 
 The config file used to create the segmented datasets is provided in `eval/segment_config.csv`. This file lists each field in the EHR data and how it is included in the segmented data at evaluation time. The CSV file has the following columns:  
@@ -254,6 +260,9 @@ The config file used to create the segmented datasets is provided in `eval/segme
 - *notes*: accompanying notes indicating reason for inclusion/exclusion, as well as indication of new fields in the phase 2 dataset.  
  
 ## Release Notes
+
+### v3.0
+- Updated for Phase 3 tasks and prediction response format
 
 ### v2.2
 - Added new weights from rules document.

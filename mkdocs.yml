@@ -40,6 +40,7 @@ nav:
 - Importing Data to AWS: importing_data.md
 - Custom Images: creating_custom_images.md
 - Available Instances: sagemaker_instances.md
+- Segmented Dataset: segmented_dataset.md
 - Metrics Guide: metrics_guide.md
 - Submission Process: submission_process.md
 - Getting Started with BluelightAI Cobalt: cobalt.md
