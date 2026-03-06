@@ -177,7 +177,7 @@ The detailed metrics CSV contains the client model performance metrics calculate
 |segment_end_time| Stop time in seconds for the segment, relative to start of case.|
 |lsi_group|The LSI category.|
 |max_lsi_time| Time of last LSI for given LSI group, relative to start of case.|
-|gt| 1 if the LSI occurrs within the segment's prediction window, 0 otherwise. |
+|gt| 1 if the LSI occurs within the segment's prediction window, 0 otherwise. |
 |time_since_adm_sec| Time elapsed from hospital admission to `segment_stop_time` |
 |ignore_segment| 0 if segment prediction contributes to MSC, 1 if ignored due to minimum prediction horizon or minimum lead time. |	
 |segment_weight| Unnormalized weight based on inverse frequency of segments with same source and LSI ground truth, 0 if this prediction is within minimum lead time or outside of prediction horizon. |
@@ -212,5 +212,4 @@ The threshold metrics CSV contains the client model binary classification metric
 | FN                | False Negatives; segments incorrectly predicted as negative    |
 | balanced_accuracy | Average of sensitivity and specificity                      |
 | F1                | Harmonic mean of precision (PPV) and sensitivity             |
-
 

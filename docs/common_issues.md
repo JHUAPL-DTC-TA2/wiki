@@ -6,7 +6,7 @@ Below we describe common issues and troubleshooting steps for AWS WorkSpaces and
 
 1. **"Password Expired"**  
 Passwords can be reset via the "Forgot Password" link on the WorkSpaces client. Depending on your client version and machine OS, you may need to fully log-out to see the "Forgot Password" link near the bottom of the view. Refer to [this forum post](https://forum.triagechallenge.darpa.mil/t/workspaces-password-reset/407) for more instructions.  
-In some cases, browser cache can affect the reset password screen. If you encounter an error in reseting your password after clicking "Forgot Password", try using another browser or an incognito/private browser window that does not use the pre-existing browser cache.  
+In some cases, browser cache can affect the reset password screen. If you encounter an error in resetting your password after clicking "Forgot Password", try using another browser or an incognito/private browser window that does not use the pre-existing browser cache.  
 
 
 2. **"Unable to connect to Network"**  
@@ -25,4 +25,3 @@ Make sure to shutdown instances when you are done using them via the instance ma
 2. **Broken Packages/Images**  
 Sometimes the default AWS images provided in SageMaker are updated and package versions are changed or broken. This [link](https://docs.aws.amazon.com/sagemaker/latest/dg/notebooks-available-images.html) contains the list of all AWS pre-built images.  
 If the pre-built images are not working for your particular use-case, e-mail us to set up a custom image built to your specifications via Dockerfile. 
-

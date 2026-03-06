@@ -180,7 +180,7 @@ In order to run the evaluator, you must first authenticate your session to the A
   
 Before running the evaluator, ensure that your client container is running (see [Running the Client with Docker](#running-the-client-with-docker) or [Running the Client locally](#running-the-client-locally)).
 
-Additionaly, you need to set two environment variables `KEY` and `SECRET_KEY`. These can be set by running the following the SageMaker terminal:
+Additionally, you need to set two environment variables `KEY` and `SECRET_KEY`. These can be set by running the following the SageMaker terminal:
 ```
 export KEY=<your key>
 export SECRET_KEY=<your key>
@@ -193,7 +193,7 @@ The evaluator can then be run using a convenience script in the client-shell rep
 
 The `run_server.sh` script located at `eval/run_server.sh` will pull the latest `dtc-evaluator` from AWS ECR and run it.
 ```
-bash ./run_server.sh --name [EVAL_RUN_NAME] --output-dir [OUTPUT_DIR] --inventory-file [INVENTORY_FILE] --dataset-dir [DATASET_DIR] [--include-basic-ehr] [--include-expanded-ehr]
+bash ./eval/run_server.sh --name [EVAL_RUN_NAME] --output-dir [OUTPUT_DIR] --inventory-file [INVENTORY_FILE] --dataset-dir [DATASET_DIR] [--first-look-1 | --first-look-2 | --first-look-3 | --continuous-alert]
 ```
 
 The following arguments are used to specify the data and evaluation configuration:
@@ -202,14 +202,21 @@ The following arguments are used to specify the data and evaluation configuratio
 - `--output-dir` or `-o` specifies where model predictions and logs will be stored. This path can point to a location that is either local to SageMaker or your team's S3-scratch bucket.
 - `--inventory-file` or `-i` specifies the list of data segments to be used by the evaluator. This must be from a phase 2 dataset (*phase1_v2+* or *phase2_v1+*). The inventory file can exist in an S3 bucket or locally. An example inventory file can be found in *client_shell/eval*.
 - `--dataset-dir` or `-d` specifies the path to the segmented dataset. This can be a local path or an S3 path. Note that this dataset must correspond to the inventory file provided above.
-- `--include-basic-ehr` is an optional flag that includes basic EHR data in the run for each case.
-- `--include-expanded-ehr` is an optional flag that includes expanded EHR data (as well as basic EHR data) in the run for each case.
+Choose exactly one run type flag:
+- `--first-look-1` runs first-look task 1.
+- `--first-look-2` runs first-look task 2.
+- `--first-look-3` runs first-look task 3.
+- `--continuous-alert` runs the continuous alert task.
 
-Example: 
+Example (first look 1): 
 ```
-./run_server.sh --name test --output-dir outputs --inventory-file inventory_phase1_v2-0_val_mini.csv --dataset-dir s3://dtc-training-data/phase1/phase1_v2-0_segmented/val --include-basic-ehr
+bash ./eval/run_server.sh --name test-f1 --output-dir ./outputs --inventory-file ./eval/inventory_p3_first-look-run1_phase2_v3-0_val_mini.csv --dataset-dir s3://dtc-training-data/phase2/phase2_v3-0_segmented/val/first-look/ --first-look-1
 ```
-This command will store evaluation outputs in the `./outputs` directory, using the `./inventory_phase2_v1-1_val_mini.csv` as the inventory file and the `s3://dtc-training-data/phase1_v2-0_segmented/val` as the source dataset with basic EHR data included for each case. Example evaluation output and logs can be found in `eval/example_output/out` and `eval/example_output/logs`, respectively.
+Example (continuous alert):
+```
+bash ./eval/run_server.sh --name test-ca --output-dir ./outputs --inventory-file ./eval/inventory_p3_continuous_phase2_v3-0_val_mini.csv --dataset-dir s3://dtc-training-data/phase2/phase2_v3-0_segmented/val/continuous/ --continuous-alert
+```
+These commands store evaluation outputs in `./outputs`, and pass the selected run type into the evaluator run. Example evaluation output and logs can be found in `eval/example_output/out` and `eval/example_output/logs`, respectively.
 
   
 ### run_metrics.sh
@@ -218,7 +225,7 @@ The `run_metrics.sh` script located at `eval/run_metrics.sh` will compute perfor
 
 The script saves off three files within OUTPUT_DIR/metrics:
 
-1. A **ground truth** CSV file containg ground truth for all segments listed in the inventory file.
+1. A **ground truth** CSV file containing ground truth for all segments listed in the inventory file.
 2. A **responses** JSON file containing the model's responses to all segments from the evaluation.
 3. A **metrics** JSON containing the Mean Squared Correct (MSC) metrics for each case.
 4. A **detailed metrics** CSV containing the MSC metrics for each segment.
