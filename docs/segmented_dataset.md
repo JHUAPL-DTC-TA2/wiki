@@ -46,17 +46,17 @@ Case data files for First Look are organized in subdirectories by case with *ini
 
 Each case directory includes files used across the runs 1-3 with the following data types:
 
-- `<studyid>_*_vs_*.hdf5` --- **vital-sign** waveforms and/or trend vitals available at first look.
-- `<studyid>_*_basic-ehr_*.json` --- **basic EHR** object available at first look.
-- `<studyid>_*_lsi-ehr_*.json` --- **LSI EHR** records available at first look.
-- `<studyid>_*_gt_*.json` --- **ground-truth** labels containing LSIs in future time bins.
-- `<studyid>_*_casualty-report_*.json` --- single **casualty report** record (static patient/case description).
+- `<studyid>_*_vs_*.hdf5`: **vital-sign** waveforms and/or trend vitals available at first look.
+- `<studyid>_*_basic-ehr_*.json`: **basic EHR** object available at first look.
+- `<studyid>_*_lsi-ehr_*.json`: **LSI EHR** records available at first look.
+- `<studyid>_*_gt_*.json`: **ground-truth** labels containing LSIs in future time bins.
+- `<studyid>_*_casualty-report_*.json`: single **casualty report** record (static patient/case description).
 
 <br>
 
-> **Alignment across files:**\
-> All First Look files correspond to the same case at the beginning of pre-hospital vitals. There are no segments. 
-> In each run (1-3), a subset of the files will be provided at evaluation time according to the run-specific inventory file.
+> **Alignment across files:**
+> - All First Look files correspond to the same case at the beginning of pre-hospital vitals. There are no segments.
+> - In each run (1-3), a subset of the files will be provided at evaluation time according to the run-specific inventory file.
 
 
 #### 1) Vital signs HDF5
@@ -64,8 +64,9 @@ Each case directory includes files used across the runs 1-3 with the following d
 **Type:** HDF5 file
 
 Top-level structure: 
-- `trends/` --- lower-frequency numeric arrays (vital "trends") 
-- `signal/` --- higher-frequency waveform arrays (vital "signals")
+
+- `trends/`: lower-frequency numeric arrays (vital "trends") 
+- `signal/`: higher-frequency waveform arrays (vital "signals")
 
 Datasets by sensor follow the same format as the unsegmented dataset.
 
@@ -78,6 +79,7 @@ Datasets by sensor follow the same format as the unsegmented dataset.
 Contains structured EHR data available at first look.
 
 Fields may include: 
+
 - Demographics / injury descriptors 
 - PTA vitals and GCS components 
 - Pupillometry measurements
@@ -97,10 +99,11 @@ Contains LSI records (from *LSI_table.csv* and *other_lsis.csv*) that occurred a
 Contains ground truth LSIs for each prediction time bin into the future of the case after first look.
 
 Fields include:  
-- `bin_start_sec` --- start time of the first prediction bin
-- `num_bins` --- the number of prediction bins expected (int)
-- `bin_size_sec` --- the size of each bin in seconds (int)
-- `gt` --- list of length `num_bins`, where each item contains list of ground truth LSIs for that bin
+
+- `bin_start_sec`: start time of the first prediction bin
+- `num_bins`: the number of prediction bins expected (int)
+- `bin_size_sec`: the size of each bin in seconds (int)
+- `gt`: list of length `num_bins`, where each item contains list of ground truth LSIs for that bin
 
 
 #### 5) Casualty report
@@ -122,18 +125,19 @@ There is a single inventory files included in the Continuous data directory. Eac
 Case data files for Continuous Alert are organized in subdirectories by case with *time-segmented* data for a single studyid.
 
 Each case directory includes files with concatenated segments for each data type:
-- `<studyid>_continuous_metadata.json` — segment-aligned info as **metadata** objects, primarily for book-keeping.
-- `<studyid>_continuous_vs.hdf5` — high-frequency **vital-sign** waveforms and lower-frequency trend vitals, stored per segment.
-- `<studyid>_continuous_basic-ehr.json` — sparse, segment-aligned **basic EHR** objects (e.g., demographics, PTA vitals, pupillometry).
-- `<studyid>_continuous_lsi-ehr.json` — sparse, segment-aligned **LSI EHR** objects.
-- `<studyid>_continuous_gt.json` — segment-aligned **ground-truth** labels.
-- `<studyid>_continuous_casualty-report.json` — single **casualty report** record (static patient/case description).
+
+- `<studyid>_continuous_metadata.json`: segment-aligned info as **metadata** objects, primarily for book-keeping.
+- `<studyid>_continuous_vs.hdf5`: high-frequency **vital-sign** waveforms and lower-frequency trend vitals, stored per segment.
+- `<studyid>_continuous_basic-ehr.json`: sparse, segment-aligned **basic EHR** objects (e.g., demographics, PTA vitals, pupillometry).
+- `<studyid>_continuous_lsi-ehr.json`: sparse, segment-aligned **LSI EHR** objects.
+- `<studyid>_continuous_gt.json`: segment-aligned **ground-truth** labels.
+- `<studyid>_continuous_casualty-report.json`: single **casualty report** record (static patient/case description).
 
 <br>
 
 > **Alignment across files:**  
-> The JSON files `*_metadata.json`, `*_basic-ehr.json`, `*_lsi-ehr.json`, and `*_gt.json` are **lists of the same length** within a given case.  
-> **List index `i` refers to the same segment across all of these files**, and corresponds to HDF5 group `segment_{i:03d}` in `*_vs.hdf5`.
+> - The JSON files `*_metadata.json`, `*_basic-ehr.json`, `*_lsi-ehr.json`, and `*_gt.json` are **lists of the same length** within a given case.  
+> - **List index `i` refers to the same segment across all of these files**, and corresponds to HDF5 group `segment_{i:03d}` in `*_vs.hdf5`.
 
 
 #### 1) Metadata
@@ -141,6 +145,7 @@ Each case directory includes files with concatenated segments for each data type
 **Type:** JSON list of dictionaries, one per segment.
 
 **Key fields (per segment):**
+
 - `studyid`: case identifier
 - `segment_num`: segment number within the case (may have gaps)
 - `segment_id`: unique identifier for the segment used during evaluation
@@ -152,19 +157,24 @@ Each case directory includes files with concatenated segments for each data type
 - `end_of_case`: `true` on the final segment
 
 **Modality availability flags:**
+
 - `basic-ehr`, `lsi-ehr`, `vs`, `gt`, `casualty-report`: booleans indicating whether that modality has data for this segment.
 
-**Note**: - `segment_num` may have have gaps. Use **list index `i`** for guaranteed alignment across files.
+**Note**: 
+
+- `segment_num` may have have gaps. Use **list index `i`** for guaranteed alignment across files.
 
 
 #### 2) Vital signs HDF5
 
 **Type:** HDF5 file with one top-level group per segment:
+
 - `segment_000`, `segment_001`, …
 
 Each `segment_XXX` contains two groups:
-- `trends/` — lower-frequency numeric arrays (vital “trends”)
-- `signal/` — higher-frequency waveform arrays (vital “signals”)
+
+- `trends/`: lower-frequency numeric arrays (vital “trends”)
+- `signal/`: higher-frequency waveform arrays (vital “signals”)
 
 Datasets by sensor within each group follow same format as unsegmented dataset. See unsegmented dataset documentation for details.
 
@@ -174,6 +184,7 @@ Datasets by sensor within each group follow same format as unsegmented dataset. 
 **Type:** JSON list, aligned to segments.
 
 This file is **sparse**: most entries are empty objects `{}`. When present, entries may include:
+
 - Demographics / injury descriptors
 - PTA vitals and GCS components
 - Pupillometry measurements
@@ -193,6 +204,7 @@ This file is **spares** and contains LSI records from `LSI_table.csv` if LSI was
 **Type:** JSON list, aligned to segments.
 
 Each entry has:
+
 - `bin_start_sec`: segment-relative start time
 - `bin_size_sec`: prediction horizon size in seconds from end of segment
 - `num_bins`: N/A for continuous alert
