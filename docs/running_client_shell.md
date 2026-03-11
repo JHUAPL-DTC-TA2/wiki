@@ -19,7 +19,7 @@ This is the README for the [Client Container Shell](https://us-east-1.console.aw
 4. Run the client using one of two options:   
     * Run as Docker container (See [Running the Client with Docker](#running-the-client-with-docker))  
     * Run locally within AWS WorkSpace (See [Running the Client locally](#running-the-client-locally))   
-5. Test connection between client and server using eval script (See [Passing Messages to the Client](#passing-messages-to-the-client)). TODO: update
+5. Test connection between client and server using evaluation script (See [Evaluation tutorial](#evaluation-tutorial)).
 6. Evaluate client using `dtc-evaluator` and run metrics on output (See [Evaluating Your Model in SageMaker](#evaluating-your-submission-in-sagemaker)).
 
 ## Configuring your Model
@@ -198,95 +198,47 @@ Choose exactly one run type flag:
 
 The run-type flag selected should match the flag used for the client-shell.
 
-### Evaluation Tutorial
+### Evaluation tutorial
 
-TODO: UPDATE
-
-The following tutorial illustrates how to execute an evaluation run using the `client-shell` and latest `dtc-evaluator` image with an abbreviated inventory file (4 cases) to confirm system integration using the `run_server.sh` script described above.
+The following tutorial illustrates how to execute an evaluation run using the `client-shell` and latest `dtc-evaluator` image with an abbreviated inventory file (4 cases). This tutorial can be used to confirm submission compliance using the `run_server.sh` script described above.
 
 Prerequisites:
 
 - [Open CodeEditor space in SageMaker Studio](#quick-start-sagemaker-studio)
 - [Start Rabbit-MQ server](#starting-the-rabbitmq-server)
 - [Build client-shell docker image](#building-with-docker-image)
+- [Set KEY and SECRET_KEY environment variables](#evaluating-your-submission-in-sagemaker)
 
-Steps:
 
-1. Run client-shell image with Docker using the image name and tag specified at build time.
-2. In separate terminal, run the evalutor `run_server.sh` script. The evaluator will wait 30 seconds before starting evaluation.
-3. Examine output in directory specified in Step 2.
-
-Example for First Look Run 1:
+To run the client with the evaluator, open two terminals and run the following commands:
 
 ```
-# Step 1: Run client-shell
-docker run --network sagemaker -it --rm <IMAGE>:<TAG> --host localhost --queue rpc_queue <RUN-TYPE-FLAG>
-```
-```
-# Step 2: Run evaluator
+# Terminal 1: Run client
+docker run --network sagemaker -it --rm <IMAGE>:<TAG> --host localhost --queue rpc_queue <RUN-TYPE>
+
+# Terminal 2: Run evaluation script
+bash ./eval/run_server.sh --name <NAME> --output-dir <OUTDIR> --inventory-file <RUN-TYPE-INVENTORY> --dataset-dir <DATASET> <RUN-TYPE>
 ```
 
-2. In separate terminal, run the evaluator:
+The run types must be consistent in the `RUN-TYPE` arguments used by the client and the evaluator, as well as the inventory file provided to the evaluator. The dataset directory must correspond to the inventory file used. With a successful run, the evaluator output and logs are saved to path `OUTDIR`. Example evaluation output and logs can be found in `eval/example_output/out` and `eval/example_output/logs`, respectively.
 
-Example (First Look 1): 
+
+Here is an example test for *First Look Run 1* using the sample inventory files provided in this repo:
+
 ```
-bash ./eval/run_server.sh --name test --output-dir ./outputs --inventory-file ./eval/inventory_p3_first-look-run1_phase2_v3-0_val_mini.csv --dataset-dir s3://dtc-training-data/phase2/phase2_v3-0_segmented/val/first-look/ --first-look-1
+# Terminal 1: Run client
+docker run --network sagemaker -it --rm <IMAGE>:<TAG> --host localhost --queue rpc_queue --first-look-1
+
+# Terminal 2: Run evaluation script
+bash ./eval/run_server.sh --name test --output-dir ./output --inventory-file ./eval/inventory_p3_first-look-run1_phase2_v3-0_val_mini.csv --dataset-dir s3://dtc-training-data/phase2/phase2_v3-0_segmented/val/first-look/ --first-look-1
 ```
 
-Example (Continuous Alert):
-```
-bash ./eval/run_server.sh --name test --output-dir ./outputs --inventory-file ./eval/inventory_p3_continuous_phase2_v3-0_val_mini.csv --dataset-dir s3://dtc-training-data/phase2/phase2_v3-0_segmented/val/continuous/ --continuous-alert
-```
-
-These commands store evaluation outputs in `./outputs`, and pass the selected run type into the evaluator run. Example evaluation output and logs can be found in `eval/example_output/out` and `eval/example_output/logs`, respectively.
+Sample inventory files have been provided for all run types, using the same dataset directory above (`phase2_v3-0_segmented/val`).
 
   
 ### run_metrics.sh
 
-The `run_metrics.sh` script located at `eval/run_metrics.sh` will compute performance metrics on the evaluation output from `run_server.sh`.
-
-The script saves off three files within OUTPUT_DIR/metrics:
-
-1. A **ground truth** CSV file containing ground truth for all segments listed in the inventory file.
-2. A **responses** JSON file containing the model's responses to all segments from the evaluation.
-3. A **metrics** JSON containing the Mean Squared Correct (MSC) metrics for each case.
-4. A **detailed metrics** CSV containing the MSC metrics for each segment.
-5. A **threshold metrics** CSV containing binary classification metrics across thresholds for each LSI group. 
-
-See this [Metrics Guide](metrics_guide.md) for more details on the contents of these files. 
-
-To compute metrics for an evaluation run, first install the requirements located in `eval/requirements.txt`:
-
-```
-pip install -r eval/requirements.txt --timeout 1000
-```
-
-After installing the requirements, run the metrics script from within the `eval/` directory:
-
-```
-bash ./run_metrics.sh --output-dir [OUTPUT_DIR] --inventory-file [INVENTORY_FILE] --dataset-dir [DATASET_DIR] [--allow-incomplete]
-```
-
-The `output-dir`, `inventory-file`, and `dataset-dir` should match the inputs used for `run_server.sh`.
-
-If you want to run metrics on an incomplete run, you may include the optional `allow-incomplete` flag. Otherwise, the script will check to ensure all segments in the inventory file were run and throw an error if responses are missing.
-
-The python scripts used to generate the ground truth, response, and metrics JSONs are located in `eval/src`, but these scripts should not be altered to ensure consistent metrics with the competition.
-
-### Evaluation resources
-
-> *PHASE 3: UNDER CONSTRUCTION*
-
-Example output of the metrics can be found in `eval/example_output/metrics`.
-
-The config file used to create the segmented datasets is provided in `eval/segment_config.csv`. This file lists each field in the EHR data and how it is included in the segmented data at evaluation time. The CSV file has the following columns:  
-  
-- *source*: dataset source ("UMB" or "UPitt")  
-- *table*: table name  
-- *field*: field name   
-- *deliver-at*: whether and when the field is included in the segmented data. "start" indicates start of case, "timestamp" indicates at accompanying timestamp, "admission" indicates at admission time, and "exclude" indicates it is excluded from segmented data.  
-- *segment-file*: if the field is not excluded, the segmented data file in which it is included. This takes values: "basic-ehr", "expanded-ehr", and "lsi".  
-- *notes*: accompanying notes indicating reason for inclusion/exclusion, as well as indication of new fields in the phase 2 dataset.  
+> *UNDER CONSTRUCTION FOR PHASE 3*
  
 ## Release Notes
 
