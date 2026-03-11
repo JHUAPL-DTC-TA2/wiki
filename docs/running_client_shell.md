@@ -19,7 +19,7 @@ This is the README for the [Client Container Shell](https://us-east-1.console.aw
 4. Run the client using one of two options:   
     * Run as Docker container (See [Running the Client with Docker](#running-the-client-with-docker))  
     * Run locally within AWS WorkSpace (See [Running the Client locally](#running-the-client-locally))   
-5. Test connection between client and server using messaging stub (See [Passing Messages to the Client](#passing-messages-to-the-client)).
+5. Test connection between client and server using eval script (See [Passing Messages to the Client](#passing-messages-to-the-client)). TODO: update
 6. Evaluate client using `dtc-evaluator` and run metrics on output (See [Evaluating Your Model in SageMaker](#evaluating-your-submission-in-sagemaker)).
 
 ## Configuring your Model
@@ -79,10 +79,11 @@ The `main` branch contains dtc-base-image source code and the `cpu-only` branch 
 ### Running the Docker Container
 After building the image, run the application in a Docker container with the necessary environment variables:
 
-`docker run --network sagemaker -it --rm dtc-<TEAM_NAME>:<TAG> --host localhost --queue rpc_queue --first-look-1`
+`docker run --network sagemaker -it --rm dtc-<TEAM_NAME>:<TAG> --host localhost ---queue rpc_queue [--first-look-1 | --first-look-2 | --first-look-3 | --continuous-alert]`
 
-This command runs your application in a Docker container, connecting it to an existing RabbitMQ server. The container will be removed automatically after the application exits.
-Substitute `--first-look-1` with other run types if desired.
+This command runs your application in a Docker container, connecting it to an existing RabbitMQ server with the default host and queue and the selected run-type flag (only one run-type should be used at a time). 
+
+The host, queue, and run-type arguments should match those used for the evaluator (see [Evaluating your submission in Sagemaker](#evaluating-your-submission-in-sagemaker)). The container will be removed automatically after the application exits.
 
 ## Running the Client locally
 
@@ -92,27 +93,10 @@ To run the Client outside docker, you must first install the `dtc_messaging` pac
 If there are errors later trying to import the `dtc_messaging` package, 
 try using `python -m pip install -e .` to install the `dtc_messaging` package to ensure it gets installed to the local directory.
 
-The following command will run the client locally with an existing RabbitMQ server:  
-`python run_client.py --host localhost --queue rpc_queue --first-look-1`  
-  
-Substitute `--first-look-1` with other run types if desired.
+The following command will run the client locally with an existing RabbitMQ server using the default host and queue and the selected run-type flag (only one run-type should be used at a time):  
+`python run_client.py --host localhost --queue rpc_queue [--first-look-1 | --first-look-2 | --first-look-3 | --continuous-alert]`
 
-
-## Passing messages to the Client
-
-The `send_message.py` script in the `stubs/` directory can be used to test receipt of sample messages of each MessageType with a running client container. You may run the command:
-
-`python send_message.py --queue rpc_queue -m {CONNECTION_MESSAGE|PREDICT_MESSAGE|ACKNOWLEDGE_MESSAGE|ERROR_MESSAGE|TIMED_OUT_MESSAGE|CLEANUP_MESSAGE}`
-
-to pass a sample message to the client, where a single message type is selected. This should print out the client response message's channel, method, properties, and body data. For example, using the provided `ExampleModel` class in `template_model.py` as the model, running `python send_message.py -m CONNECTION_MESSAGE` would print this response:
-
-```
-RESPONSE:
-CHANNEL: <BlockingChannel impl=<Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x109060690> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>>>
-METHOD: <Basic.Deliver(['consumer_tag=ctag1.8851c9e07ab74dfa9a4d64efc4e4df26', 'delivery_tag=1', 'exchange=', 'redelivered=False', 'routing_key=amq.gen-PyPl17EcuEBP5s3LDzgwKA'])>
-PROPERTIES: <BasicProperties(['correlation_id=9c13597d-7aa1-45f6-9e1e-a6734c826328', 'type=CONNECTION_MESSAGE'])>
-BODY: b'{"response": {"response": "connected"}}'
-```
+The host, queue, and run-type arguments should match those used for the evaluator (see [Evaluating your submission in Sagemaker](#evaluating-your-submission-in-sagemaker)).
 
 ## Uploading docker image to AWS ECR (Elastic Container Registry)
 Use the following steps to authenticate and push an image to your team ECR. Note that for submission, this is done automatically within the CodeBuild CI/CD build process for successful builds.
@@ -179,8 +163,6 @@ By default, your credentials will not be passed from SageMaker to your Docker im
 
 See the [Segmented Datasets](segmented_dataset.md) for more details on data used for evaluation. 
 
-> *PHASE 3: UNDER CONSTRUCTION*
-
 In order to run the evaluator, you must first authenticate your session to the AWS ECR. To authenticate, run:  
 `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552707247569.dkr.ecr.us-east-1.amazonaws.com`  
   
@@ -197,7 +179,7 @@ The evaluator can then be run using a convenience script in the client-shell rep
 
 ### run_server.sh 
 
-The `run_server.sh` script located at `eval/run_server.sh` will pull the latest `dtc-evaluator` from AWS ECR and run it.
+The `run_server.sh` script located at `eval/run_server.sh` will pull the latest `dtc-evaluator` from AWS ECR and run it using host "localhost" and queue "rpc_queue".
 ```
 bash ./eval/run_server.sh --name [EVAL_RUN_NAME] --output-dir [OUTPUT_DIR] --inventory-file [INVENTORY_FILE] --dataset-dir [DATASET_DIR] [--first-look-1 | --first-look-2 | --first-look-3 | --continuous-alert]
 ```
@@ -214,14 +196,48 @@ Choose exactly one run type flag:
 - `--first-look-3` runs first-look task 3.
 - `--continuous-alert` runs the continuous alert task.
 
-Example (first look 1): 
+The run-type flag selected should match the flag used for the client-shell.
+
+### Evaluation Tutorial
+
+TODO: UPDATE
+
+The following tutorial illustrates how to execute an evaluation run using the `client-shell` and latest `dtc-evaluator` image with an abbreviated inventory file (4 cases) to confirm system integration using the `run_server.sh` script described above.
+
+Prerequisites:
+
+- [Open CodeEditor space in SageMaker Studio](#quick-start-sagemaker-studio)
+- [Start Rabbit-MQ server](#starting-the-rabbitmq-server)
+- [Build client-shell docker image](#building-with-docker-image)
+
+Steps:
+
+1. Run client-shell image with Docker using the image name and tag specified at build time.
+2. In separate terminal, run the evalutor `run_server.sh` script. The evaluator will wait 30 seconds before starting evaluation.
+3. Examine output in directory specified in Step 2.
+
+Example for First Look Run 1:
+
 ```
-bash ./eval/run_server.sh --name test-f1 --output-dir ./outputs --inventory-file ./eval/inventory_p3_first-look-run1_phase2_v3-0_val_mini.csv --dataset-dir s3://dtc-training-data/phase2/phase2_v3-0_segmented/val/first-look/ --first-look-1
+# Step 1: Run client-shell
+docker run --network sagemaker -it --rm <IMAGE>:<TAG> --host localhost --queue rpc_queue <RUN-TYPE-FLAG>
 ```
-Example (continuous alert):
 ```
-bash ./eval/run_server.sh --name test-ca --output-dir ./outputs --inventory-file ./eval/inventory_p3_continuous_phase2_v3-0_val_mini.csv --dataset-dir s3://dtc-training-data/phase2/phase2_v3-0_segmented/val/continuous/ --continuous-alert
+# Step 2: Run evaluator
 ```
+
+2. In separate terminal, run the evaluator:
+
+Example (First Look 1): 
+```
+bash ./eval/run_server.sh --name test --output-dir ./outputs --inventory-file ./eval/inventory_p3_first-look-run1_phase2_v3-0_val_mini.csv --dataset-dir s3://dtc-training-data/phase2/phase2_v3-0_segmented/val/first-look/ --first-look-1
+```
+
+Example (Continuous Alert):
+```
+bash ./eval/run_server.sh --name test --output-dir ./outputs --inventory-file ./eval/inventory_p3_continuous_phase2_v3-0_val_mini.csv --dataset-dir s3://dtc-training-data/phase2/phase2_v3-0_segmented/val/continuous/ --continuous-alert
+```
+
 These commands store evaluation outputs in `./outputs`, and pass the selected run type into the evaluator run. Example evaluation output and logs can be found in `eval/example_output/out` and `eval/example_output/logs`, respectively.
 
   
@@ -275,9 +291,11 @@ The config file used to create the segmented datasets is provided in `eval/segme
 ## Release Notes
 
 ### v3.0
+
 - Updated for Phase 3 tasks and prediction response format
 
 ### v2.2
+
 - Added new weights from rules document.
 - Excludes segments > 60 min after hospital admission from metrics calculations.
 - Added average of sensitivity/specificity benchmark.
@@ -286,11 +304,13 @@ The config file used to create the segmented datasets is provided in `eval/segme
 - NOTE: backwards compatible with old inventory and response files.
 
 ### v2.1
+
 - Updated metrics weights to balance datasets equally.
 - Updated metrics with 5-minute prediction lead time.
 - Added segment_config.csv with information about what EHR fields are provided during evaluation.
 
 ### v2.0
+
 - Updated metrics scripts for phase 2.
 - Addition of new CLI args to run_server.sh (--include-basic-ehr, --include-expanded-ehr) with minor refactoring.
 - Moved eval/ and stubs/ to top-level directory.
@@ -298,14 +318,17 @@ The config file used to create the segmented datasets is provided in `eval/segme
 - Updated Dockerfile entrypoint so it includes run_client.py for easier override of args.
 
 ### v1.3
+
 - Added ENV passable variables to evaluator and client-shell for AWS keys.
 
 ### v1.2
+
 - Added support for cpu-only base image and updated base-image tags to reflect versions.
 - Added a tools directory in the client-shell with scripts to support running evaluation and metrics.
 - Added instructions to the wiki for running the evaluator in SageMaker.
   
 ### v1.1
+
 - Moved dtc_messaging module to dtc-base-image repo.
   - Fixed bug in message_handler CLEANUP_MESSAGE enum.
   - Removed top-level “response” key from message dicts.
