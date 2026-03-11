@@ -86,10 +86,15 @@ This command runs your application in a Docker container, connecting it to an ex
 ## Running the Client locally
 
 To run the Client outside docker, you must first install the `dtc_messaging` package and dependencies in your local environment. Clone the [dtc-base-image repo](https://git-codecommit.us-east-1.amazonaws.com/v1/repos/dtc-base-image) and run the following within the cloned repo:   
-`python -m pip install .` 
+`python -m pip install .`   
+  
+If there are errors later trying to import the `dtc_messaging` package, 
+try using `python -m pip install -e .` to install the `dtc_messaging` package to ensure it gets installed to the local directory.
 
 The following command will run the client locally with an existing RabbitMQ server:  
-`python run_client.py --host localhost --queue rpc_queue`
+`python run_client.py --host localhost --queue rpc_queue --first-look-1`  
+  
+Substitute `--first-look-1` with other run types if desired.
 
 
 ## Passing messages to the Client
