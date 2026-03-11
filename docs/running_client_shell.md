@@ -204,7 +204,7 @@ The following tutorial illustrates how to execute an evaluation run using the `c
 
 Prerequisites:
 
-- [Open CodeEditor space in SageMaker Studio](#quick-start-sagemaker-studio)
+- [Open terminal in SageMaker Studio](index.md#quick-start)
 - [Start Rabbit-MQ server](#starting-the-rabbitmq-server)
 - [Build client-shell docker image](#building-with-docker-image)
 - [Set KEY and SECRET_KEY environment variables](#evaluating-your-submission-in-sagemaker)
@@ -241,6 +241,9 @@ Sample inventory files have been provided for all run types, using the same data
 > *UNDER CONSTRUCTION FOR PHASE 3*
  
 ## Release Notes
+
+### v3.1
+- Added evaluation script with example inputs and outputs for Phase 3 tasks 1 and 2
 
 ### v3.0
 

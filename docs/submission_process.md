@@ -8,7 +8,7 @@ Teams can trigger the CodeBuild in **TWO** ways:
 
 - **Compliance Test:** to perform initial compliance testing during the development phase.
   - *Triggers*: pushing updates to a team's CodeCommit branch called `compliance-test`.
-  - *Outcomes*: the team's Principal Investigator will receive an email from AWS's SNS services if the the CI/CD successfully completed.
+  - *Outcomes*: the team's Principal Investigator will receive an email from AWS's SNS services if the CI/CD successfully completed.
  
 - **Official Event Submissions:** to officially submit for an event evaluation.
   - *Triggers*: pushing updates to a team's CodeCommit with a commit tag called `submission-phase{PHASE_NUMBER}-{EVENT_TYPE}`.
