@@ -79,9 +79,10 @@ The `main` branch contains dtc-base-image source code and the `cpu-only` branch 
 ### Running the Docker Container
 After building the image, run the application in a Docker container with the necessary environment variables:
 
-`docker run --network sagemaker -it --rm dtc-<TEAM_NAME>:<TAG>`
+`docker run --network sagemaker -it --rm dtc-<TEAM_NAME>:<TAG> --host localhost --queue rpc_queue --first-look-1`
 
 This command runs your application in a Docker container, connecting it to an existing RabbitMQ server. The container will be removed automatically after the application exits.
+Substitute `--first-look-1` with other run types if desired.
 
 ## Running the Client locally
 
