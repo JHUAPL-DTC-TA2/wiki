@@ -52,4 +52,3 @@ Entries shown as `*.example.com` represent domain suffix rules in the allowlist.
 
 - The firewall rules are based on HTTP host headers and TLS Server Name Indication (SNI) for ports 80 and 443.
 - DNS names, package mirrors, and download hosts can change over time. Contact the JHU APL team if a challenge-related website or package repository is blocked.
-- This page is a readable summary of the firewall allowlist maintained in `dtc-aws/firewall_policy/egress_domains.txt`.
