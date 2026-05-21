@@ -34,6 +34,7 @@ theme:
 nav:
 - User Guide: index.md
 - Common Issues: common_issues.md
+- Accessible Domains: accessible_domains.md
 - CodeCommit Guide: configure_codecommit.md
 - Client-Shell Client: running_client_shell.md
 - Workspace Management: workspace-selfservice.md
