@@ -266,7 +266,7 @@ Datasets by sensor follow the same format as the unsegmented dataset.
 
 **Type:** JSON dictionary
 
-Contains LSI records (from *LSI_table.csv* and *other_lsis.csv*) that occurred at or prior to the end of vitals provided for Resource Allocaction. If no LSI events occured, this file may not exist.
+Contains LSI records (from *LSI_table.csv* and *other_lsis.csv*) that occurred at or prior to the end of vitals provided for Resource Allocaction. If no LSI events occurred, this file may not exist.
 
 #### 3) Ground truth
 
