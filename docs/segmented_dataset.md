@@ -240,7 +240,7 @@ The population inventory (`population_inventory.csv`) contains data for all pati
 
 Case data files for Resource Allocation are organized in subdirectories by case with *initial* data at the beginning of the case.
 
-Each case directory includes files used across the runs 1-3 with the following data types:
+Each patient directory includes files with the following data types:
 
 - `<studyid>_*_vs_*.hdf5`: **vital-sign** waveforms and/or trend vitals from observed data for Resource Allocation.
 - `<studyid>_*_lsi-ehr_*.json`: **LSI EHR** records with previous LSIs relative to observed data for Resource Allocation.
