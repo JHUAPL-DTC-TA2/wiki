@@ -20,20 +20,31 @@ phaseX_v3-0_segmented/
         run1_inventory.csv
         run2_inventory.csv
         run3_inventory.csv
+    ├── resource-allocation/
+        ├── PX_0848/
+        ├── PX_0879/
+        ├── PX_1030/
+        ...
+        patient_population.csv
 ├── val/
     ├── continuous/
         ...
     ├── first-look/
+        ...
+    ├── resource-allocation/
         ...
 └── test_release/
     ├── continuous/
         ...
     ├── first-look/
         ...
+    ├── resource-allocation/
+        ...
 ```
 
-The following sections provide details about the data structure for First Look and Continuous Alert tasks.
+The following sections provide details about the data structure for First Look, Continuous Alert, and Resource Allocation tasks.
 
+---------------------
 ## Task 1: First Look Segmented Data
 
 ### First Look Inventory Files
@@ -217,3 +228,67 @@ Each entry has:
 
 As with Basic EHR, some fields may be **NaN**.
 
+
+---------------------
+## Task 3: Resource Allocation Segmented Data
+
+### Population Inventory
+
+The population inventory (`population_inventory.csv`) contains data for all patients within the data partition available for a Resource Allocation scenario. Each row of the population inventory contains data for a single case and relative paths to the corresponding files that could be included within a scenario as prediction inputs (details below). See the Data Competition Rules for more information about scenarios within the Resource Allocation task.
+
+### Resource Allocation Case Data
+
+Case data files for Resource Allocation are organized in subdirectories by case with *initial* data at the beginning of the case.
+
+Each case directory includes files used across the runs 1-3 with the following data types:
+
+- `<studyid>_*_vs_*.hdf5`: **vital-sign** waveforms and/or trend vitals from observed data for Resource Allocation.
+- `<studyid>_*_lsi-ehr_*.json`: **LSI EHR** records with previous LSIs relative to observed data for Resource Allocation.
+- `<studyid>_*_gt_*.json`: **ground-truth** labels containing resources needed by the patient in the future.
+- `<studyid>_*_casualty-report_*.json`: single **casualty report** record (static patient/case description).
+
+
+
+#### 1) Vital signs HDF5
+
+**Type:** HDF5 file
+
+Top-level structure: 
+
+- `trends/`: lower-frequency numeric arrays (vital "trends") 
+- `signal/`: higher-frequency waveform arrays (vital "signals")
+
+Datasets by sensor follow the same format as the unsegmented dataset.
+
+**Note**: Some cases may not contain waveform data.
+
+#### 2) LSI EHR
+
+**Type:** JSON dictionary
+
+Contains LSI records (from *LSI_table.csv* and *other_lsis.csv*) that occurred at or prior to the end of vitals provided for Resource Allocaction. If no LSI events occured, this file may not exist.
+
+#### 3) Ground truth
+
+**Type:** JSON dictionary
+
+Contains ground truth resources needed in the future based on the LSIs received during care.
+
+Fields include:  
+
+- `bin_start_sec`: beginning of the prediction window
+- `num_bins`: null, disregard for this task
+- `bin_size_sec`: null, diregard for this task
+- `died_during_care`: boolean, True if patient died during care
+- `resources_needed`: list of resources needed by the patient based on LSIs received
+- `gt_lsi`: list of ground truth LSIs received within the prediction window
+
+
+**Note**: See Data Competition Rules for mapping between `gt_lsi` and `died_during_care` to `resources_needed`.
+
+
+#### 4) Casualty report
+
+**Type:** JSON dictionary with key `casualty_report`, which is a list (length 1) describing the casualty.
+
+Some fields may be **NaN**.
