@@ -278,7 +278,7 @@ Fields include:
 
 - `bin_start_sec`: beginning of the prediction window
 - `num_bins`: null, disregard for this task
-- `bin_size_sec`: null, diregard for this task
+- `bin_size_sec`: null, disregard for this task
 - `died_during_care`: boolean, True if patient died during care
 - `resources_needed`: list of resources needed by the patient based on LSIs received
 - `gt_lsi`: list of ground truth LSIs received within the prediction window
