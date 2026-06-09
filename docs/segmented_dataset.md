@@ -1,7 +1,7 @@
 
 # Segmented Datasets
 
-Files for segmented datasets (v3.0+) are nested by partition, by task, and by case with the following general structure:
+Files for segmented datasets (v3.0+) are nested by partition, by task, and by patient with the following general structure:
 
 ```
 phaseX_v3-0_segmented/
@@ -20,42 +20,53 @@ phaseX_v3-0_segmented/
         run1_inventory.csv
         run2_inventory.csv
         run3_inventory.csv
+    ├── resource-allocation/
+        ├── PX_0848/
+        ├── PX_0879/
+        ├── PX_1030/
+        ...
+        patient_population.csv
 ├── val/
     ├── continuous/
         ...
     ├── first-look/
+        ...
+    ├── resource-allocation/
         ...
 └── test_release/
     ├── continuous/
         ...
     ├── first-look/
         ...
+    ├── resource-allocation/
+        ...
 ```
 
-The following sections provide details about the data structure for First Look and Continuous Alert tasks.
+The following sections provide details about the data structure for First Look, Continuous Alert, and Resource Allocation tasks.
 
+---------------------
 ## Task 1: First Look Segmented Data
 
 ### First Look Inventory Files
 
-There are 3 inventory files included in the First Look data directory for Runs 1-3. Each row of the inventory file contains data for a single case and relative paths to the corresponding files to be included as prediction inputs (see below). For example, the run1_inventory.csv includes paths to the `casualty report` and not the `basic-ehr` data. See the Data Competition Rules for more information on the run types for First Look.
+There are 3 inventory files included in the First Look data directory for Runs 1-3. Each row of the inventory file contains data for a single patient and relative paths to the corresponding files to be included as prediction inputs (see below). For example, the run1_inventory.csv includes paths to the `casualty report` and not the `basic-ehr` data. See the Data Competition Rules for more information on the run types for First Look.
 
-### First Look Case Data
+### First Look Patient Data
 
-Case data files for First Look are organized in subdirectories by case with *initial* data at the beginning of the case.
+Patient data files for First Look are organized in subdirectories by patient with *initial* data at the beginning of pre-hospital care.
 
-Each case directory includes files used across the runs 1-3 with the following data types:
+Each patient directory includes files used across the runs 1-3 with the following data types:
 
 - `<studyid>_*_vs_*.hdf5`: **vital-sign** waveforms and/or trend vitals available at first look.
 - `<studyid>_*_basic-ehr_*.json`: **basic EHR** object available at first look.
 - `<studyid>_*_lsi-ehr_*.json`: **LSI EHR** records available at first look.
 - `<studyid>_*_gt_*.json`: **ground-truth** labels containing LSIs in future time bins.
-- `<studyid>_*_casualty-report_*.json`: single **casualty report** record (static patient/case description).
+- `<studyid>_*_casualty-report_*.json`: single **casualty report** record (static patient description).
 
 <br>
 
 > **Alignment across files:**
-> - All First Look files correspond to the same case at the beginning of pre-hospital vitals. There are no segments.
+> - All First Look files correspond to the same patient at the beginning of pre-hospital vitals. There are no segments.
 > - In each run (1-3), a subset of the files will be provided at evaluation time according to the run-specific inventory file.
 
 
@@ -70,7 +81,7 @@ Top-level structure:
 
 Datasets by sensor follow the same format as the unsegmented dataset.
 
-**Note**: Some cases may not contain waveform data.
+**Note**: Some patient data may not contain waveforms.
 
 #### 2) Basic EHR
 
@@ -96,7 +107,7 @@ Contains LSI records (from *LSI_table.csv* and *other_lsis.csv*) that occurred a
 
 **Type:** JSON dictionary
 
-Contains ground truth LSIs for each prediction time bin into the future of the case after first look.
+Contains ground truth LSIs for each prediction time bin into the future of patient care after first look.
 
 Fields include:  
 
@@ -118,25 +129,25 @@ Some fields may be **NaN**.
 
 ### Continuous Alert Inventory Files
 
-There is a single inventory files included in the Continuous data directory. Each row of the inventory file contains information for a single case with relative paths to the corresponding files to be included as prediction inputs. Unlike in previous years, individual segments do not appear as separate rows in the inventory; rather, the data files contain all segments by data type (see below for details.
+There is a single inventory files included in the Continuous data directory. Each row of the inventory file contains information for a single patient with relative paths to the corresponding files to be included as prediction inputs. Unlike in previous years, individual segments do not appear as separate rows in the inventory; rather, the data files contain all segments by data type (see below for details.
 
-### Continuous Alert Case Data
+### Continuous Alert Patient Data
 
-Case data files for Continuous Alert are organized in subdirectories by case with *time-segmented* data for a single studyid.
+Patient data files for Continuous Alert are organized in subdirectories by patient with *time-segmented* data starting at the beginning of in-hospital care.
 
-Each case directory includes files with concatenated segments for each data type:
+Each patient directory includes files with concatenated segments for each data type:
 
 - `<studyid>_continuous_metadata.json`: segment-aligned info as **metadata** objects, primarily for book-keeping.
 - `<studyid>_continuous_vs.hdf5`: high-frequency **vital-sign** waveforms and lower-frequency trend vitals, stored per segment.
 - `<studyid>_continuous_basic-ehr.json`: sparse, segment-aligned **basic EHR** objects (e.g., demographics, PTA vitals, pupillometry).
 - `<studyid>_continuous_lsi-ehr.json`: sparse, segment-aligned **LSI EHR** objects.
 - `<studyid>_continuous_gt.json`: segment-aligned **ground-truth** labels.
-- `<studyid>_continuous_casualty-report.json`: single **casualty report** record (static patient/case description).
+- `<studyid>_continuous_casualty-report.json`: single **casualty report** record (static patient description).
 
 <br>
 
 > **Alignment across files:**  
-> - The JSON files `*_metadata.json`, `*_basic-ehr.json`, `*_lsi-ehr.json`, and `*_gt.json` are **lists of the same length** within a given case.  
+> - The JSON files `*_metadata.json`, `*_basic-ehr.json`, `*_lsi-ehr.json`, and `*_gt.json` are **lists of the same length** within a given patient data directory.  
 > - **List index `i` refers to the same segment across all of these files**, and corresponds to HDF5 group `segment_{i:03d}` in `*_vs.hdf5`.
 
 
@@ -146,15 +157,15 @@ Each case directory includes files with concatenated segments for each data type
 
 **Key fields (per segment):**
 
-- `studyid`: case identifier
-- `segment_num`: segment number within the case (may have gaps)
+- `studyid`: patient identifier
+- `segment_num`: segment number within the patient data (may have gaps)
 - `segment_id`: unique identifier for the segment used during evaluation
-- `case_id`, `case_segment_id`: identifiers for the broader case/stream
-- `start_time_sec`, `stop_time_sec`: segment bounds in seconds from case start  
+- `case_id`, `case_segment_id`: anonymized identifiers for the patient and data segment 
+- `start_time_sec`, `stop_time_sec`: segment bounds in seconds from data start  
   (most segments are 30-second windows; segment 0 is a special “header” segment at time 0)
 - `time_since_adm_sec`: Disregard for continuous alert task
 - `hosp_adm`: `0/1` Disregard for continuous alert task
-- `end_of_case`: `true` on the final segment
+- `end_of_case`: `true` on the final data segment
 
 **Modality availability flags:**
 
@@ -217,3 +228,67 @@ Each entry has:
 
 As with Basic EHR, some fields may be **NaN**.
 
+
+---------------------
+## Task 3: Resource Allocation Segmented Data
+
+### Patient Population
+
+The patient population (`patient_population.csv`) contains the set of patients within the dataset partition that could be included in a Resource Allocation scenario. Each row of the patient population file corresponds to a single patient and relative paths to the corresponding files that could be included within a scenario as prediction inputs (details below). See the Data Competition Rules for more information about scenarios within the Resource Allocation task.
+
+### Resource Allocation Patient Data
+
+Patient data files for Resource Allocation are organized in subdirectories by patient with *initial* data at the beginning of the pre-hospital care.
+
+Each patient directory includes files with the following data types:
+
+- `<studyid>_*_vs_*.hdf5`: **vital-sign** waveforms and/or trend vitals from observed data for Resource Allocation.
+- `<studyid>_*_lsi-ehr_*.json`: **LSI EHR** records with previous LSIs relative to observed data for Resource Allocation.
+- `<studyid>_*_gt_*.json`: **ground-truth** labels containing resources needed by the patient in the future.
+- `<studyid>_*_casualty-report_*.json`: single **casualty report** record (static patient description).
+
+
+
+#### 1) Vital signs HDF5
+
+**Type:** HDF5 file
+
+Top-level structure: 
+
+- `trends/`: lower-frequency numeric arrays (vital "trends") 
+- `signal/`: higher-frequency waveform arrays (vital "signals")
+
+Datasets by sensor follow the same format as the unsegmented dataset.
+
+**Note**: Some patient data may not contain waveforms.
+
+#### 2) LSI EHR
+
+**Type:** JSON dictionary
+
+Contains LSI records (from *LSI_table.csv* and *other_lsis.csv*) that occurred at or prior to the end of vitals provided for Resource Allocaction. If no LSI events occurred, this file may not exist.
+
+#### 3) Ground truth
+
+**Type:** JSON dictionary
+
+Contains ground truth resources needed in the future based on the LSIs received during care.
+
+Fields include:  
+
+- `bin_start_sec`: beginning of the prediction window
+- `num_bins`: null, disregard for this task
+- `bin_size_sec`: null, disregard for this task
+- `died_during_care`: boolean, True if patient died during care
+- `resources_needed`: list of resources needed by the patient based on LSIs received
+- `gt_lsi`: list of ground truth LSIs received within the prediction window
+
+
+**Note**: See Data Competition Rules for mapping between `gt_lsi` and `died_during_care` to `resources_needed`.
+
+
+#### 4) Casualty report
+
+**Type:** JSON dictionary with key `casualty_report`, which is a list (length 1) describing the casualty.
+
+Some fields may be **NaN**.
