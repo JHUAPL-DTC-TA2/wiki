@@ -79,7 +79,7 @@ The `main` branch contains dtc-base-image source code and the `cpu-only` branch 
 ### Running the Docker Container
 After building the image, run the application in a Docker container with the necessary environment variables:
 
-`docker run --network sagemaker -it --rm dtc-<TEAM_NAME>:<TAG> --host localhost ---queue rpc_queue [--first-look-1 | --first-look-2 | --first-look-3 | --continuous-alert]`
+`docker run --network sagemaker -it --rm dtc-<TEAM_NAME>:<TAG> --host localhost --queue rpc_queue [--first-look-1 | --first-look-2 | --first-look-3 | --continuous-alert | --resource-allocation]`
 
 This command runs your application in a Docker container, connecting it to an existing RabbitMQ server with the default host and queue and the selected run-type flag (only one run-type should be used at a time). 
 
@@ -94,7 +94,7 @@ If there are errors later trying to import the `dtc_messaging` package,
 try using `python -m pip install -e .` to install the `dtc_messaging` package to ensure it gets installed to the local directory.
 
 The following command will run the client locally with an existing RabbitMQ server using the default host and queue and the selected run-type flag (only one run-type should be used at a time):  
-`python run_client.py --host localhost --queue rpc_queue [--first-look-1 | --first-look-2 | --first-look-3 | --continuous-alert]`
+`python run_client.py --host localhost --queue rpc_queue [--first-look-1 | --first-look-2 | --first-look-3 | --continuous-alert | --resource-allocation]`
 
 The host, queue, and run-type arguments should match those used for the evaluator (see [Evaluating your submission in Sagemaker](#evaluating-your-submission-in-sagemaker)).
 
@@ -181,7 +181,7 @@ The evaluator can then be run using a convenience script in the client-shell rep
 
 The `run_server.sh` script located at `eval/run_server.sh` will pull the latest `dtc-evaluator` from AWS ECR and run it using host "localhost" and queue "rpc_queue".
 ```
-bash ./eval/run_server.sh --name [EVAL_RUN_NAME] --output-dir [OUTPUT_DIR] --inventory-file [INVENTORY_FILE] --dataset-dir [DATASET_DIR] [--first-look-1 | --first-look-2 | --first-look-3 | --continuous-alert]
+bash ./eval/run_server.sh --name [EVAL_RUN_NAME] --output-dir [OUTPUT_DIR] --inventory-file [INVENTORY_FILE] --dataset-dir [DATASET_DIR] [--first-look-1 | --first-look-2 | --first-look-3 | --continuous-alert | --resource-allocation]
 ```
 
 The following arguments are used to specify the data and evaluation configuration:
@@ -190,13 +190,19 @@ The following arguments are used to specify the data and evaluation configuratio
 - `--output-dir` or `-o` specifies where model predictions and logs will be stored. This path can point to a location that is either local to SageMaker or your team's S3-scratch bucket.
 - `--inventory-file` or `-i` specifies the list of data segments to be used by the evaluator. This must be from a phase 2 dataset (*phase1_v2+* or *phase2_v1+*). The inventory file can exist in an S3 bucket or locally. An example inventory file can be found in *client_shell/eval*.
 - `--dataset-dir` or `-d` specifies the path to the segmented dataset. This can be a local path or an S3 path. Note that this dataset must correspond to the inventory file provided above.
+
 Choose exactly one run type flag:
 - `--first-look-1` runs first-look task 1.
 - `--first-look-2` runs first-look task 2.
 - `--first-look-3` runs first-look task 3.
 - `--continuous-alert` runs the continuous alert task.
+- `--resource-allocation` runs the resource allocation task.   
 
 The run-type flag selected should match the flag used for the client-shell.
+
+There are also some optional flags for user convenience:
+- `--snooze` specifies a snooze time for the evaluator to wait on startup for the client to be ready. Default is 30 seconds.
+- `--overwrite` specifies to overwrite all previous evaluation runs. If not provided, default is False.
 
 ### Evaluation tutorial
 
