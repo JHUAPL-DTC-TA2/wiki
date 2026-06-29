@@ -239,17 +239,53 @@ docker run --network sagemaker -it --rm <IMAGE>:<TAG> --host localhost --queue r
 bash ./eval/run_server.sh --name test --output-dir ./output --inventory-file ./eval/inventory_p3_first-look-run1_phase2_v3-0_val_mini.csv --dataset-dir s3://dtc-training-data/phase2/phase2_v3-0_segmented/val/first-look/ --first-look-1
 ```
 
-Sample inventory files have been provided for all run types, using the same dataset directory above (`phase2_v3-0_segmented/val`).
-  
+Sample inventory files have been provided for all run types. The dataset directory depends on the inventory file used. 
+All datasets are located in `s3://dtc-training-data/phase2/`, the subdirectory depends on the task.
+For the first look and continuous tasks the directory is the same as the one used above (`phase2_v3-0_segmented/val`). 
+for resource allocation task, the directory is `phase2_v3-1_segmented/val`.
+
+
 ### run_metrics.sh
 
-> *UNDER CONSTRUCTION FOR PHASE 3*
- 
+The `run_metrics.sh` script located at `eval/run_metrics.sh` will compute performance metrics on the evaluation output from `run_server.sh`.
+
+The script saves off three files within OUTPUT_DIR/metrics:
+
+1. A **ground truth** CSV file containing ground truth for all cases listed in the inventory file.
+2. A **responses** JSON file containing the model's responses to all cases from the evaluation.
+3. A **metrics** JSON containing the calculated metrics for each case / run type.
+
+See this [Metrics Guide](metrics_guide.md) for more details on the contents of these files.
+
+To compute metrics for an evaluation run, first install the requirements located in `eval/requirements.txt`:
+
+```
+pip install -r eval/requirements.txt --timeout 1000
+```
+
+After installing the requirements, run the metrics script from within the `eval/` directory:
+
+```
+bash ./run_metrics.sh  --task-type [TASK] --output-dir [OUTPUT_DIR] --inventory-file [INVENTORY_FILE] --dataset-dir [DATASET_DIR]
+```
+
+The `output-dir`, `inventory-file`, and `dataset-dir` should match the inputs used for `run_server.sh`.
+
+The Python scripts used to generate the ground truth, response, and metrics JSONs are located in `eval/src`. 
+These scripts should not be altered to ensure consistent metrics with the competition.
+
+
 ## Release Notes
 
+### v3.4
+- Updated metrics for Phase 3; tasks 1, 2, and 3.
+- Updated run_server to handle resource allocation task.
+
+### v3.3
+- Modified message handling for task 3.
+
 ### v3.2
-- Updated metrics for phase 3, all tasks.
-- Addition of new CLI args to use run_server for Resource Allocation task (task 3).
+- Updated template model for task 3 (resource allocation task).
 
 ### v3.1
 - Added evaluation script with example inputs and outputs for Phase 3 tasks 1 and 2.
