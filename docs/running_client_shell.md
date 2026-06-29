@@ -199,10 +199,13 @@ Choose exactly one run type flag:
 - `--resource-allocation` runs the resource allocation task.   
 
 The run-type flag selected should match the flag used for the client-shell.
-
-There are also some optional flags for user convenience:
-- `--snooze` specifies a snooze time for the evaluator to wait on startup for the client to be ready. Default is 30 seconds.
-- `--overwrite` specifies to overwrite all previous evaluation runs. If not provided, default is False.
+  
+#### Optional evaluator arguments
+There are some optional arguments that can be provided to the evaluator for user convenience. 
+They are not input arguments for run_server.sh, but can be added to the docker run command in run_server.sh to be passed onto the evaluator.
+These changes require updating the "docker run" command at the very end of the run_server.sh that starts the evaluator.
+- `--snooze` specifies a snooze time for the evaluator to wait on startup for the client to be ready. Default is already present in run_server.sh and set at 30 seconds.
+- `--overwrite` specifies to overwrite all previous evaluation runs. If not provided, default is False, the evaluator will skip previously evaluated cases by default.
 
 ### Evaluation tutorial
 
