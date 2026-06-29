@@ -240,7 +240,6 @@ bash ./eval/run_server.sh --name test --output-dir ./output --inventory-file ./e
 ```
 
 Sample inventory files have been provided for all run types, using the same dataset directory above (`phase2_v3-0_segmented/val`).
-
   
 ### run_metrics.sh
 
@@ -248,12 +247,16 @@ Sample inventory files have been provided for all run types, using the same data
  
 ## Release Notes
 
+### v3.2
+- Updated metrics for phase 3, all tasks.
+- Addition of new CLI args to use run_server for Resource Allocation task (task 3).
+
 ### v3.1
-- Added evaluation script with example inputs and outputs for Phase 3 tasks 1 and 2
+- Added evaluation script with example inputs and outputs for Phase 3 tasks 1 and 2.
 
 ### v3.0
 
-- Updated for Phase 3 tasks and prediction response format
+- Updated for Phase 3 tasks and prediction response format.
 
 ### v2.2
 
