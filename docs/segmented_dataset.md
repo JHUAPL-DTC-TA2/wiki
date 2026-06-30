@@ -150,7 +150,7 @@ Each patient directory includes files with concatenated segments for each data t
 > **Alignment across files:**  
 >
 > - The JSON files `*_metadata.json`, `*_basic-ehr.json`, `*_lsi-ehr.json`, and `*_gt.json` are **lists of the same length** within a given patient data directory.  
-> - **List index `i` refers to the same segment across all of these files**, and corresponds to HDF5 group `segment_{i:03d}` in `*_vs.hdf5`.
+> - List index `i` refers to the same segment across all of these files, and corresponds to HDF5 group `segment_{i:03d}` in `*_vs.hdf5`.
 
 
 #### 1) Metadata
