@@ -203,9 +203,10 @@ The run-type flag selected should match the flag used for the client-shell.
 #### Optional evaluator arguments
 There are some optional arguments that can be provided to the evaluator for user convenience. 
 They are not input arguments for run_server.sh, but can be added to the docker run command in run_server.sh to be passed onto the evaluator.
-These changes require updating the "docker run" command at the very end of the run_server.sh that starts the evaluator.
-- `--snooze` specifies a snooze time for the evaluator to wait on startup for the client to be ready. Default is already present in run_server.sh and set at 30 seconds.
-- `--overwrite` specifies to overwrite all previous evaluation runs. If not provided, default is False, the evaluator will skip previously evaluated cases by default.
+These changes require updating the "docker run" command at the very end of the run_server.sh that starts the evaluator.  
+
+- `--snooze` specifies a snooze time for the evaluator to wait on startup for the client to be ready. Default is already present in run_server.sh and set at 30 seconds.  
+- `--overwrite` specifies to overwrite all previous evaluation runs. If not provided, default is False, the evaluator will skip previously evaluated cases by default.  
 
 ### Evaluation tutorial
 
@@ -245,7 +246,7 @@ bash ./eval/run_server.sh --name test --output-dir ./output --inventory-file ./e
 Sample inventory files have been provided for all run types. The dataset directory depends on the inventory file used. 
 All datasets are located in `s3://dtc-training-data/phase2/`, the subdirectory depends on the task.
 For the first look and continuous tasks the directory is the same as the one used above (`phase2_v3-0_segmented/val`). 
-for resource allocation task, the directory is `phase2_v3-1_segmented/val`.
+For the resource allocation task, the directory is `phase2_v3-1_segmented/val`.
 
 
 ### run_metrics.sh
