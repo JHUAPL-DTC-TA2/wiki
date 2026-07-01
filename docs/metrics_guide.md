@@ -14,20 +14,20 @@ The metrics scripts included in the `client-shell` output the following files:
 
 * **Continuous Alert**
 
-    * [Ground Truth CSV](#ground-truth-csv)
+    * [Ground Truth CSV](#continuous-alert-ground-truth-csv)
 
-    * [Response JSON](#response-json)
+    * [Response JSON](#continuous-alert-response-json)
 
-    * [Metrics JSON](#metrics-json)
+    * [Metrics JSON](#continuous-alert-metrics-json)
 
 
 * **Resource Allocation**
 
-    * [Ground Truth CSV](#ground-truth-csv)
+    * [Ground Truth CSV](#resource-allocation-ground-truth-csv)
 
-    * [Response JSON](#response-json)
+    * [Response JSON](#resource-allocation-response-json)
 
-    * [Metrics JSON](#metrics-json)
+    * [Metrics JSON](#resource-allocation-metrics-json)
 
 ## First Look 
 
