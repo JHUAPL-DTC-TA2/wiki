@@ -403,7 +403,7 @@ The response JSON has the following format:
 |raw_response	|If error present, original client response for the segment. |
 |error	|Error message from the server, if present.|
 |evacuated_patients | List of patient ids selected for evacuation. |
-|resources | List of resource assignemnt objects with patient id and list of resources. |
+|resources | List of resource assignment objects with patient id and list of resources. |
 
 There may be additional fields irrelevant to this task.
 
@@ -476,7 +476,7 @@ The metrics JSON has the following format:
 |eligible_patient_count | Total lives that could be saved within scenario. |
 |T | Equal to `eligible_patient_count`.|
 |lives_saves_score | Proporation of lives saved within this scenario. |
-|resource_usage | Count by resource type of resouces assigned to patients. |
+|resource_usage | Count by resource type of resources assigned to patients. |
 |resources_remaining | Count of unassigned resources available. |
 |cumulative_runtime_sec | Total seconds elapsed during evaluation. |
 |evacuated_saved_patients | List of patients (by `patient_id`) saved due to evacuation. |
