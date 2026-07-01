@@ -79,7 +79,7 @@ The `main` branch contains dtc-base-image source code and the `cpu-only` branch 
 ### Running the Docker Container
 After building the image, run the application in a Docker container with the necessary environment variables:
 
-`docker run --network sagemaker -it --rm dtc-<TEAM_NAME>:<TAG> --host localhost ---queue rpc_queue [--first-look-1 | --first-look-2 | --first-look-3 | --continuous-alert]`
+`docker run --network sagemaker -it --rm dtc-<TEAM_NAME>:<TAG> --host localhost --queue rpc_queue [--first-look-1 | --first-look-2 | --first-look-3 | --continuous-alert | --resource-allocation]`
 
 This command runs your application in a Docker container, connecting it to an existing RabbitMQ server with the default host and queue and the selected run-type flag (only one run-type should be used at a time). 
 
@@ -94,7 +94,7 @@ If there are errors later trying to import the `dtc_messaging` package,
 try using `python -m pip install -e .` to install the `dtc_messaging` package to ensure it gets installed to the local directory.
 
 The following command will run the client locally with an existing RabbitMQ server using the default host and queue and the selected run-type flag (only one run-type should be used at a time):  
-`python run_client.py --host localhost --queue rpc_queue [--first-look-1 | --first-look-2 | --first-look-3 | --continuous-alert]`
+`python run_client.py --host localhost --queue rpc_queue [--first-look-1 | --first-look-2 | --first-look-3 | --continuous-alert | --resource-allocation]`
 
 The host, queue, and run-type arguments should match those used for the evaluator (see [Evaluating your submission in Sagemaker](#evaluating-your-submission-in-sagemaker)).
 
@@ -181,7 +181,7 @@ The evaluator can then be run using a convenience script in the client-shell rep
 
 The `run_server.sh` script located at `eval/run_server.sh` will pull the latest `dtc-evaluator` from AWS ECR and run it using host "localhost" and queue "rpc_queue".
 ```
-bash ./eval/run_server.sh --name [EVAL_RUN_NAME] --output-dir [OUTPUT_DIR] --inventory-file [INVENTORY_FILE] --dataset-dir [DATASET_DIR] [--first-look-1 | --first-look-2 | --first-look-3 | --continuous-alert]
+bash ./eval/run_server.sh --name [EVAL_RUN_NAME] --output-dir [OUTPUT_DIR] --inventory-file [INVENTORY_FILE] --dataset-dir [DATASET_DIR] [--first-look-1 | --first-look-2 | --first-look-3 | --continuous-alert | --resource-allocation]
 ```
 
 The following arguments are used to specify the data and evaluation configuration:
@@ -190,13 +190,22 @@ The following arguments are used to specify the data and evaluation configuratio
 - `--output-dir` or `-o` specifies where model predictions and logs will be stored. This path can point to a location that is either local to SageMaker or your team's S3-scratch bucket.
 - `--inventory-file` or `-i` specifies the list of data segments to be used by the evaluator. This must be from a phase 2 dataset (*phase1_v2+* or *phase2_v1+*). The inventory file can exist in an S3 bucket or locally. An example inventory file can be found in *client_shell/eval*.
 - `--dataset-dir` or `-d` specifies the path to the segmented dataset. This can be a local path or an S3 path. Note that this dataset must correspond to the inventory file provided above.
+
 Choose exactly one run type flag:
 - `--first-look-1` runs first-look task 1.
 - `--first-look-2` runs first-look task 2.
 - `--first-look-3` runs first-look task 3.
 - `--continuous-alert` runs the continuous alert task.
+- `--resource-allocation` runs the resource allocation task.   
 
 The run-type flag selected should match the flag used for the client-shell.
+  
+#### Optional evaluator arguments
+There are some optional arguments that can be provided to the evaluator for user convenience. 
+They are not input arguments for run_server.sh, but can be added to the docker run command in run_server.sh to be passed onto the evaluator.
+These changes require updating the "docker run" command at the very end of the run_server.sh that starts the evaluator.
+- `--snooze` specifies a snooze time for the evaluator to wait on startup for the client to be ready. Default is already present in run_server.sh and set at 30 seconds.
+- `--overwrite` specifies to overwrite all previous evaluation runs. If not provided, default is False, the evaluator will skip previously evaluated cases by default.
 
 ### Evaluation tutorial
 
@@ -233,21 +242,60 @@ docker run --network sagemaker -it --rm <IMAGE>:<TAG> --host localhost --queue r
 bash ./eval/run_server.sh --name test --output-dir ./output --inventory-file ./eval/inventory_p3_first-look-run1_phase2_v3-0_val_mini.csv --dataset-dir s3://dtc-training-data/phase2/phase2_v3-0_segmented/val/first-look/ --first-look-1
 ```
 
-Sample inventory files have been provided for all run types, using the same dataset directory above (`phase2_v3-0_segmented/val`).
+Sample inventory files have been provided for all run types. The dataset directory depends on the inventory file used. 
+All datasets are located in `s3://dtc-training-data/phase2/`, the subdirectory depends on the task.
+For the first look and continuous tasks the directory is the same as the one used above (`phase2_v3-0_segmented/val`). 
+for resource allocation task, the directory is `phase2_v3-1_segmented/val`.
 
-  
+
 ### run_metrics.sh
 
-> *UNDER CONSTRUCTION FOR PHASE 3*
- 
+The `run_metrics.sh` script located at `eval/run_metrics.sh` will compute performance metrics on the evaluation output from `run_server.sh`.
+
+The script saves off three files within OUTPUT_DIR/metrics:
+
+1. A **ground truth** CSV file containing ground truth for all cases listed in the inventory file.
+2. A **responses** JSON file containing the model's responses to all cases from the evaluation.
+3. A **metrics** JSON containing the calculated metrics for each case / run type.
+
+See this [Metrics Guide](metrics_guide.md) for more details on the contents of these files.
+
+To compute metrics for an evaluation run, first install the requirements located in `eval/requirements.txt`:
+
+```
+pip install -r eval/requirements.txt --timeout 1000
+```
+
+After installing the requirements, run the metrics script from within the `eval/` directory:
+
+```
+bash ./run_metrics.sh  --task-type [TASK] --output-dir [OUTPUT_DIR] --inventory-file [INVENTORY_FILE] --dataset-dir [DATASET_DIR]
+```
+
+The `output-dir`, `inventory-file`, and `dataset-dir` should match the inputs used for `run_server.sh`.
+
+The Python scripts used to generate the ground truth, response, and metrics JSONs are located in `eval/src`. 
+These scripts should not be altered to ensure consistent metrics with the competition.
+
+
 ## Release Notes
 
+### v3.4
+- Updated metrics for Phase 3; tasks 1, 2, and 3.
+- Updated run_server to handle resource allocation task.
+
+### v3.3
+- Modified message handling for task 3.
+
+### v3.2
+- Updated template model for task 3 (resource allocation task).
+
 ### v3.1
-- Added evaluation script with example inputs and outputs for Phase 3 tasks 1 and 2
+- Added evaluation script with example inputs and outputs for Phase 3 tasks 1 and 2.
 
 ### v3.0
 
-- Updated for Phase 3 tasks and prediction response format
+- Updated for Phase 3 tasks and prediction response format.
 
 ### v2.2
 
