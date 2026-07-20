@@ -13,7 +13,7 @@ Teams can trigger the CodeBuild in **TWO** ways:
 - **Official Event Submissions:** to officially submit for an event evaluation.
   - *Triggers*: pushing updates to a team's CodeCommit with a commit tag called `submission-phase{PHASE_NUMBER}-{EVENT_TYPE}`.
     - `PHASE_NUMBER = {1,2,3}`
-    - `EVENT_TYPE = {workshop, challenge}`
+    - `EVENT_TYPE = {workshop, qualification, challenge}`
   - *Outcomes*: if a build is successful, an email will be sent to the Principal Investigator and a docker image will be stored for review. Your previous image submission will be overwritten.
 
 ## Logs
