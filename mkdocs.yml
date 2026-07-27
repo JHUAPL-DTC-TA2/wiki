@@ -36,6 +36,7 @@ nav:
 - Common Issues: common_issues.md
 - Accessible Domains: accessible_domains.md
 - CodeCommit Guide: configure_codecommit.md
+- OpenCode Setup: opencode.md
 - Client-Shell Client: running_client_shell.md
 - Workspace Management: workspace-selfservice.md
 - Importing Data to AWS: importing_data.md
