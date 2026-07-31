@@ -33,13 +33,7 @@ If `aws sts get-caller-identity` fails, resolve the AWS login or credential prob
 
 ## Install OpenCode
 
-Install the latest OpenCode release:
-
-```bash
-curl -fsSL https://opencode.ai/install | bash
-```
-
-Alternatively, if Node.js and npm are installed:
+Install the latest OpenCode release with Node.js and npm installed:
 
 ```bash
 npm install -g opencode-ai@latest
