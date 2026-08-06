@@ -281,6 +281,9 @@ These scripts should not be altered to ensure consistent metrics with the compet
 
 ## Release Notes
 
+### v3.5
+- Updated metrics in accordance with the Rules Document for the final competition event
+
 ### v3.4
 - Updated metrics for Phase 3; tasks 1, 2, and 3.
 - Updated run_server to handle resource allocation task.
